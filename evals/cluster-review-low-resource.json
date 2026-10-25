@@ -1,0 +1,347 @@
+{
+  "version": 1,
+  "corpus_fingerprint": "7fefd458fba53e4e0775f729452d0da9ed139ce54c9939930d7c515280f0668a",
+  "split": "development",
+  "protocol": "Same research subtopic: shared concrete task/method/evaluation setting, not just a broad field. Use uncertain when metadata cannot decide. Human decisions need a reason and exact evidence from both papers. Diagnostic sample; not representative population accuracy. These saved papers have already been inspected; holdout is not an untouched final test set.",
+  "papers": [
+    {
+      "id": "W4402389783",
+      "title": "Performance of Recent Large Language Models for a Low-Resourced Language",
+      "abstract": "Large Language Models (LLMs) have shown significant advances in the past year. In addition to new versions of GPT and Llama, several other LLMs have been introduced recently. Some of these are open models – available for download and modification. Although multilingual large language models have been available for some time, their performance on low-resourced languages such as Sinhala has been poor. We evaluated four recent LLMs on their performance directly in the Sinhala language, and by translation to and from English. We also evaluated their fine-tunability with a small amount of fine-tuning data. Claude and GPT 4o perform well out-of-the-box and do significantly better than previous versions. Llama and Mistral perform poorly but show some promise of improvement with fine tuning.",
+      "full_text": null
+    },
+    {
+      "id": "W4403364915",
+      "title": "NusaMT-7B: Machine Translation for Low-Resource Indonesian Languages with Large Language Models",
+      "abstract": "Large Language Models (LLMs) have demonstrated exceptional promise in translation tasks for high-resource languages. However, their performance in low-resource languages is limited by the scarcity of both parallel and monolingual corpora, as well as the presence of noise. Consequently, such LLMs suffer with alignment and have lagged behind State-of-The-Art (SoTA) neural machine translation (NMT) models in these settings. This paper introduces NusaMT-7B, an LLM-based machine translation model for low-resource Indonesian languages, starting with Balinese and Minangkabau. Leveraging the pretrained LLaMA2-7B, our approach integrates continued pre-training on monolingual data, Supervised Fine-Tuning (SFT), self-learning, and an LLM-based data cleaner to reduce noise in parallel sentences. In the FLORES-200 multilingual translation benchmark, NusaMT-7B outperforms SoTA models in the spBLEU metric by up to +6.69 spBLEU in translations into Balinese and Minangkabau, but underperforms by up to -3.38 spBLEU in translations into higher-resource languages. Our results show that fine-tuned LLMs can enhance translation quality for low-resource languages, aiding in linguistic preservation and cross-cultural communication.",
+      "full_text": null
+    },
+    {
+      "id": "W4404389841",
+      "title": "Evaluating and Adapting Large Language Models to Represent Folktales in Low-Resource Languages",
+      "abstract": "Folktales are a rich resource of knowledge about the society and culture of a civilisation. Digital folklore research aims to use automated techniques to better understand these folktales, and it relies on abstract representations of the textual data. Although a number of large language models (LLMs) claim to be able to represent low-resource langauges such as Irish and Gaelic, we present two classification tasks to explore how useful these representations are, and three adaptations to improve the performance of these models. We find that adapting the models to work with longer sequences, and continuing pre-training on the domain of folktales improves classification performance, although these findings are tempered by the impressive performance of a baseline SVM with non-contextual features.",
+      "full_text": null
+    },
+    {
+      "id": "W4405173107",
+      "title": "Opportunities and Challenges of Large Language Models for Low-Resource Languages in Humanities Research",
+      "abstract": "Low-resource languages serve as invaluable repositories of human history, embodying cultural evolution and intellectual diversity. Despite their significance, these languages face critical challenges, including data scarcity and technological limitations, which hinder their comprehensive study and preservation. Recent advancements in large language models (LLMs) offer transformative opportunities for addressing these challenges, enabling innovative methodologies in linguistic, historical, and cultural research. This study systematically evaluates the applications of LLMs in low-resource language research, encompassing linguistic variation, historical documentation, cultural expressions, and literary analysis. By analyzing technical frameworks, current methodologies, and ethical considerations, this paper identifies key challenges such as data accessibility, model adaptability, and cultural sensitivity. Given the cultural, historical, and linguistic richness inherent in low-resource languages, this work emphasizes interdisciplinary collaboration and the development of customized models as promising avenues for advancing research in this domain. By underscoring the potential of integrating artificial intelligence with the humanities to preserve and study humanity's linguistic and cultural heritage, this study fosters global efforts towards safeguarding intellectual diversity.",
+      "full_text": null
+    },
+    {
+      "id": "W4407385098",
+      "title": "Large multimodal models for low-resource languages: A survey",
+      "abstract": "• Represents the first comprehensive analysis of LMMs specifically focused on LR languages. • Provides a novel taxonomy that categorizes existing approaches into six main categories. • Systematically organizes the literature to enable a clear understanding of current approaches and remaining challenges. • Provides an open-source repository that includes implementation details, datasets, and benchmarks. In this survey, we systematically analyze techniques used to adapt large multimodal models (LMMs) for low-resource (LR) languages, examining approaches ranging from visual enhancement and data creation to cross-modal transfer and fusion strategies. Through a comprehensive analysis of 117 studies across 96 LR languages, we identify key patterns in how researchers tackle the challenges of limited data and computational resources. We categorize works into resource-oriented and method-oriented contributions, further dividing contributions into relevant sub-categories. We compare method-oriented contributions in terms of performance and efficiency, discussing benefits and limitations of representative studies. We find that visual information often serves as a crucial bridge for improving model performance in LR settings, though significant challenges remain in areas such as hallucination mitigation and computational efficiency. In summary, we provide researchers with a clear understanding of current approaches and remaining challenges in making LMMs more accessible to speakers of LR (understudied) languages. We complement our survey with an open-source repository available at: https://github.com/marianlupascu/LMM4LRL-Survey .",
+      "full_text": null
+    },
+    {
+      "id": "W4407393353",
+      "title": "Fine-tuning large language models for improved health communication in low-resource languages",
+      "abstract": "BACKGROUND: The reported study illustrates a methodology for compiling training datasets to fine-tune Large Language Models (LLMs) for healthcare information in Vietnamese, a low-resource language. The objective is to bridge the gap in medical information accessibility and enhance healthcare communication in developing countries by adapting LLMs to specific linguistic nuances and domain needs. METHOD: The methodology involves selecting a base model, compiling a domain-specific dataset, and fine-tuning the model with this dataset. Three open-source models were selected. The dataset, comprising approximately 337,000 prompt-response pairs in Vietnamese, was compiled using existing datasets, data crawled from Vietnamese medical online forums, and distilled from Vietnamese medical textbooks. The three models were fine-tuned using the Low-Rank adaptation (LoRA) and Quantized Low-Rank adaptation (QLoRA) techniques. Models' performances were evaluated using BertScore score, Rouge-L score, and the \"LLM-as-a-Judge\" method. RESULTS: The fine-tuned models showed enhancements in performance over their base versions across evaluation metrics in BertScore score, Rouge-L score and \"LLM-as-a-Judge\" method, confirming the effectiveness of the fine-tuning process. This study details the process of fine-tuning open-source LLMs for health information inquiries in Vietnamese, demonstrating its potential to improve healthcare communication in low-resource languages. Deploying the fine-tuned LLM on-premise enhances data privacy and security. However, the significant computing power and costs required pose challenges, especially for organizations in developing countries. CONCLUSION: This case study highlights the unique challenges faced by developing countries using low-resource languages. Initiatives are needed to emphasize efforts to bridge healthcare gaps in underserved areas and contribute to global health equity.",
+      "full_text": null
+    },
+    {
+      "id": "W4408280927",
+      "title": "Toward Low-Resource Languages Machine Translation: A Language-Specific Fine-Tuning With LoRA for Specialized Large Language Models",
+      "abstract": "In the field of computational linguistics, addressing machine translation (MT) challenges for low-resource languages remains crucial, as these languages often lack extensive data compared to high-resource languages. General large language models (LLMs), such as GPT-4 and Llama, primarily trained on monolingual corpora, face significant challenges in translating low-resource languages, often resulting in subpar translation quality. This study introduces Language-Specific Fine-Tuning with Low-rank adaptation (LSFTL), a method that enhances translation for low-resource languages by optimizing the multi-head attention and feed-forward networks of Transformer layers through low-rank matrix adaptation. LSFTL preserves the majority of the model parameters while selectively fine-tuning key components, thereby maintaining stability and enhancing translation quality. Experiments on non-English centered low-resource Asian languages demonstrated that LSFTL improved COMET scores by 1-3 points compared to specialized multilingual machine translation models. Additionally, LSFTL’s parameter-efficient approach allows smaller models to achieve performance comparable to their larger counterparts, highlighting its significance in making machine translation systems more accessible and effective for low-resource languages.",
+      "full_text": null
+    },
+    {
+      "id": "W4409178241",
+      "title": "Large Language Models With Contrastive Decoding Algorithm for Hallucination Mitigation in Low‐Resource Languages",
+      "abstract": "ABSTRACT Neural machine translation (NMT) has advanced with deep learning and large‐scale multilingual models, yet translating low‐resource languages often lacks sufficient training data and leads to hallucinations. This often results in translated content that diverges significantly from the source text. This research proposes a refined Contrastive Decoding (CD) algorithm that dynamically adjusts weights of log probabilities from strong expert and weak amateur models to mitigate hallucinations in low‐resource NMT and improve translation quality. Advanced large language NMT models, including ChatGLM and LLaMA, are fine‐tuned and implemented for their superior contextual understanding and cross‐lingual capabilities. The refined CD algorithm evaluates multiple candidate translations using BLEU score, semantic similarity, and Named Entity Recognition accuracy. Extensive experimental results show substantial improvements in translation quality and a significant reduction in hallucination rates. Fine‐tuned models achieve higher evaluation metrics compared to baseline models and state‐of‐the‐art models. An ablation study confirms the contributions of each methodological component and highlights the effectiveness of the refined CD algorithm and advanced models in mitigating hallucinations. Notably, the refined methodology increased the BLEU score by approximately 30% compared to baseline models.",
+      "full_text": null
+    },
+    {
+      "id": "W4412889388",
+      "title": "Evaluating Tokenizer Adaptation Methods for Large Language Models on Low-Resource Programming Languages",
+      "abstract": "Large language models (LLMs), which are primarily trained on high-resource programming languages (HRPLs), tend to perform suboptimally for low-resource programming languages (LRPLs).This study investigates the impact of tokenizer adaptation methods on improving code generation for LRPLs.Star-Coder 2 and DeepSeek-Coder models adapted to Elixir and Racket using methods such as Fast Vocabulary Transfer (FVT), FOCUS, and Zero-shot Tokenizer Transfer (ZeTT) are evaluated and compared with the original and finetuned models.Our experiments reveal that ZeTT outperforms other methods, achieving significant improvements in handling syntax, program logic, and data types for LRPLs.However, we also highlight performance declines in non-target languages like Python after tokenizer adaptation.The study approves the positive impact of tokenizer adaptation in enhancing LRPL code generation and suggests directions for future research, including token embeddings improvement.The code for experiments reproduction is available in the GitHub repository 1 .",
+      "full_text": null
+    },
+    {
+      "id": "W7115677253",
+      "title": "Adaptive and Efficient Large Language Models for Low-Resource African Languages",
+      "abstract": "PAIDeF SuperAI 2025 Conference Adaptive and Efficient Large Language Models for Low-Resource African Languages Authors: Mohammed Ajuji, Saifullahi Ibrahim Waziri, Datti Useni Emmanuel Keywords—Large Language Models, Low-Resource Languages, LoRA, Fine-Tuning, African NLP, Responsible AI, LLaMA-3, Synthetic Data Augmentation.",
+      "full_text": null
+    },
+    {
+      "id": "W7162479607",
+      "title": "Enhancing Low-Resource Language Data Using Large Language Models",
+      "abstract": "This dissertation explores the uses of Large Language Models (LLMs) for enhancing Low-Resource Language (LRL) data. LLMs are models trained with substantial datasets to perform language tasks such as translation, text generation, information retrieval, and summarization, among others. The primary applications of LLMs for LRLs explored here are data denoising and morphological generation. Six LRLs are used throughout this research: K'iche', Seri, Kaqchikel, Huave, Uspanteko, and Nahuatl. These languages are Mesoamerican languages spoken in Mexico and Guatemala. They are used as examples of possibilities for LRL research using LLMs; however, the findings are meant to be applicable to other LRLs as well. Noisy data refers to data that contains errors or inconsistencies. For language data, data denoising is a process where a dataset is standardized if there is an existing standard, else it is normalized- made consistent through manual or computational methods. This dissertation tests computational methods of denoising through fine-tuning and prompting pre-trained LLMs. For denoising with LLMs, two approaches are used. The first approach uses a pretrained text-to-text LLM fine-tuned with limited data for each language. The second approach uses the instruction-tuned LLM GPT-4o. This LLMs approach explores various techniques of prompt engineering (the writing of prompts to elicit certain output) and demonstrates SOTA denoising with relatively small unlabeled datasets using a method termed \"unlabeled corpus analysis.\" Morphological generation is the process of generating the inflected forms of a given word stem. This experiment attempts morphological generation for K’iche' with the instruction-tuned model, GPT-4o, through prompt engineering. K'iche' is an agglutinative language. Since written resources are scarce, not all inflected word forms can be gathered from texts. Morphological generation could theoretically be used to combat data scarcity in LRLs. This experiment in morphological generation builds on the prompting techniques used in the instruction-based denoising task and demonstrates the limitations of GPT-4o in performing some NLP tasks for LRLs. Data denoising and morphological generation are both important tasks for enhancing LRL data. Data denoising improves the quality of language data, while morphological generation improves the quantity. Both have the potential to make a dataset more conducive to linguistic research and practical applications.",
+      "full_text": null
+    },
+    {
+      "id": "W7165482954",
+      "title": "Large Language Models Adaptation for Low-resource Languages: The Case for African Languages",
+      "abstract": "Despite remarkable advances in Large Language Models (LLMs), African languagesremain critically underserved by the current training and adaptation pipeline. This thesisaddresses the fundamental bottlenecks in adapting LLMs for low-resource languagesthrough a unified two-stage investigation: benchmarking via Supervised Fine-Tuning(SFT) and foundational adaptation via Continued Pre-Training (CPT).Our first contribution is INJONGO, a natively-generated multicultural benchmark forintent classification and slot-filling spanning 16 African languages. Crucially, INJONGO isnon-contaminated—not included in the training data of the LLMs we evaluate—ensuringfair assessment. Our experiments yield two key findings: (1) SFT effectively adaptsdecoder-only LLMs to downstream tasks, demonstrating the viability of task-specificalignment; and (2) encoder models pre-trained on African languages (e.g., AfroXLMR-76L)with SFT dramatically outperform those without such exposure. This second findingdirectly motivates our subsequent work: if pre-training on African languages benefits encodersso significantly, the same principle should apply to decoder-only LLMs.Building on this insight, our second contribution is AfriqueLLM, a suite of modelsadapted for 20 African languages via CPT on 26 billion tokens. We systematically investi-gate data mixture strategies required to maintain general capabilities while adapting lan-guage. Our findings demonstrate that incorporating code, mathematics, and synthetic dataprevents catastrophic forgetting. We further identify a “Zero-to-Hero” phenomenon: mod-els with strong architectural foundations (e.g., Qwen 3) adapt more effectively than thosewith broader but shallower multilingual coverage. Our flagship model, AfriqueQwen-14B,achieves state-of-the-art results on African benchmarks, emphasizing that data composi-tion and architectural choice are the primary drivers of successful low-resource adaptation.All datasets, models, and code are publicly released to support the development ofrobust LLMs for the African continent.",
+      "full_text": null
+    },
+    {
+      "id": "W7168097912",
+      "title": "THE ALGORITHMIC TRANSLATOR Using Large Language Models to Revive Low-Resource Programming Languages",
+      "abstract": "THE ALGORITHMIC TRANSLATOR Using Large Language Models to Revive Low-Resource Programming Languages",
+      "full_text": null
+    },
+    {
+      "id": "W7197036362",
+      "title": "Large Language Models for Low-Resource Languages: A Conceptual Framework for an Electronic Explanatory Dictionary of the Tajik Language",
+      "abstract": "This paper presents a conceptual framework for developing an electronic explanatory dictionary of the Tajik language using large language models (LLMs). The relevance of the work stems from the absence of a comprehensive digital lexicographic resource for Tajik that is comparable in functionality to dictionaries for high-resource languages, and from the limited adaptation of modern natural language processing technologies to low-resource language systems. Based on a systematic survey of existing linguistic, statistical, and corpus resources, we propose a dictionary architecture that integrates modules for morphological analysis, lemmatization, semantic clustering, and dictionary entry generation using LLMs. The choice of subword tokenization is justified by the agglutinative nature of Tajik morphology and its high morphological variability, along with a parameter-efficient fine-tuning (PEFT) strategy suitable for limited annotated data. The novelty of the work lies in proposing the first holistic conceptual architecture of an explanatory dictionary for Tajik that unifies classical lexicographic methods, language statistics, and generative capabilities of LLMs into a single system. The practical significance of the study is the formation of a methodological foundation for developing a full-featured electronic dictionary that can serve both as a lexicographic tool and as a core resource for machine translation, automatic summarization, sentiment analysis, and other applied NLP tasks. The paper is intended for specialists in computational linguistics, lexicography, and developers of natural language processing systems working with low-resource languages.",
+      "full_text": null
+    }
+  ],
+  "reviews": [
+    {
+      "paper_ids": [
+        "W4408280927",
+        "W7165482954"
+      ],
+      "judgment": null,
+      "provenance": "pending",
+      "reviewer": "",
+      "rationale": "",
+      "evidence": []
+    },
+    {
+      "paper_ids": [
+        "W4402389783",
+        "W4403364915"
+      ],
+      "judgment": null,
+      "provenance": "pending",
+      "reviewer": "",
+      "rationale": "",
+      "evidence": []
+    },
+    {
+      "paper_ids": [
+        "W4404389841",
+        "W4405173107"
+      ],
+      "judgment": null,
+      "provenance": "pending",
+      "reviewer": "",
+      "rationale": "",
+      "evidence": []
+    },
+    {
+      "paper_ids": [
+        "W4403364915",
+        "W7168097912"
+      ],
+      "judgment": null,
+      "provenance": "pending",
+      "reviewer": "",
+      "rationale": "",
+      "evidence": []
+    },
+    {
+      "paper_ids": [
+        "W4409178241",
+        "W7168097912"
+      ],
+      "judgment": null,
+      "provenance": "pending",
+      "reviewer": "",
+      "rationale": "",
+      "evidence": []
+    },
+    {
+      "paper_ids": [
+        "W4402389783",
+        "W4408280927"
+      ],
+      "judgment": null,
+      "provenance": "pending",
+      "reviewer": "",
+      "rationale": "",
+      "evidence": []
+    },
+    {
+      "paper_ids": [
+        "W7115677253",
+        "W7168097912"
+      ],
+      "judgment": null,
+      "provenance": "pending",
+      "reviewer": "",
+      "rationale": "",
+      "evidence": []
+    },
+    {
+      "paper_ids": [
+        "W4408280927",
+        "W7162479607"
+      ],
+      "judgment": null,
+      "provenance": "pending",
+      "reviewer": "",
+      "rationale": "",
+      "evidence": []
+    },
+    {
+      "paper_ids": [
+        "W4402389783",
+        "W4412889388"
+      ],
+      "judgment": null,
+      "provenance": "pending",
+      "reviewer": "",
+      "rationale": "",
+      "evidence": []
+    },
+    {
+      "paper_ids": [
+        "W4407385098",
+        "W7197036362"
+      ],
+      "judgment": null,
+      "provenance": "pending",
+      "reviewer": "",
+      "rationale": "",
+      "evidence": []
+    },
+    {
+      "paper_ids": [
+        "W4403364915",
+        "W4412889388"
+      ],
+      "judgment": null,
+      "provenance": "pending",
+      "reviewer": "",
+      "rationale": "",
+      "evidence": []
+    },
+    {
+      "paper_ids": [
+        "W4403364915",
+        "W7162479607"
+      ],
+      "judgment": null,
+      "provenance": "pending",
+      "reviewer": "",
+      "rationale": "",
+      "evidence": []
+    },
+    {
+      "paper_ids": [
+        "W4405173107",
+        "W4407385098"
+      ],
+      "judgment": null,
+      "provenance": "pending",
+      "reviewer": "",
+      "rationale": "",
+      "evidence": []
+    },
+    {
+      "paper_ids": [
+        "W4408280927",
+        "W4412889388"
+      ],
+      "judgment": null,
+      "provenance": "pending",
+      "reviewer": "",
+      "rationale": "",
+      "evidence": []
+    },
+    {
+      "paper_ids": [
+        "W4409178241",
+        "W7162479607"
+      ],
+      "judgment": null,
+      "provenance": "pending",
+      "reviewer": "",
+      "rationale": "",
+      "evidence": []
+    },
+    {
+      "paper_ids": [
+        "W4412889388",
+        "W7165482954"
+      ],
+      "judgment": null,
+      "provenance": "pending",
+      "reviewer": "",
+      "rationale": "",
+      "evidence": []
+    },
+    {
+      "paper_ids": [
+        "W4403364915",
+        "W4408280927"
+      ],
+      "judgment": null,
+      "provenance": "pending",
+      "reviewer": "",
+      "rationale": "",
+      "evidence": []
+    },
+    {
+      "paper_ids": [
+        "W7168097912",
+        "W7197036362"
+      ],
+      "judgment": null,
+      "provenance": "pending",
+      "reviewer": "",
+      "rationale": "",
+      "evidence": []
+    },
+    {
+      "paper_ids": [
+        "W4407385098",
+        "W4408280927"
+      ],
+      "judgment": null,
+      "provenance": "pending",
+      "reviewer": "",
+      "rationale": "",
+      "evidence": []
+    },
+    {
+      "paper_ids": [
+        "W4407393353",
+        "W4408280927"
+      ],
+      "judgment": null,
+      "provenance": "pending",
+      "reviewer": "",
+      "rationale": "",
+      "evidence": []
+    },
+    {
+      "paper_ids": [
+        "W4407385098",
+        "W7165482954"
+      ],
+      "judgment": null,
+      "provenance": "pending",
+      "reviewer": "",
+      "rationale": "",
+      "evidence": []
+    },
+    {
+      "paper_ids": [
+        "W4402389783",
+        "W7162479607"
+      ],
+      "judgment": null,
+      "provenance": "pending",
+      "reviewer": "",
+      "rationale": "",
+      "evidence": []
+    },
+    {
+      "paper_ids": [
+        "W4404389841",
+        "W7197036362"
+      ],
+      "judgment": null,
+      "provenance": "pending",
+      "reviewer": "",
+      "rationale": "",
+      "evidence": []
+    }
+  ]
+}

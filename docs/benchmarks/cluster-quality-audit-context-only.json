@@ -1,0 +1,1505 @@
+{
+  "run_id": "20261025-064853-65ce71",
+  "stage": "clusters",
+  "papers": 30,
+  "paper_ids": [
+    "W7154856337",
+    "W4402389783",
+    "W7155356580",
+    "W4405173107",
+    "W4407393353",
+    "W4392637283",
+    "W4408280927",
+    "W7115677253",
+    "W7165482954",
+    "W7155373379",
+    "W7123296616",
+    "W7123371404",
+    "W4416249530",
+    "W4410184664",
+    "W7162479607",
+    "W7134895265",
+    "W4402671168",
+    "W4407385098",
+    "W4392669965",
+    "W4416034203",
+    "W4409178241",
+    "W4404389841",
+    "W7165392193",
+    "W4416223637",
+    "W4412862878",
+    "W4417133178",
+    "W4403364915",
+    "W4412889388",
+    "W7197036362",
+    "W7168097912"
+  ],
+  "source_file": "/Users/xin/Documents/open agent/Literature-review-agent/data/sample/low_resource_languages_llm.json",
+  "label_strategy": "contrastive",
+  "embedding_profile": "semcse",
+  "use_full_text": false,
+  "similarity_settings": {
+    "cluster_dense_weight": 1.0,
+    "cluster_lexical_title_weight": 0.35,
+    "cluster_lexical_max_df": 0.95,
+    "cluster_lexical_max_features": 20000,
+    "cluster_lexical_ngram_range": [
+      1,
+      2
+    ]
+  },
+  "audit": {
+    "corpus_fingerprint": "7fefd458fba53e4e0775f729452d0da9ed139ce54c9939930d7c515280f0668a",
+    "threshold": 0.6499999999999999,
+    "metrics": {
+      "clusters": 13,
+      "sizes": [
+        1,
+        5,
+        4,
+        2,
+        2,
+        6,
+        1,
+        1,
+        2,
+        1,
+        2,
+        1,
+        2
+      ],
+      "largest_fraction": 0.2,
+      "singleton_paper_fraction": 0.16666666666666666,
+      "coverage": 0.8333333333333334,
+      "min_within_similarity": 0.6622714950717897,
+      "mean_within_similarity": 0.759421544020835,
+      "silhouette": 0.163193638299294
+    },
+    "weakest_within_pairs": [
+      {
+        "cluster_id": "C2",
+        "paper_ids": [
+          "W4392669965",
+          "W4412889388"
+        ],
+        "similarity": 0.6792805641370684
+      },
+      {
+        "cluster_id": "C3",
+        "paper_ids": [
+          "W4402389783",
+          "W7162479607"
+        ],
+        "similarity": 0.6622714950717897
+      },
+      {
+        "cluster_id": "C4",
+        "paper_ids": [
+          "W4404389841",
+          "W7197036362"
+        ],
+        "similarity": 0.663448436316871
+      },
+      {
+        "cluster_id": "C5",
+        "paper_ids": [
+          "W4405173107",
+          "W7155356580"
+        ],
+        "similarity": 0.7085829994674268
+      },
+      {
+        "cluster_id": "C6",
+        "paper_ids": [
+          "W4407385098",
+          "W7123296616"
+        ],
+        "similarity": 0.6971054606325597
+      },
+      {
+        "cluster_id": "C9",
+        "paper_ids": [
+          "W4410184664",
+          "W7134895265"
+        ],
+        "similarity": 0.9825982635809845
+      },
+      {
+        "cluster_id": "C11",
+        "paper_ids": [
+          "W4416223637",
+          "W4417133178"
+        ],
+        "similarity": 0.7216279961100209
+      },
+      {
+        "cluster_id": "C13",
+        "paper_ids": [
+          "W7115677253",
+          "W7168097912"
+        ],
+        "similarity": 0.6775710537996402
+      }
+    ],
+    "boundaries": [
+      {
+        "cluster_ids": [
+          "C2",
+          "C3"
+        ],
+        "closest_paper_ids": [
+          "W4408280927",
+          "W4403364915"
+        ],
+        "min_similarity": 0.6008445523764214,
+        "max_similarity": 0.8266595704050866,
+        "merge_meets_threshold": false
+      },
+      {
+        "cluster_ids": [
+          "C2",
+          "C6"
+        ],
+        "closest_paper_ids": [
+          "W4408280927",
+          "W7154856337"
+        ],
+        "min_similarity": 0.6171426219858565,
+        "max_similarity": 0.8148601205491024,
+        "merge_meets_threshold": false
+      },
+      {
+        "cluster_ids": [
+          "C6",
+          "C11"
+        ],
+        "closest_paper_ids": [
+          "W7165482954",
+          "W4417133178"
+        ],
+        "min_similarity": 0.6046111386023633,
+        "max_similarity": 0.7596899713793144,
+        "merge_meets_threshold": false
+      },
+      {
+        "cluster_ids": [
+          "C5",
+          "C6"
+        ],
+        "closest_paper_ids": [
+          "W4405173107",
+          "W4407385098"
+        ],
+        "min_similarity": 0.5190083761954497,
+        "max_similarity": 0.7549863677501236,
+        "merge_meets_threshold": false
+      },
+      {
+        "cluster_ids": [
+          "C2",
+          "C13"
+        ],
+        "closest_paper_ids": [
+          "W7165392193",
+          "W7115677253"
+        ],
+        "min_similarity": 0.48934352801380265,
+        "max_similarity": 0.7529772134245839,
+        "merge_meets_threshold": false
+      },
+      {
+        "cluster_ids": [
+          "C3",
+          "C11"
+        ],
+        "closest_paper_ids": [
+          "W4402389783",
+          "W4416223637"
+        ],
+        "min_similarity": 0.5578045169257396,
+        "max_similarity": 0.7254994776673158,
+        "merge_meets_threshold": false
+      },
+      {
+        "cluster_ids": [
+          "C6",
+          "C13"
+        ],
+        "closest_paper_ids": [
+          "W7165482954",
+          "W7115677253"
+        ],
+        "min_similarity": 0.46426652007119773,
+        "max_similarity": 0.7200783499956994,
+        "merge_meets_threshold": false
+      },
+      {
+        "cluster_ids": [
+          "C2",
+          "C11"
+        ],
+        "closest_paper_ids": [
+          "W4412889388",
+          "W4417133178"
+        ],
+        "min_similarity": 0.5859095413054444,
+        "max_similarity": 0.7172365618583469,
+        "merge_meets_threshold": false
+      },
+      {
+        "cluster_ids": [
+          "C3",
+          "C6"
+        ],
+        "closest_paper_ids": [
+          "W4402389783",
+          "W4407385098"
+        ],
+        "min_similarity": 0.6068732249258132,
+        "max_similarity": 0.7097942491848889,
+        "merge_meets_threshold": false
+      },
+      {
+        "cluster_ids": [
+          "C1",
+          "C2"
+        ],
+        "closest_paper_ids": [
+          "W4392637283",
+          "W7165392193"
+        ],
+        "min_similarity": 0.5069821881824426,
+        "max_similarity": 0.7007069709653081,
+        "merge_meets_threshold": false
+      },
+      {
+        "cluster_ids": [
+          "C1",
+          "C5"
+        ],
+        "closest_paper_ids": [
+          "W4392637283",
+          "W4405173107"
+        ],
+        "min_similarity": 0.5823758348219438,
+        "max_similarity": 0.6991166424816321,
+        "merge_meets_threshold": false
+      },
+      {
+        "cluster_ids": [
+          "C5",
+          "C13"
+        ],
+        "closest_paper_ids": [
+          "W7155356580",
+          "W7115677253"
+        ],
+        "min_similarity": 0.485520495779661,
+        "max_similarity": 0.6989211518759958,
+        "merge_meets_threshold": false
+      },
+      {
+        "cluster_ids": [
+          "C6",
+          "C7"
+        ],
+        "closest_paper_ids": [
+          "W7165482954",
+          "W4407393353"
+        ],
+        "min_similarity": 0.5174402823330138,
+        "max_similarity": 0.6981963922682244,
+        "merge_meets_threshold": false
+      },
+      {
+        "cluster_ids": [
+          "C2",
+          "C8"
+        ],
+        "closest_paper_ids": [
+          "W4408280927",
+          "W4409178241"
+        ],
+        "min_similarity": 0.6022497255392651,
+        "max_similarity": 0.6903042001961478,
+        "merge_meets_threshold": false
+      },
+      {
+        "cluster_ids": [
+          "C2",
+          "C5"
+        ],
+        "closest_paper_ids": [
+          "W4392669965",
+          "W7155356580"
+        ],
+        "min_similarity": 0.5362517876505485,
+        "max_similarity": 0.681411799283469,
+        "merge_meets_threshold": false
+      },
+      {
+        "cluster_ids": [
+          "C3",
+          "C5"
+        ],
+        "closest_paper_ids": [
+          "W7162479607",
+          "W4405173107"
+        ],
+        "min_similarity": 0.5660344212819954,
+        "max_similarity": 0.6780206399907717,
+        "merge_meets_threshold": false
+      },
+      {
+        "cluster_ids": [
+          "C3",
+          "C10"
+        ],
+        "closest_paper_ids": [
+          "W4402389783",
+          "W4412862878"
+        ],
+        "min_similarity": 0.5334976682279535,
+        "max_similarity": 0.6769450261927487,
+        "merge_meets_threshold": false
+      },
+      {
+        "cluster_ids": [
+          "C3",
+          "C9"
+        ],
+        "closest_paper_ids": [
+          "W4403364915",
+          "W7134895265"
+        ],
+        "min_similarity": 0.4757828578200648,
+        "max_similarity": 0.6752665636691527,
+        "merge_meets_threshold": false
+      },
+      {
+        "cluster_ids": [
+          "C3",
+          "C13"
+        ],
+        "closest_paper_ids": [
+          "W4402389783",
+          "W7115677253"
+        ],
+        "min_similarity": 0.43722869545742216,
+        "max_similarity": 0.6722992620791873,
+        "merge_meets_threshold": false
+      },
+      {
+        "cluster_ids": [
+          "C2",
+          "C4"
+        ],
+        "closest_paper_ids": [
+          "W7165392193",
+          "W4404389841"
+        ],
+        "min_similarity": 0.5370061978834201,
+        "max_similarity": 0.666196455812549,
+        "merge_meets_threshold": false
+      },
+      {
+        "cluster_ids": [
+          "C9",
+          "C13"
+        ],
+        "closest_paper_ids": [
+          "W4410184664",
+          "W7168097912"
+        ],
+        "min_similarity": 0.6262509830783051,
+        "max_similarity": 0.6658321462688161,
+        "merge_meets_threshold": false
+      },
+      {
+        "cluster_ids": [
+          "C3",
+          "C4"
+        ],
+        "closest_paper_ids": [
+          "W4402389783",
+          "W4404389841"
+        ],
+        "min_similarity": 0.5373005657719296,
+        "max_similarity": 0.6583695446850313,
+        "merge_meets_threshold": false
+      },
+      {
+        "cluster_ids": [
+          "C9",
+          "C11"
+        ],
+        "closest_paper_ids": [
+          "W7134895265",
+          "W4417133178"
+        ],
+        "min_similarity": 0.618415114393457,
+        "max_similarity": 0.6579054498947808,
+        "merge_meets_threshold": false
+      },
+      {
+        "cluster_ids": [
+          "C6",
+          "C8"
+        ],
+        "closest_paper_ids": [
+          "W7154856337",
+          "W4409178241"
+        ],
+        "min_similarity": 0.5690899809777311,
+        "max_similarity": 0.6563429789714347,
+        "merge_meets_threshold": false
+      },
+      {
+        "cluster_ids": [
+          "C2",
+          "C7"
+        ],
+        "closest_paper_ids": [
+          "W4392669965",
+          "W4407393353"
+        ],
+        "min_similarity": 0.5507577576394918,
+        "max_similarity": 0.6543864935355556,
+        "merge_meets_threshold": false
+      },
+      {
+        "cluster_ids": [
+          "C2",
+          "C9"
+        ],
+        "closest_paper_ids": [
+          "W4408280927",
+          "W7134895265"
+        ],
+        "min_similarity": 0.5228241398053224,
+        "max_similarity": 0.6500559583653017,
+        "merge_meets_threshold": false
+      },
+      {
+        "cluster_ids": [
+          "C5",
+          "C7"
+        ],
+        "closest_paper_ids": [
+          "W7155356580",
+          "W4407393353"
+        ],
+        "min_similarity": 0.6175039126131563,
+        "max_similarity": 0.6488603070222043,
+        "merge_meets_threshold": false
+      },
+      {
+        "cluster_ids": [
+          "C1",
+          "C3"
+        ],
+        "closest_paper_ids": [
+          "W4392637283",
+          "W4402389783"
+        ],
+        "min_similarity": 0.5742619416004124,
+        "max_similarity": 0.6486957820566318,
+        "merge_meets_threshold": false
+      },
+      {
+        "cluster_ids": [
+          "C2",
+          "C12"
+        ],
+        "closest_paper_ids": [
+          "W4392669965",
+          "W4416249530"
+        ],
+        "min_similarity": 0.5514738555140009,
+        "max_similarity": 0.6483970340864039,
+        "merge_meets_threshold": false
+      },
+      {
+        "cluster_ids": [
+          "C5",
+          "C9"
+        ],
+        "closest_paper_ids": [
+          "W7155356580",
+          "W7134895265"
+        ],
+        "min_similarity": 0.4878311716007498,
+        "max_similarity": 0.6440231127958895,
+        "merge_meets_threshold": false
+      },
+      {
+        "cluster_ids": [
+          "C2",
+          "C10"
+        ],
+        "closest_paper_ids": [
+          "W4412889388",
+          "W4412862878"
+        ],
+        "min_similarity": 0.49644136014842477,
+        "max_similarity": 0.6437774726044478,
+        "merge_meets_threshold": false
+      },
+      {
+        "cluster_ids": [
+          "C3",
+          "C8"
+        ],
+        "closest_paper_ids": [
+          "W4403364915",
+          "W4409178241"
+        ],
+        "min_similarity": 0.47751893646255417,
+        "max_similarity": 0.6435829871068788,
+        "merge_meets_threshold": false
+      },
+      {
+        "cluster_ids": [
+          "C1",
+          "C4"
+        ],
+        "closest_paper_ids": [
+          "W4392637283",
+          "W7197036362"
+        ],
+        "min_similarity": 0.5559413172583753,
+        "max_similarity": 0.6425515620810993,
+        "merge_meets_threshold": false
+      },
+      {
+        "cluster_ids": [
+          "C4",
+          "C5"
+        ],
+        "closest_paper_ids": [
+          "W4404389841",
+          "W4405173107"
+        ],
+        "min_similarity": 0.5820916289224771,
+        "max_similarity": 0.6365521006442006,
+        "merge_meets_threshold": false
+      },
+      {
+        "cluster_ids": [
+          "C8",
+          "C12"
+        ],
+        "closest_paper_ids": [
+          "W4409178241",
+          "W4416249530"
+        ],
+        "min_similarity": 0.6361762027806566,
+        "max_similarity": 0.6361762027806566,
+        "merge_meets_threshold": false
+      },
+      {
+        "cluster_ids": [
+          "C11",
+          "C13"
+        ],
+        "closest_paper_ids": [
+          "W4417133178",
+          "W7115677253"
+        ],
+        "min_similarity": 0.4858932857068061,
+        "max_similarity": 0.6322158001591164,
+        "merge_meets_threshold": false
+      },
+      {
+        "cluster_ids": [
+          "C1",
+          "C13"
+        ],
+        "closest_paper_ids": [
+          "W4392637283",
+          "W7115677253"
+        ],
+        "min_similarity": 0.5657059948240099,
+        "max_similarity": 0.6291167796137082,
+        "merge_meets_threshold": false
+      },
+      {
+        "cluster_ids": [
+          "C5",
+          "C10"
+        ],
+        "closest_paper_ids": [
+          "W7155356580",
+          "W4412862878"
+        ],
+        "min_similarity": 0.587303283063858,
+        "max_similarity": 0.6264119401871452,
+        "merge_meets_threshold": false
+      },
+      {
+        "cluster_ids": [
+          "C6",
+          "C10"
+        ],
+        "closest_paper_ids": [
+          "W7165482954",
+          "W4412862878"
+        ],
+        "min_similarity": 0.5654555035237233,
+        "max_similarity": 0.6210475130914354,
+        "merge_meets_threshold": false
+      },
+      {
+        "cluster_ids": [
+          "C10",
+          "C11"
+        ],
+        "closest_paper_ids": [
+          "W4412862878",
+          "W4417133178"
+        ],
+        "min_similarity": 0.5852815782464323,
+        "max_similarity": 0.6197158146616798,
+        "merge_meets_threshold": false
+      },
+      {
+        "cluster_ids": [
+          "C5",
+          "C11"
+        ],
+        "closest_paper_ids": [
+          "W7155356580",
+          "W4416223637"
+        ],
+        "min_similarity": 0.5373787736759746,
+        "max_similarity": 0.6162934871154899,
+        "merge_meets_threshold": false
+      },
+      {
+        "cluster_ids": [
+          "C4",
+          "C11"
+        ],
+        "closest_paper_ids": [
+          "W4404389841",
+          "W4416223637"
+        ],
+        "min_similarity": 0.49890383250474063,
+        "max_similarity": 0.6115948646472492,
+        "merge_meets_threshold": false
+      },
+      {
+        "cluster_ids": [
+          "C4",
+          "C6"
+        ],
+        "closest_paper_ids": [
+          "W4404389841",
+          "W7165482954"
+        ],
+        "min_similarity": 0.45075770078916744,
+        "max_similarity": 0.6073368652776824,
+        "merge_meets_threshold": false
+      },
+      {
+        "cluster_ids": [
+          "C3",
+          "C12"
+        ],
+        "closest_paper_ids": [
+          "W7162479607",
+          "W4416249530"
+        ],
+        "min_similarity": 0.5460709132212057,
+        "max_similarity": 0.6011739567309704,
+        "merge_meets_threshold": false
+      },
+      {
+        "cluster_ids": [
+          "C6",
+          "C12"
+        ],
+        "closest_paper_ids": [
+          "W7154856337",
+          "W4416249530"
+        ],
+        "min_similarity": 0.4796429975042192,
+        "max_similarity": 0.601082031793643,
+        "merge_meets_threshold": false
+      },
+      {
+        "cluster_ids": [
+          "C11",
+          "C12"
+        ],
+        "closest_paper_ids": [
+          "W4416223637",
+          "W4416249530"
+        ],
+        "min_similarity": 0.5544090880261573,
+        "max_similarity": 0.5948343521273034,
+        "merge_meets_threshold": false
+      },
+      {
+        "cluster_ids": [
+          "C9",
+          "C10"
+        ],
+        "closest_paper_ids": [
+          "W4410184664",
+          "W4412862878"
+        ],
+        "min_similarity": 0.5894464071709394,
+        "max_similarity": 0.5914914063931593,
+        "merge_meets_threshold": false
+      },
+      {
+        "cluster_ids": [
+          "C10",
+          "C13"
+        ],
+        "closest_paper_ids": [
+          "W4412862878",
+          "W7115677253"
+        ],
+        "min_similarity": 0.48593875605650644,
+        "max_similarity": 0.5879522611570268,
+        "merge_meets_threshold": false
+      },
+      {
+        "cluster_ids": [
+          "C7",
+          "C11"
+        ],
+        "closest_paper_ids": [
+          "W4407393353",
+          "W4417133178"
+        ],
+        "min_similarity": 0.5291340536648463,
+        "max_similarity": 0.5851533907036905,
+        "merge_meets_threshold": false
+      },
+      {
+        "cluster_ids": [
+          "C8",
+          "C11"
+        ],
+        "closest_paper_ids": [
+          "W4409178241",
+          "W4417133178"
+        ],
+        "min_similarity": 0.5387380048356147,
+        "max_similarity": 0.5816492466561924,
+        "merge_meets_threshold": false
+      },
+      {
+        "cluster_ids": [
+          "C6",
+          "C9"
+        ],
+        "closest_paper_ids": [
+          "W7154856337",
+          "W7134895265"
+        ],
+        "min_similarity": 0.4819388776814653,
+        "max_similarity": 0.57495592920097,
+        "merge_meets_threshold": false
+      },
+      {
+        "cluster_ids": [
+          "C4",
+          "C13"
+        ],
+        "closest_paper_ids": [
+          "W4404389841",
+          "W7115677253"
+        ],
+        "min_similarity": 0.47506288669448504,
+        "max_similarity": 0.5736070209167363,
+        "merge_meets_threshold": false
+      },
+      {
+        "cluster_ids": [
+          "C3",
+          "C7"
+        ],
+        "closest_paper_ids": [
+          "W7162479607",
+          "W4407393353"
+        ],
+        "min_similarity": 0.5332169941241486,
+        "max_similarity": 0.5644630897112785,
+        "merge_meets_threshold": false
+      },
+      {
+        "cluster_ids": [
+          "C7",
+          "C12"
+        ],
+        "closest_paper_ids": [
+          "W4407393353",
+          "W4416249530"
+        ],
+        "min_similarity": 0.5642871342176945,
+        "max_similarity": 0.5642871342176945,
+        "merge_meets_threshold": false
+      },
+      {
+        "cluster_ids": [
+          "C7",
+          "C13"
+        ],
+        "closest_paper_ids": [
+          "W4407393353",
+          "W7115677253"
+        ],
+        "min_similarity": 0.27328836911686044,
+        "max_similarity": 0.5641266858119932,
+        "merge_meets_threshold": false
+      },
+      {
+        "cluster_ids": [
+          "C1",
+          "C6"
+        ],
+        "closest_paper_ids": [
+          "W4392637283",
+          "W7165482954"
+        ],
+        "min_similarity": 0.48704207415710454,
+        "max_similarity": 0.5550363869260889,
+        "merge_meets_threshold": false
+      },
+      {
+        "cluster_ids": [
+          "C7",
+          "C8"
+        ],
+        "closest_paper_ids": [
+          "W4407393353",
+          "W4409178241"
+        ],
+        "min_similarity": 0.551488021982499,
+        "max_similarity": 0.551488021982499,
+        "merge_meets_threshold": false
+      },
+      {
+        "cluster_ids": [
+          "C4",
+          "C12"
+        ],
+        "closest_paper_ids": [
+          "W4404389841",
+          "W4416249530"
+        ],
+        "min_similarity": 0.46903168866944844,
+        "max_similarity": 0.5511091400762865,
+        "merge_meets_threshold": false
+      },
+      {
+        "cluster_ids": [
+          "C4",
+          "C9"
+        ],
+        "closest_paper_ids": [
+          "W7197036362",
+          "W7134895265"
+        ],
+        "min_similarity": 0.481267155198663,
+        "max_similarity": 0.5441706742446669,
+        "merge_meets_threshold": false
+      },
+      {
+        "cluster_ids": [
+          "C5",
+          "C12"
+        ],
+        "closest_paper_ids": [
+          "W7155356580",
+          "W4416249530"
+        ],
+        "min_similarity": 0.47867752874186403,
+        "max_similarity": 0.5407281174131505,
+        "merge_meets_threshold": false
+      },
+      {
+        "cluster_ids": [
+          "C8",
+          "C9"
+        ],
+        "closest_paper_ids": [
+          "W4409178241",
+          "W7134895265"
+        ],
+        "min_similarity": 0.4891703517786453,
+        "max_similarity": 0.5358241129404429,
+        "merge_meets_threshold": false
+      },
+      {
+        "cluster_ids": [
+          "C4",
+          "C7"
+        ],
+        "closest_paper_ids": [
+          "W4404389841",
+          "W4407393353"
+        ],
+        "min_similarity": 0.4899907144522562,
+        "max_similarity": 0.5325868886796079,
+        "merge_meets_threshold": false
+      },
+      {
+        "cluster_ids": [
+          "C4",
+          "C8"
+        ],
+        "closest_paper_ids": [
+          "W4404389841",
+          "W4409178241"
+        ],
+        "min_similarity": 0.49810801105475316,
+        "max_similarity": 0.5310847748593089,
+        "merge_meets_threshold": false
+      },
+      {
+        "cluster_ids": [
+          "C7",
+          "C10"
+        ],
+        "closest_paper_ids": [
+          "W4407393353",
+          "W4412862878"
+        ],
+        "min_similarity": 0.5288616544665102,
+        "max_similarity": 0.5288616544665102,
+        "merge_meets_threshold": false
+      },
+      {
+        "cluster_ids": [
+          "C4",
+          "C10"
+        ],
+        "closest_paper_ids": [
+          "W4404389841",
+          "W4412862878"
+        ],
+        "min_similarity": 0.4407822301266835,
+        "max_similarity": 0.5269393423376804,
+        "merge_meets_threshold": false
+      },
+      {
+        "cluster_ids": [
+          "C1",
+          "C11"
+        ],
+        "closest_paper_ids": [
+          "W4392637283",
+          "W4416223637"
+        ],
+        "min_similarity": 0.43288532184523376,
+        "max_similarity": 0.5021214260691009,
+        "merge_meets_threshold": false
+      },
+      {
+        "cluster_ids": [
+          "C1",
+          "C9"
+        ],
+        "closest_paper_ids": [
+          "W4392637283",
+          "W7134895265"
+        ],
+        "min_similarity": 0.46195592077764125,
+        "max_similarity": 0.47875359967581116,
+        "merge_meets_threshold": false
+      },
+      {
+        "cluster_ids": [
+          "C1",
+          "C12"
+        ],
+        "closest_paper_ids": [
+          "W4392637283",
+          "W4416249530"
+        ],
+        "min_similarity": 0.47794958062676296,
+        "max_similarity": 0.47794958062676296,
+        "merge_meets_threshold": false
+      },
+      {
+        "cluster_ids": [
+          "C12",
+          "C13"
+        ],
+        "closest_paper_ids": [
+          "W4416249530",
+          "W7115677253"
+        ],
+        "min_similarity": 0.4128134455636692,
+        "max_similarity": 0.4776368824552934,
+        "merge_meets_threshold": false
+      },
+      {
+        "cluster_ids": [
+          "C1",
+          "C7"
+        ],
+        "closest_paper_ids": [
+          "W4392637283",
+          "W4407393353"
+        ],
+        "min_similarity": 0.477288229240217,
+        "max_similarity": 0.477288229240217,
+        "merge_meets_threshold": false
+      },
+      {
+        "cluster_ids": [
+          "C5",
+          "C8"
+        ],
+        "closest_paper_ids": [
+          "W7155356580",
+          "W4409178241"
+        ],
+        "min_similarity": 0.4216527775994107,
+        "max_similarity": 0.47367437247275423,
+        "merge_meets_threshold": false
+      },
+      {
+        "cluster_ids": [
+          "C8",
+          "C13"
+        ],
+        "closest_paper_ids": [
+          "W4409178241",
+          "W7115677253"
+        ],
+        "min_similarity": 0.3276960118744913,
+        "max_similarity": 0.4664666120276417,
+        "merge_meets_threshold": false
+      },
+      {
+        "cluster_ids": [
+          "C10",
+          "C12"
+        ],
+        "closest_paper_ids": [
+          "W4412862878",
+          "W4416249530"
+        ],
+        "min_similarity": 0.46450246978348614,
+        "max_similarity": 0.46450246978348614,
+        "merge_meets_threshold": false
+      },
+      {
+        "cluster_ids": [
+          "C9",
+          "C12"
+        ],
+        "closest_paper_ids": [
+          "W7134895265",
+          "W4416249530"
+        ],
+        "min_similarity": 0.42779240999186974,
+        "max_similarity": 0.46189890342573314,
+        "merge_meets_threshold": false
+      },
+      {
+        "cluster_ids": [
+          "C7",
+          "C9"
+        ],
+        "closest_paper_ids": [
+          "W4407393353",
+          "W7134895265"
+        ],
+        "min_similarity": 0.4072180779823768,
+        "max_similarity": 0.45585379835156936,
+        "merge_meets_threshold": false
+      },
+      {
+        "cluster_ids": [
+          "C1",
+          "C10"
+        ],
+        "closest_paper_ids": [
+          "W4392637283",
+          "W4412862878"
+        ],
+        "min_similarity": 0.4344731862130167,
+        "max_similarity": 0.4344731862130167,
+        "merge_meets_threshold": false
+      },
+      {
+        "cluster_ids": [
+          "C1",
+          "C8"
+        ],
+        "closest_paper_ids": [
+          "W4392637283",
+          "W4409178241"
+        ],
+        "min_similarity": 0.43074285264515916,
+        "max_similarity": 0.43074285264515916,
+        "merge_meets_threshold": false
+      },
+      {
+        "cluster_ids": [
+          "C8",
+          "C10"
+        ],
+        "closest_paper_ids": [
+          "W4409178241",
+          "W4412862878"
+        ],
+        "min_similarity": 0.4189585393619308,
+        "max_similarity": 0.4189585393619308,
+        "merge_meets_threshold": false
+      }
+    ],
+    "duplicate_labels": [],
+    "possible_duplicate_records": [
+      [
+        "W7123296616",
+        "W7123371404",
+        "W7155373379"
+      ]
+    ],
+    "missing_abstract_ids": [
+      "W4410184664",
+      "W7134895265"
+    ],
+    "interpretation": "Numerical diagnostics only; high similarity and exact quote matches do not prove semantic coherence."
+  },
+  "assessments": [
+    {
+      "label": "Title-only records: Interactive Machine Translation with Large Language Models for Low-Resourced Languages",
+      "rationale": "No abstract or full text is available to verify a shared research subtopic.",
+      "cluster_id": "C9",
+      "coherence": "insufficient_evidence",
+      "contrast": "Titles suggest a topic, but no reliable distinction from neighboring research can be established.",
+      "evidence": []
+    },
+    {
+      "label": "LLM Adaptation for Low-Resource Natural & Programming Languages",
+      "rationale": "The cluster groups papers that apply LLMs to low-resource settings but the tasks, methods, and domains differ materially. Two papers focus on natural language tasks (annotation, reranking) for spoken languages, one introduces a LoRA-based fine-tuning method for machine translation of Asian languages, another evaluates tokenizer adaptation for low-resource programming languages (Elixir, Racket), and the last analyzes fine-tuning challenges for Azerbaijani. There is no single research idea uniting all five.",
+      "cluster_id": "C2",
+      "coherence": "mixed",
+      "contrast": "Neighbor C3 concentrates on benchmarking and translation for specific Austronesian and Indonesian languages, while C2 spans annotation, retrieval, MT, code generation, and a case study on Azerbaijani. Neighbor C6 surveys multimodal and continual-learning approaches, which are not represented in C2.",
+      "evidence": [
+        {
+          "paper_id": "W4392669965",
+          "quote": "We use LLMs to re-label publicly available datasets in LR languages for the tasks of natural language inference, sentiment analysis, and news classification.We compare these annotations with existing ground truth labels to analyze the efficacy of using LLMs for annotation tasks.We observe that the performance of these LLMs varies substantially across different tasks and languages."
+        },
+        {
+          "paper_id": "W4402671168",
+          "quote": "To address this, we investigate how LLMs function as listwise rerankers in cross-lingual information retrieval (CLIR) systems with queries in English and passages in four African languages: Hausa, Somali, Swahili, and Yoruba.We analyze and compare the effectiveness of monolingual reranking using either query or document translations."
+        },
+        {
+          "paper_id": "W4408280927",
+          "quote": " This study introduces Language-Specific Fine-Tuning with Low-rank adaptation (LSFTL), a method that enhances translation for low-resource languages by optimizing the multi-head attention and feed-forward networks of Transformer layers through low-rank matrix adaptation."
+        },
+        {
+          "paper_id": "W4412889388",
+          "quote": "Evaluating Tokenizer Adaptation Methods for Large Language Models on Low-Resource Programming Languages. Large language models (LLMs), which are primarily trained on high-resource programming languages (HRPLs), tend to perform suboptimally for low-resource programming languages (LRPLs).This study investigates the impact of tokenizer adaptation methods on improving code generation for LRPLs."
+        },
+        {
+          "paper_id": "W7165392193",
+          "quote": " We look at the challenges of fine-tuning Large Language Models for low-resource languages with Azerbaijani as a case study. We examine data scarcity, morphological complexity, tokenization problems and domain gaps that make model adaptation harder. We also review methods like data augmentation, cross-lingual pre-training and transfer learning and assess how well they work for Azerbaijani."
+        }
+      ]
+    },
+    {
+      "label": "Benchmarking and Translating Low-Resource Austronesian & Indonesian Languages",
+      "rationale": "All four papers target low-resource Austronesian or Indonesian languages and share a focus on evaluation or translation. They introduce benchmarks (FormosanBench), build translation models (NusaMT-7B), assess recent LLMs on Sinhala, and explore LLM-based data enhancement for Mesoamerican languages, but the unifying thread is systematic evaluation and translation improvement for specific low-resource language families.",
+      "cluster_id": "C3",
+      "coherence": "coherent",
+      "contrast": "Unlike C2, which mixes annotation, retrieval, MT, code, and a single-language case study, C3 is centered on benchmark creation and translation modeling for Austronesian/Indonesian languages. C4 works on folktale representation and dictionary building, not benchmarking.",
+      "evidence": [
+        {
+          "paper_id": "W4402389783",
+          "quote": " Although multilingual large language models have been available for some time, their performance on low-resourced languages such as Sinhala has been poor. We evaluated four recent LLMs on their performance directly in the Sinhala language, and by translation to and from English. We also evaluated their fine-tunability with a small amount of fine-tuning data."
+        },
+        {
+          "paper_id": "W4403364915",
+          "quote": " Leveraging the pretrained LLaMA2-7B, our approach integrates continued pre-training on monolingual data, Supervised Fine-Tuning (SFT), self-learning, and an LLM-based data cleaner to reduce noise in parallel sentences."
+        },
+        {
+          "paper_id": "W4416034203",
+          "quote": "Formosan languages-a subgroup of Austronesian languages spoken in Taiwan-are both linguistically rich and endangered, largely due to the sociolinguistic dominance of Mandarin.In this work, we introduce FORMOSANBENCH, the first benchmark for evaluating LLMs on low-resource Austronesian languages."
+        },
+        {
+          "paper_id": "W7162479607",
+          "quote": " The primary applications of LLMs for LRLs explored here are data denoising and morphological generation. Six LRLs are used throughout this research: K'iche', Seri, Kaqchikel, Huave, Uspanteko, and Nahuatl. These languages are Mesoamerican languages spoken in Mexico and Guatemala."
+        }
+      ]
+    },
+    {
+      "label": "LLM Adaptation for Cultural Text Representation and Lexicography",
+      "rationale": "Both papers adapt LLMs for low-resource language cultural artifacts: one evaluates and adapts models to represent folktales (Irish, Gaelic) via longer-sequence fine-tuning and continued pre-training; the other proposes a conceptual framework for an electronic explanatory dictionary of Tajik, integrating morphological analysis, lemmatization, and LLM-based entry generation. The shared idea is adapting LLMs for structured cultural/lexical representation in low-resource languages.",
+      "cluster_id": "C4",
+      "coherence": "coherent",
+      "contrast": "C4 focuses on cultural text (folktales) and lexicographic resource building, whereas C2 addresses general NLP tasks (annotation, retrieval, MT, code) and C3 emphasizes benchmarking and translation for specific language families.",
+      "evidence": [
+        {
+          "paper_id": "W4404389841",
+          "quote": " Although a number of large language models (LLMs) claim to be able to represent low-resource langauges such as Irish and Gaelic, we present two classification tasks to explore how useful these representations are, and three adaptations to improve the performance of these models."
+        },
+        {
+          "paper_id": "W7197036362",
+          "quote": " Based on a systematic survey of existing linguistic, statistical, and corpus resources, we propose a dictionary architecture that integrates modules for morphological analysis, lemmatization, semantic clustering, and dictionary entry generation using LLMs."
+        }
+      ]
+    },
+    {
+      "label": "LLM Opportunities and Challenges for Low-Resource Languages in Humanities and Swahili",
+      "rationale": "Both papers discuss opportunities and challenges of applying LLMs to low-resource languages within humanities or community-focused contexts. One systematically evaluates LLM applications for linguistic, historical, and cultural research, stressing interdisciplinary collaboration; the other conducts usability tests with Swahili speakers in Tanzania, finding data scarcity and architectural limitations drive inaccuracies. The common thread is assessing LLM fit for low-resource languages in real-world humanistic or community settings.",
+      "cluster_id": "C5",
+      "coherence": "coherent",
+      "contrast": "C5 centers on humanities research and user-centered evaluation for Swahili, while C2 tackles technical adaptation methods across diverse tasks, C3 builds benchmarks and translation models for Austronesian languages, and C4 targets folktale representation and dictionary construction.",
+      "evidence": [
+        {
+          "paper_id": "W4405173107",
+          "quote": " This study systematically evaluates the applications of LLMs in low-resource language research, encompassing linguistic variation, historical documentation, cultural expressions, and literary analysis. By analyzing technical frameworks, current methodologies, and ethical considerations, this paper identifies key challenges such as data accessibility, model adaptability, and cultural sensitivity."
+        },
+        {
+          "paper_id": "W7155356580",
+          "quote": " In this study, participants from Tanzanian Swahili-speaking communities evaluated the models' outputs through usability tests. Findings reveal that apart from architectural limitations, data scarcity drives the ineffectiveness of the models. Frequent distortions, mostly in Swahili than in French confirms the need for broader multilingual inclusion in LLM training."
+        }
+      ]
+    },
+    {
+      "label": "Large Language Model Adaptation for Low-Resource Languages: Surveys, Continual Learning, and African Case Studies",
+      "rationale": "The cluster contains a survey on multimodal models for low-resource languages (W4407385098), three versions of a continual-learning paper using POS-based code-switching and replay adapters to mitigate catastrophic forgetting when adapting LLMs to low-resource languages (W7123296616, W7123371404, W7155373379), a paper on contextual learning for zero-shot/few-shot learning (W7154856337), and a thesis on adapting LLMs for African languages with continued pre-training and benchmarking (W7165482954). The common thread is LLM adaptation for low-resource languages, but the methods differ: survey, continual learning, contextual learning, and continued pre-training. This methodological diversity makes the cluster mixed.",
+      "cluster_id": "C6",
+      "coherence": "mixed",
+      "contrast": "Unlike C2 which focuses on fine-tuning with LoRA for machine translation and tokenizer adaptation, and C11 which focuses on instruction tuning and multimodal models specifically for Basque, C6 covers a broader set of adaptation strategies (continual learning, contextual learning, continued pre-training) across multiple language groups including African languages. C13 also addresses African languages but only has two papers: one on adaptive LLMs with LoRA and one on programming languages.",
+      "evidence": [
+        {
+          "paper_id": "W4407385098",
+          "quote": " • Provides an open-source repository that includes implementation details, datasets, and benchmarks. In this survey, we systematically analyze techniques used to adapt large multimodal models (LMMs) for low-resource (LR) languages, examining approaches ranging from visual enhancement and data creation to cross-modal transfer and fusion strategies."
+        },
+        {
+          "paper_id": "W7123296616",
+          "quote": " For example, small language models (SLM) built for low-resource languages by adapting large language models (LLMs) pose the challenge of catastrophic forgetting. This work proposes to employ a continual learning strategy using parts-of-speech (POS)-based code-switching along with a replay adapter strategy to mitigate the identified gap of catastrophic forgetting while training SLM from LLM."
+        },
+        {
+          "paper_id": "W7154856337",
+          "quote": " This paper proposes an efficient training strategy based on contextual learning, aimed at addressing the difficulties encountered by low-resource languages in zero-shot and few-shot learning scenarios."
+        },
+        {
+          "paper_id": "W7165482954",
+          "quote": " This thesisaddresses the fundamental bottlenecks in adapting LLMs for low-resource languagesthrough a unified two-stage investigation: benchmarking via Supervised Fine-Tuning(SFT) and foundational adaptation via Continued Pre-Training (CPT).Our first contribution is INJONGO, a natively-generated multicultural benchmark forintent classification and slot-filling spanning 16 African languages."
+        }
+      ]
+    },
+    {
+      "label": "Instruction Tuning and Multimodal Adaptation for Basque Low-Resource Language",
+      "rationale": "Both papers focus on Basque as a low-resource language case study. W4416223637 develops multimodal LLMs for Basque using different backbone models and data mixtures, finding that low ratios of Basque multimodal data suffice and a Basque-instructed backbone is not required. W4417133178 systematically studies instruction tuning alternatives for Basque, using target language corpora and synthetic instructions, finding that instruction-tuned backbones outperform base models. The shared focus on Basque and adaptation via instruction/multimodal training makes this cluster coherent.",
+      "cluster_id": "C11",
+      "coherence": "coherent",
+      "contrast": "Unlike C6 which covers multiple language groups (including African languages) and diverse adaptation methods (continual learning, contextual learning, continued pre-training, survey), C11 is tightly focused on Basque with two complementary studies on instruction tuning and multimodal adaptation. Unlike C3 which benchmarks various low-resource languages (Sinhala, Indonesian, Austronesian), C11 is a deep dive into a single language.",
+      "evidence": [
+        {
+          "paper_id": "W4416223637",
+          "quote": " In this paper, we aim to develop a strong MLLM for a low-resource language, namely Basque. For that purpose, we develop our own training and evaluation image-text datasets. Using two different Large Language Models as backbones, the Llama-3.1-Instruct model and a Basque-adapted variant called Latxa, we explore several data mixtures for training."
+        },
+        {
+          "paper_id": "W4417133178",
+          "quote": " We assume a realistic scenario for low-resource languages, where only the following are available: corpora in the target language, existing open-weight multilingual base and instructed backbone LLMs, and synthetically generated instructions sampled from the instructed backbone."
+        }
+      ]
+    },
+    {
+      "label": "Adaptive LLMs for African Languages and Programming Language Revival",
+      "rationale": "The cluster contains two papers with different foci: W7115677253 on adaptive and efficient LLMs for low-resource African languages using LoRA fine-tuning and synthetic data augmentation, and W7168097912 on using LLMs to revive low-resource programming languages (algorithmic translator). The domains differ (natural languages vs programming languages) and the methods differ (LoRA fine-tuning for African NLP vs translation/revival for programming languages). There is no meaningful shared research idea beyond the broad 'low-resource' label.",
+      "cluster_id": "C13",
+      "coherence": "mixed",
+      "contrast": "Unlike C6 which includes a survey, continual learning, contextual learning, and continued pre-training for multiple low-resource language groups (including African languages), C13 has only two papers with disjoint domains. Unlike C2 which focuses on fine-tuning for machine translation and tokenizer adaptation for low-resource languages, C13's programming language paper is about revival/translation, not machine translation of natural languages.",
+      "evidence": [
+        {
+          "paper_id": "W7115677253",
+          "quote": " PAIDeF SuperAI 2025 Conference Adaptive and Efficient Large Language Models for Low-Resource African Languages Authors: Mohammed Ajuji, Saifullahi Ibrahim Waziri, Datti Useni Emmanuel Keywords—Large Language Models, Low-Resource Languages, LoRA, Fine-Tuning, African NLP, Responsible AI, LLaMA-3, Synthetic Data Augmentation."
+        },
+        {
+          "paper_id": "W7168097912",
+          "quote": "THE ALGORITHMIC TRANSLATOR Using Large Language Models to Revive Low-Resource Programming Languages. THE ALGORITHMIC TRANSLATOR Using Large Language Models to Revive Low-Resource Programming Languages"
+        }
+      ]
+    }
+  ],
+  "clusters": [
+    {
+      "id": "C1",
+      "label": "Unclustered: Large Language Models and Low-Resource Languages: An Examination of Armenian NLP",
+      "paper_ids": [
+        "W4392637283"
+      ],
+      "rationale": "No compatible group met the pairwise similarity threshold; retained as an outlier."
+    },
+    {
+      "id": "C2",
+      "label": "LLM Adaptation for Low-Resource Natural & Programming Languages",
+      "paper_ids": [
+        "W4392669965",
+        "W4402671168",
+        "W4408280927",
+        "W4412889388",
+        "W7165392193"
+      ],
+      "rationale": "[mixed] The cluster groups papers that apply LLMs to low-resource settings but the tasks, methods, and domains differ materially. Two papers focus on natural language tasks (annotation, reranking) for spoken languages, one introduces a LoRA-based fine-tuning method for machine translation of Asian languages, another evaluates tokenizer adaptation for low-resource programming languages (Elixir, Racket), and the last analyzes fine-tuning challenges for Azerbaijani. There is no single research idea uniting all five. Neighbor C3 concentrates on benchmarking and translation for specific Austronesian and Indonesian languages, while C2 spans annotation, retrieval, MT, code generation, and a case study on Azerbaijani. Neighbor C6 surveys multimodal and continual-learning approaches, which are not represented in C2."
+    },
+    {
+      "id": "C3",
+      "label": "Benchmarking and Translating Low-Resource Austronesian & Indonesian Languages",
+      "paper_ids": [
+        "W4402389783",
+        "W4403364915",
+        "W4416034203",
+        "W7162479607"
+      ],
+      "rationale": "[coherent] All four papers target low-resource Austronesian or Indonesian languages and share a focus on evaluation or translation. They introduce benchmarks (FormosanBench), build translation models (NusaMT-7B), assess recent LLMs on Sinhala, and explore LLM-based data enhancement for Mesoamerican languages, but the unifying thread is systematic evaluation and translation improvement for specific low-resource language families. Unlike C2, which mixes annotation, retrieval, MT, code, and a single-language case study, C3 is centered on benchmark creation and translation modeling for Austronesian/Indonesian languages. C4 works on folktale representation and dictionary building, not benchmarking."
+    },
+    {
+      "id": "C4",
+      "label": "LLM Adaptation for Cultural Text Representation and Lexicography",
+      "paper_ids": [
+        "W4404389841",
+        "W7197036362"
+      ],
+      "rationale": "[coherent] Both papers adapt LLMs for low-resource language cultural artifacts: one evaluates and adapts models to represent folktales (Irish, Gaelic) via longer-sequence fine-tuning and continued pre-training; the other proposes a conceptual framework for an electronic explanatory dictionary of Tajik, integrating morphological analysis, lemmatization, and LLM-based entry generation. The shared idea is adapting LLMs for structured cultural/lexical representation in low-resource languages. C4 focuses on cultural text (folktales) and lexicographic resource building, whereas C2 addresses general NLP tasks (annotation, retrieval, MT, code) and C3 emphasizes benchmarking and translation for specific language families."
+    },
+    {
+      "id": "C5",
+      "label": "LLM Opportunities and Challenges for Low-Resource Languages in Humanities and Swahili",
+      "paper_ids": [
+        "W4405173107",
+        "W7155356580"
+      ],
+      "rationale": "[coherent] Both papers discuss opportunities and challenges of applying LLMs to low-resource languages within humanities or community-focused contexts. One systematically evaluates LLM applications for linguistic, historical, and cultural research, stressing interdisciplinary collaboration; the other conducts usability tests with Swahili speakers in Tanzania, finding data scarcity and architectural limitations drive inaccuracies. The common thread is assessing LLM fit for low-resource languages in real-world humanistic or community settings. C5 centers on humanities research and user-centered evaluation for Swahili, while C2 tackles technical adaptation methods across diverse tasks, C3 builds benchmarks and translation models for Austronesian languages, and C4 targets folktale representation and dictionary construction."
+    },
+    {
+      "id": "C6",
+      "label": "Large Language Model Adaptation for Low-Resource Languages: Surveys, Continual Learning, and African Case Studies",
+      "paper_ids": [
+        "W4407385098",
+        "W7123296616",
+        "W7123371404",
+        "W7154856337",
+        "W7155373379",
+        "W7165482954"
+      ],
+      "rationale": "[mixed] The cluster contains a survey on multimodal models for low-resource languages (W4407385098), three versions of a continual-learning paper using POS-based code-switching and replay adapters to mitigate catastrophic forgetting when adapting LLMs to low-resource languages (W7123296616, W7123371404, W7155373379), a paper on contextual learning for zero-shot/few-shot learning (W7154856337), and a thesis on adapting LLMs for African languages with continued pre-training and benchmarking (W7165482954). The common thread is LLM adaptation for low-resource languages, but the methods differ: survey, continual learning, contextual learning, and continued pre-training. This methodological diversity makes the cluster mixed. Unlike C2 which focuses on fine-tuning with LoRA for machine translation and tokenizer adaptation, and C11 which focuses on instruction tuning and multimodal models specifically for Basque, C6 covers a broader set of adaptation strategies (continual learning, contextual learning, continued pre-training) across multiple language groups including African languages. C13 also addresses African languages but only has two papers: one on adaptive LLMs with LoRA and one on programming languages."
+    },
+    {
+      "id": "C7",
+      "label": "Unclustered: Fine-tuning large language models for improved health communication in low-resource languages",
+      "paper_ids": [
+        "W4407393353"
+      ],
+      "rationale": "No compatible group met the pairwise similarity threshold; retained as an outlier."
+    },
+    {
+      "id": "C8",
+      "label": "Unclustered: Large Language Models With Contrastive Decoding Algorithm for Hallucination Mitigation in Low‐Resource Languages",
+      "paper_ids": [
+        "W4409178241"
+      ],
+      "rationale": "No compatible group met the pairwise similarity threshold; retained as an outlier."
+    },
+    {
+      "id": "C9",
+      "label": "Title-only records: Interactive Machine Translation with Large Language Models for Low-Resourced Languages",
+      "paper_ids": [
+        "W4410184664",
+        "W7134895265"
+      ],
+      "rationale": "[insufficient_evidence] No abstract or full text is available to verify a shared research subtopic. Titles suggest a topic, but no reliable distinction from neighboring research can be established."
+    },
+    {
+      "id": "C10",
+      "label": "Unclustered: Evaluating quantized Large Language Models for code generation on low-resource language benchmarks",
+      "paper_ids": [
+        "W4412862878"
+      ],
+      "rationale": "No compatible group met the pairwise similarity threshold; retained as an outlier."
+    },
+    {
+      "id": "C11",
+      "label": "Instruction Tuning and Multimodal Adaptation for Basque Low-Resource Language",
+      "paper_ids": [
+        "W4416223637",
+        "W4417133178"
+      ],
+      "rationale": "[coherent] Both papers focus on Basque as a low-resource language case study. W4416223637 develops multimodal LLMs for Basque using different backbone models and data mixtures, finding that low ratios of Basque multimodal data suffice and a Basque-instructed backbone is not required. W4417133178 systematically studies instruction tuning alternatives for Basque, using target language corpora and synthetic instructions, finding that instruction-tuned backbones outperform base models. The shared focus on Basque and adaptation via instruction/multimodal training makes this cluster coherent. Unlike C6 which covers multiple language groups (including African languages) and diverse adaptation methods (continual learning, contextual learning, continued pre-training, survey), C11 is tightly focused on Basque with two complementary studies on instruction tuning and multimodal adaptation. Unlike C3 which benchmarks various low-resource languages (Sinhala, Indonesian, Austronesian), C11 is a deep dive into a single language."
+    },
+    {
+      "id": "C12",
+      "label": "Unclustered: Large Language Models for Toxic Language Detection in Low-Resource Balkan Languages",
+      "paper_ids": [
+        "W4416249530"
+      ],
+      "rationale": "No compatible group met the pairwise similarity threshold; retained as an outlier."
+    },
+    {
+      "id": "C13",
+      "label": "Adaptive LLMs for African Languages and Programming Language Revival",
+      "paper_ids": [
+        "W7115677253",
+        "W7168097912"
+      ],
+      "rationale": "[mixed] The cluster contains two papers with different foci: W7115677253 on adaptive and efficient LLMs for low-resource African languages using LoRA fine-tuning and synthetic data augmentation, and W7168097912 on using LLMs to revive low-resource programming languages (algorithmic translator). The domains differ (natural languages vs programming languages) and the methods differ (LoRA fine-tuning for African NLP vs translation/revival for programming languages). There is no meaningful shared research idea beyond the broad 'low-resource' label. Unlike C6 which includes a survey, continual learning, contextual learning, and continued pre-training for multiple low-resource language groups (including African languages), C13 has only two papers with disjoint domains. Unlike C2 which focuses on fine-tuning for machine translation and tokenizer adaptation for low-resource languages, C13's programming language paper is about revival/translation, not machine translation of natural languages."
+    }
+  ],
+  "warnings": [
+    "clusters did not pass grading after 2 attempts"
+  ],
+  "usage": {
+    "prompt_tokens": 26440,
+    "completion_tokens": 2354,
+    "llm_calls": 3,
+    "estimated_calls": 0,
+    "budget": 50000
+  },
+  "protocol": "Final successful cluster-stage run on the same saved 30 papers; fixed SemCSE complete-linkage partition, neighbor-aware labels, source-span evidence, fresh H-MEM scope for each LLM call. Model assessments are not expert labels.",
+  "verified_evidence_count": 21,
+  "assessment_counts": {
+    "insufficient_evidence": 1,
+    "mixed": 3,
+    "coherent": 4
+  },
+  "memory_receipts": [
+    {
+      "reported": true,
+      "scope": "litagent-call-9693b87fee3f4b22b08518de239cee00",
+      "injected": 0
+    },
+    {
+      "reported": true,
+      "scope": "litagent-call-7ce3f895fb0c4ff3a386b6c78c599268",
+      "injected": 0
+    },
+    {
+      "reported": true,
+      "scope": "litagent-call-8bc749192fa54f778f56c1aee76fe609",
+      "injected": 0
+    }
+  ],
+  "grade_decisions": [
+    {
+      "decision": "3/9 fail",
+      "why": "Too many single-paper clusters; lower the similarity threshold or merge."
+    },
+    {
+      "decision": "6/9 fail",
+      "why": "Re-evaluate cluster membership by reading abstracts; split mixed clusters (C2, C6, C13) into coherent subtopics; merge duplicate records (W7123296616, W7123371404, W7155373379); re-label clusters with specific, evidence-backed descriptions; move title-only papers to an uncertain group rather than a cluster."
+    }
+  ],
+  "human_review": {
+    "path": "evals/cluster-review-low-resource.json",
+    "status": "awaiting_human_labels",
+    "scored": 0
+  },
+  "quote_validation_note": "Historical snapshot: quotes were checked against concatenated embedding text. Raw-field audit found cross-field joins; superseded by single-field evidence extraction.",
+  "raw_field_quote_failures": 3
+}

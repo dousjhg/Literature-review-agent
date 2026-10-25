@@ -113,7 +113,8 @@ def run_pipeline(
                 stage = "clusterer"
                 check_time(stage)
                 result.clusters = _graded_stage(
-                    "clusters", lambda fix: clusterer.cluster(papers, effort, settings, fix), papers, settings, trace, result, world
+                    "clusters", lambda fix: clusterer.cluster(papers, effort, settings, fix, defer_labels_on_size_failure=True),
+                    papers, settings, trace, result, world
                 )
                 world.write_clusters(result.clusters)
 

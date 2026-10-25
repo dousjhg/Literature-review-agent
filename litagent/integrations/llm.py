@@ -9,7 +9,9 @@ Nightshift caches answers, keyed on the user message and the calling app (not th
 and replays semantically similar messages. A stale or near-duplicate replay would be wrong for us
 (an edited prompt ignored, or one paper pair answered with another pair's quotes), so every request
 names its app per run (`x-title: litagent-<run_id>`): each run gets its own cache partition.
-The cache status Nightshift reports is logged with every call.
+The cache status Nightshift reports is logged with every call. Nightshift also retrieves
+prior answers through H-MEM across app IDs within one scope: every request/repair gets a
+fresh meterless-scope so producers, graders, and previous runs cannot share those answers.
 """
 
 from __future__ import annotations
@@ -18,6 +20,7 @@ import json
 import os
 import re
 import time
+import uuid
 from contextvars import ContextVar
 from pathlib import Path
 from typing import TypeVar
@@ -132,22 +135,31 @@ def complete_json(
         if meter:
             meter.check()
         start = time.monotonic()
+        request_scope = f"litagent-call-{uuid.uuid4().hex}"
         response = client.chat.completions.create(
             model=model,
             messages=messages,
             response_format={"type": "json_object"},
-            extra_headers={"x-title": _app_name()},
+            extra_headers={"x-title": _app_name(), "meterless-scope": request_scope},
         )
         text = response.choices[0].message.content or ""
         tokens = _tokens(response.usage, messages, text)
         cache = _cache_status(response)
+        memory = _memory_status(response)
         if meter:
             meter.add(tokens["prompt"], tokens["completion"], estimated=tokens.get("estimated", False))
+        if memory.get("injected", 0):
+            _log(agent_name, f"llm call {output_model.__name__} (attempt {attempt})", "unexpected answer memory",
+                 "raise", "Prior answers would contaminate independent agents/evaluations", response.model or model,
+                 tokens, start, cache, memory)
+            raise LLMError("Nightshift injected prior-answer memory despite a fresh request scope")
+        if memory.get("scope") is not None and memory["scope"] != request_scope:
+            raise LLMError("Nightshift did not honor the requested answer-memory scope")
         try:
             parsed = output_model.model_validate_json(_clean_json_text(text))
         except ValidationError as e:
             _log(agent_name, f"llm call {output_model.__name__} (attempt {attempt})", "invalid JSON",
-                 "retry with error" if attempt == 1 else "raise", str(e), response.model or model, tokens, start, cache)
+                 "retry with error" if attempt == 1 else "raise", str(e), response.model or model, tokens, start, cache, memory)
             if attempt == 2:
                 raise LLMError(f"{output_model.__name__}: model output failed validation twice") from e
             messages += [
@@ -156,7 +168,7 @@ def complete_json(
             ]
             continue
         _log(agent_name, f"llm call {output_model.__name__} (attempt {attempt})", "valid JSON",
-             "return", "", response.model or model, tokens, start, cache)
+             "return", "", response.model or model, tokens, start, cache, memory)
         return parsed
     raise AssertionError("unreachable")
 
@@ -173,6 +185,18 @@ def _cache_status(response) -> str | None:
     if isinstance(receipt, dict):
         return (receipt.get("cache") or {}).get("status")
     return None
+
+
+def _memory_status(response) -> dict:
+    """Log only isolation metadata; never read or log retrieved memory contents."""
+    metadata = getattr(response, "meterless", None)
+    if not isinstance(metadata, dict):
+        return {"reported": False}
+    receipt = metadata.get("receipt")
+    if not isinstance(receipt, dict) or "hmem" not in receipt:
+        return {"reported": False, "scope": metadata.get("scope")}
+    hmem = receipt["hmem"] or {}
+    return {"reported": True, "scope": metadata.get("scope"), "injected": hmem.get("injected", 0)}
 
 
 def _tokens(usage, messages: list[dict], reply: str) -> dict:
@@ -200,7 +224,8 @@ def _clean_json_text(text: str) -> str:
 
 
 def _log(agent: str, action: str, decision: str, next_step: str, why: str, model: str, tokens, start: float,
-         cache: str | None = None) -> None:
+         cache: str | None = None, memory: dict | None = None) -> None:
     if trace := current_trace():
         trace.log(agent, action, decision, next_step=next_step, why=why, model=model, tokens=tokens,
-                  duration_ms=round((time.monotonic() - start) * 1000), nightshift_cache=cache)
+                  duration_ms=round((time.monotonic() - start) * 1000), nightshift_cache=cache,
+                  nightshift_memory=memory)

@@ -9,7 +9,7 @@ from __future__ import annotations
 
 from typing import Any, Literal
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
 
 from litagent.config import Effort
 
@@ -78,11 +78,59 @@ class Evidence(BaseModel):
     quote: str  # verbatim text from the paper's abstract or full text
 
 
+class ClusterLabel(BaseModel):
+    """The labeller names a fixed group; it cannot change membership or invent paper ids."""
+
+    model_config = ConfigDict(str_strip_whitespace=True)
+    label: str = Field(min_length=1)
+    rationale: str = Field(min_length=1)
+
+
 class Cluster(BaseModel):
     id: str
     label: str
     paper_ids: list[str]
     rationale: str  # why these papers belong together
+
+
+class ClusterAssessment(ClusterLabel):
+    """Evidence-grounded naming of a fixed cluster, with an explicit abstention path."""
+
+    cluster_id: str
+    coherence: Literal["coherent", "mixed", "insufficient_evidence"]
+    contrast: str = Field(min_length=1, description="Supported distinction from neighbors, or an explicit inability to distinguish")
+    evidence: list[Evidence] = Field(default_factory=list)
+
+
+class ClusterAssessmentBatch(BaseModel):
+    assessments: list[ClusterAssessment]
+
+
+class EvidenceReference(BaseModel):
+    """An LLM selects a supplied source span; code copies the original bytes into Evidence."""
+
+    paper_id: str
+    span_id: str
+
+
+class ClusterAssessmentProposal(ClusterLabel):
+    cluster_id: str
+    coherence: Literal["coherent", "mixed", "insufficient_evidence"]
+    contrast: str = Field(min_length=1)
+    evidence: list[EvidenceReference] = Field(default_factory=list)
+
+
+class ClusterAssessmentProposals(BaseModel):
+    assessments: list[ClusterAssessmentProposal]
+
+
+class TopicProposal(ClusterLabel):
+    paper_ids: list[str] = Field(min_length=1)
+    evidence: list[EvidenceReference] = Field(default_factory=list)
+
+
+class TopicProposals(BaseModel):
+    topics: list[TopicProposal]
 
 
 class Connection(BaseModel):

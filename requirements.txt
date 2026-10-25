@@ -18,12 +18,11 @@ psycopg[binary]>=3.2
 fastapi>=0.110
 uvicorn>=0.29
 
-# TODO: uncomment when you implement the Clusterer.
-# The Docker image must not download models at runtime: bake the embedding model in at build time.
-# sentence-transformers>=3.0   # for SPECTER2 or other embedding models
-# scikit-learn>=1.4            # for silhouette score / clustering
-# umap-learn>=0.5
-# hdbscan>=0.8
+# CPU semantic clustering. Provision weights with scripts/setup_embeddings.py;
+# Docker bakes them in at build time. Real runs only load local files.
+sentence-transformers>=5.7,<6
+scikit-learn>=1.4,<2
+scipy>=1.11,<2
 
 # TODO: uncomment when you implement full-text reading (High / Ultra)
 # pypdf>=4.0

@@ -1,0 +1,105 @@
+{
+  "protocol": "Fixed memberships; same grader prompt; no producer rationale or variant identity in judge input; alternating order; isolated cache app and per-request H-MEM scope. See memory receipts. LLM diagnostic only; not human gold. Exact duplicate labels is a lexical metric, not semantic separability.",
+  "corpus_fingerprint": "7fefd458fba53e4e0775f729452d0da9ed139ce54c9939930d7c515280f0668a",
+  "grader_prompt_sha256": "c2a49a75f7cde0ccbf7ec6c30ca9191b66902b74d28af2e05010e7c2b43ea435",
+  "model": "nvidia/nemotron-3-ultra-550b-a55b",
+  "repeats": 2,
+  "source_reports": {
+    "baseline": "logs/clusters-20261025-060555-b625f3.json",
+    "candidate": "logs/clusters-20261025-064853-65ce71.json"
+  },
+  "identical_memberships": true,
+  "exact_duplicate_label_excess": {
+    "baseline": 1,
+    "candidate": 0
+  },
+  "results": {
+    "baseline": [
+      {
+        "run_id": "20261025-065015-575758",
+        "grade": {
+          "stage": "clusters",
+          "accuracy": 1,
+          "appropriateness": 0,
+          "actionability": 0,
+          "fix": "Redo clustering with proper semantic grouping. Use paper abstracts to identify coherent subtopics (e.g., benchmarking, fine-tuning methods, specific language families, multimodal, code generation, domain-specific applications). Merge duplicate records (W7123296616, W7123371404, W7155373379 are the same paper). Do not create 'Unclustered' singleton clusters unless truly unique; instead, group by shared research focus. Provide specific, descriptive labels for each cluster.",
+          "reasoning": "The clustering output is severely flawed. Multiple distinct papers are grouped under nearly identical generic labels ('Adapting LLMs for Low-Resource Languages', 'Adapting large models for low-resource languages', 'LLM adaptation for low-resource language resources', 'LLMs for low-resource language challenges', 'Adapting LLMs for low-resource languages') without meaningful differentiation. Three records (W7123296616, W7123371404, W7155373379) are duplicates of the same continual-learning paper but appear as separate entries in cluster C6. Several papers that share clear subtopics are split: e.g., the two Basque multimodal/instruction papers (W4416223637, W4417133178) are correctly paired in C11, but the two Interactive MT papers (W4410184664, W7134895265) are correctly paired in C9, while the three Austronesian/Formosan papers (W4402389783, W4403364915, W4416034203, W7162479607) are grouped in C3 but W7162479607 is a dissertation on Mesoamerican languages, not Austronesian. The African language papers (W4402671168, W7115677253, W7165482954) are split across C2, C13, and C6. The survey paper on multimodal models (W4407385098) is placed in C6 with continual-learning papers, which is incoherent. Singleton clusters labeled 'Unclustered' (C1, C7, C8, C10, C12) should be merged into appropriate thematic groups. Overall, the clustering does not reflect the actual content of the papers and is not actionable for a researcher."
+        },
+        "total": 1,
+        "memory_receipts": [
+          {
+            "reported": true,
+            "scope": "litagent-call-3e22555e9e734cd59a61cc280377ad31",
+            "injected": 0
+          }
+        ]
+      },
+      {
+        "run_id": "20261025-065040-5dad3c",
+        "grade": {
+          "stage": "clusters",
+          "accuracy": 1,
+          "appropriateness": 1,
+          "actionability": 1,
+          "fix": "Merge clusters C2, C6, C13 into a single 'LLM adaptation for low-resource languages' cluster; merge C4 and C11 into 'Multimodal/dictionary LLM work for specific low-resource languages'; keep C3 (Austronesian benchmark) and C9 (interactive MT) separate; keep each unclustered paper as its own singleton with a descriptive label reflecting its specific focus (e.g., Armenian review, health communication in Vietnamese, hallucination mitigation, code generation quantization, toxic language detection).",
+          "reasoning": "The clustering duplicates the same generic label across C2, C6, C13 despite all covering LLM adaptation for low-resource languages with overlapping paper sets (e.g., W7154856337 appears only in C6, W7115677253/W7168097912 only in C13). C4 and C11 both address multimodal/dictionary LLM work for specific languages (Tajik, Basque) and should be merged. Several singletons (C1, C7, C8, C10, C12) are marked 'Unclustered' but have distinct topics that deserve specific labels, not a generic 'Unclustered' prefix. The current output inflates cluster count, misrepresents thematic cohesion, and fails the rubric's requirement that each label describes all papers in the cluster and that similar labels be merged when they cover the same subtopic."
+        },
+        "total": 3,
+        "memory_receipts": [
+          {
+            "reported": true,
+            "scope": "litagent-call-8ffcee71f1ad494f991ededb3907fda8",
+            "injected": 0
+          }
+        ]
+      }
+    ],
+    "candidate": [
+      {
+        "run_id": "20261025-065025-813ae6",
+        "grade": {
+          "stage": "clusters",
+          "accuracy": 2,
+          "appropriateness": 1,
+          "actionability": 1,
+          "fix": "Re-cluster papers based on actual shared research subtopic (task, method, domain) supported by abstracts. Remove duplicate entries (e.g., W7123296616/W7123371404 are identical to W7155373379). Split C6 into at least three clusters: (1) surveys of LMMs/LLMs for low-resource languages (W4407385098), (2) continual learning / catastrophic forgetting (W7155373379 + duplicates), (3) African language adaptation benchmarks & CPT/SFT (W7165482954). Merge C9 title-only records only if they are the same study (they appear to be the same title — keep as one record or note duplication). Merge C13 papers only if they share a subtopic; W7115677253 (African LLM adaptation with LoRA/synthetic data) and W7168097912 (reviving low-resource programming languages) are different domains — split. Ensure each cluster label reflects the specific subtopic, not just the broad field.",
+          "reasoning": "Accuracy is moderate: some clusters correctly group papers with shared subtopics (C3 Austronesian/Indonesian benchmarking & MT, C11 Basque instruction tuning + multimodal, C4 cultural text representation & lexicography). However, C6 mixes a survey of multimodal models, three identical continual-learning records, and a distinct African-language adaptation thesis — these are different subtopics. C13 conflates African natural language adaptation with programming language revival. C9 lists two records with identical titles and no abstracts; they are likely the same study and should be deduplicated. Appropriateness is low because clusters are not specific enough and mix distinct ideas. Actionability is low: a researcher could not reliably use these clusters to find related work without re-checking abstracts."
+        },
+        "total": 4,
+        "memory_receipts": [
+          {
+            "reported": true,
+            "scope": "litagent-call-4a284bf0bf904ca79b914edbdb5d3bdb",
+            "injected": 0
+          }
+        ]
+      },
+      {
+        "run_id": "20261025-065031-19eee9",
+        "grade": {
+          "stage": "clusters",
+          "accuracy": 2,
+          "appropriateness": 1,
+          "actionability": 1,
+          "fix": "Re-cluster by actual research subtopic using abstracts: create distinct clusters for (1) health-domain fine-tuning (W4407393353), (2) hallucination mitigation in NMT (W4409178241), (3) toxic language detection for Balkan languages (W4416249530), (4) quantized code-generation evaluation (W4412862878), (5) interactive MT (W4410184664, W7134895265), (6) Armenian NLP survey (W4392637283), (7) MLLM survey (W4407385098), (8) continual learning for LRLs (W7155373379, W7123296616, W7123371404), (9) African LLM adaptation & benchmarking (W7115677253, W7165482954, W7165392193, W4402671168, W7155356580), (10) Austronesian/Indonesian benchmarking & MT (W4402389783, W4403364915, W4416034203, W7162479607), (11) cultural text representation & lexicography (W4404389841, W7197036362), (12) humanities opportunities/challenges (W4405173107), (13) tokenizer adaptation for low-resource programming languages (W4412889388, W7168097912), (14) multimodal & instruction tuning for Basque (W4416223637, W4417133178), (15) contextual learning strategies (W7154856337), (16) LoRA-based MT for Asian LRLs (W4408280927), (17) LLM annotation for Indic languages (W4392669965). Merge duplicate continual-learning records into one cluster. Ensure each cluster label reflects the specific task/method/domain evidenced in the abstracts.",
+          "reasoning": ""
+        },
+        "total": 4,
+        "memory_receipts": [
+          {
+            "reported": true,
+            "scope": "litagent-call-129e838bdc4c4c39ab493a98ef9b2b8d",
+            "injected": 0
+          }
+        ]
+      }
+    ]
+  },
+  "usage": {
+    "prompt_tokens": 37250,
+    "completion_tokens": 2067,
+    "llm_calls": 4,
+    "estimated_calls": 0,
+    "budget": null
+  }
+}

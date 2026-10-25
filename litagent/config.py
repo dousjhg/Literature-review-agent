@@ -9,6 +9,7 @@ import os
 from dataclasses import dataclass, field
 from datetime import date
 from enum import Enum
+from pathlib import Path
 
 from dotenv import load_dotenv
 
@@ -40,6 +41,23 @@ EFFORT_PROFILES: dict[Effort, EffortProfile] = {
 
 # Meterless World Model: authors recorded per paper (consortium papers can list hundreds)
 WORLD_MODEL_MAX_AUTHORS = 10
+
+# CPU encoder, pinned so threshold comparisons use the same model on every machine.
+EMBEDDING_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
+EMBEDDING_REVISION = "1110a243fdf4706b3f48f1d95db1a4f5529b4d41"
+EMBEDDING_PROFILES = {
+    "minilm": {"model": EMBEDDING_MODEL, "revision": EMBEDDING_REVISION, "pooling": "mean",
+               "chunk_tokens": 224, "batch_size": 16},
+    "semcse": {"model": "CLAUSE-Bielefeld/SemCSE_cosine",
+               "revision": "abc74650cfd087c38d27c480778ac41907a08367", "pooling": "cls",
+               "chunk_tokens": 448, "batch_size": 4},
+}
+EMBEDDING_DOWNLOAD_TIMEOUT_S = 60
+EMBEDDING_METADATA_TIMEOUT_S = 15
+CLUSTER_MAX_PAPER_FRACTION = 0.4
+CLUSTER_MAX_SINGLETON_FRACTION = 0.5
+CLUSTER_THRESHOLD_SWEEP = (0.5, 0.6, 0.7, 0.8, 0.9)
+SIMILARITY_HYBRID_DENSE_WEIGHT = 0.85  # optional ablation, not the production default
 
 
 @dataclass(frozen=True)
@@ -91,7 +109,36 @@ class Settings:
     rank_relevance_weight: float = 0.7
 
     # Clustering
-    cluster_similarity_threshold: float = 0.7  # TODO: check against your embedding model on a sample
+    cluster_similarity_threshold: float = 0.7  # fixed mode / fallback; hybrid scores are not probabilities
+    cluster_threshold_mode: str = "fixed"  # adaptive is an experimental, unsupervised coarse-topic cut
+    cluster_threshold_candidates: tuple[float, ...] = (0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8)
+    cluster_dense_weight: float = 1.0  # lexical fusion is opt-in: it did not consistently improve clustering
+    cluster_lexical_title_weight: float = 0.35
+    cluster_lexical_max_df: float = 0.95
+    cluster_lexical_max_features: int = 20_000
+    cluster_lexical_ngram_range: tuple[int, int] = (1, 2)
+    cluster_redo_threshold_step: float = 0.05
+    cluster_label_text_chars: int = 2000
+    cluster_label_max_papers: int = 8
+    cluster_label_strategy: str = "contrastive"  # independent retained for controlled comparisons
+    cluster_label_batch_size: int = 4
+    cluster_label_neighbors: int = 2
+    cluster_neighbor_text_chars: int = 600
+    cluster_label_validation_retries: int = 1
+    cluster_evidence_min_chars: int = 20
+    cluster_evidence_span_chars: int = 400
+    cluster_grouping_strategy: str = "complete"  # semantic is an evidence-grounded, constrained candidate
+    cluster_semantic_text_chars: int = 1400
+    cluster_semantic_neighbor_limit: int = 6
+    cluster_representative_relevance_weight: float = 0.7  # MMR: centrality versus redundant examples
+    embedding_profile: str = field(default_factory=lambda: os.getenv("EMBEDDING_PROFILE", "semcse"))
+    embedding_model_dir: str | None = field(default_factory=lambda: os.getenv("EMBEDDING_MODEL_DIR"))
+    embedding_batch_size: int = 16
+    embedding_chunk_tokens: int | None = None  # profile default, bounded by the model's token window
+    embedding_max_chunks_per_paper: int = 16
+
+    # Offline quality review: targeted diagnostics, not a population accuracy estimate.
+    cluster_review_pairs_per_stratum: int = 8
 
     # Grading agents: rubric is 3 criteria x 0-3 points = 9 points (Day 4 workshop)
     grade_pass_mark: int = 7
@@ -103,3 +150,11 @@ class Settings:
     defaults: DefaultCriteria = field(default_factory=DefaultCriteria)
 
     logs_dir: str = "logs"
+
+    @property
+    def embedding_directory(self) -> str:
+        if self.embedding_profile not in EMBEDDING_PROFILES:
+            raise ValueError(f"Unknown embedding profile: {self.embedding_profile}")
+        suffix = "" if self.embedding_profile == "minilm" else f"-{self.embedding_profile}"
+        return self.embedding_model_dir or str(
+            Path(__file__).resolve().parents[1] / f"data/cache/embedding-model{suffix}")

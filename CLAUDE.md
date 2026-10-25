@@ -15,6 +15,7 @@ with grading agents after the last three and two human reviews.
 - Keep the sample-mode branch in each agent working (`SAMPLE_MODE=true`: no Zetaris, Nightshift or network); `pytest` runs the pipeline in sample mode.
 - Every external call has a timeout; a judge's run must never wait for keyboard input.
 - Nightshift caches answers by user message + app (not the system prompt) and replays similar messages. `llm.py` gives each run its own cache partition (`x-title: litagent-<run_id>`); keep it, or prompt edits and similar requests get stale answers. The trace's `nightshift_cache` field shows hits.
+- Nightshift H-MEM can inject prior answers across app IDs within one scope, even on cache misses. Keep `llm.py`'s fresh `meterless-scope` for every request/repair; `nightshift_memory` logs the receipt's injection count. Producer and grader must not share answer memory.
 - Never commit keys. Read secrets from `.env` via environment variables.
 
 ## Commands

@@ -78,17 +78,24 @@ Plan first and show me the plan before writing code.
 
 ## 3. Clusterer
 
+Implemented and optimized: pinned CPU SemCSE cosine/CLS embeddings (MiniLM fast baseline),
+complete-linkage grouping, retained single-paper outliers, MMR label examples, Nightshift labels,
+bounded grading redo, offline model loading and Docker build-time provisioning. Verify with
+`scripts/check_threshold.py` and `scripts/check_clusters.py`. Full-text retrieval and the
+Meterless Markovian reasoning engine are still separate TODOs.
+The latest research/ablation decisions are in `docs/similarity-optimization.md`.
+
 ```
 Implement the real Clusterer in litagent/agents/clusterer.py, following docs/agents/clusterer.md and prompts/cluster_labeler.md.
 
 Decisions:
-- Embedding model: ______ (e.g. SPECTER2 via sentence-transformers)
-- Text to embed: ______ (title + abstract, or extracted key claims)
-- Single-paper groups (outliers): ______ (keep as "unclustered" for the Gap finder, or drop)
+- Embedding model: CLAUSE-Bielefeld/SemCSE_cosine, pinned revision in config.py, CPU only; MiniLM optional
+- Text to embed: title + abstract; supplied full text at High/Ultra, metadata fallback logged
+- Single-paper groups (outliers): keep as explicit "Unclustered" groups, without a labeller call
 - Threshold: start at 0.7 (config.cluster_similarity_threshold)
 
 Requirements:
-- Use the existing cosine_similarity_matrix and group_by_threshold.
+- Use cosine_similarity_matrix and complete-linkage grouping; keep group_by_threshold as an experimental baseline.
 - Label each group with the LLM; pass the grading agent's fix into the prompt when given.
 - The Docker image must not download models at runtime: download the embedding model in the Dockerfile at build time. No local GPU.
 - Write a small script (scripts/check_threshold.py) that runs on data/sample/ and prints the number of clusters and their sizes for thresholds 0.5-0.9, so we can check 0.7 works.

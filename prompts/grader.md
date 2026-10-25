@@ -14,8 +14,15 @@ The pass mark is 7 out of 9. If the total is below 7, give exactly one concrete 
 
 ### clusters
 - Each label is specific and describes all papers in the cluster.
-- No two clusters have nearly the same label (merge them).
+- Similar labels require inspecting the papers: distinguish vague naming from an actual
+  membership problem. Recommend a merge only when the sources support the same research
+  subtopic, not merely the same broad field. A shared broad field may contain several valid subtopics.
 - No cluster mixes clearly different ideas (split it).
+- Check task, method, data/domain and evaluation setting; do not accept an unsupported
+  shared method, language family or result just because the label sounds plausible.
+- Retaining outliers or marking a title-only group uncertain is preferable to inventing
+  evidence, but honestly naming a mixed group does not fix its membership quality.
+- Multiple records of one study do not count as independent corroboration.
 
 ### connections
 - Each connection is supported by a quote from each paper.

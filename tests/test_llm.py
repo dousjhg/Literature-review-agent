@@ -98,7 +98,33 @@ def test_each_run_gets_its_own_nightshift_cache_partition(tmp_path):
     client = FakeClient(['{"approved": true}'])
     with Trace(str(tmp_path), run_id="run-42"):
         complete_json("sys", "user", HumanFeedback, settings=real_settings(), client=client)
-    assert client.calls[0]["extra_headers"] == {"x-title": "litagent-run-42"}
+    headers = client.calls[0]["extra_headers"]
+    assert headers["x-title"] == "litagent-run-42"
+    assert headers["meterless-scope"].startswith("litagent-call-")
+
+
+def test_every_call_and_json_repair_has_isolated_answer_memory():
+    client = FakeClient(['not json', '{"approved": true}', '{"approved": false}'])
+    for _ in range(2):
+        complete_json("sys", "user", HumanFeedback, settings=real_settings(), client=client)
+    scopes = [call["extra_headers"]["meterless-scope"] for call in client.calls]
+    assert len(scopes) == len(set(scopes)) == 3
+
+
+def test_unexpected_memory_injection_is_rejected_and_logged(tmp_path):
+    client = FakeClient(['{"approved": true}'])
+    client.receipt = {"scope": "ignored-scope", "receipt": {"hmem": {"injected": 2}}}
+    with Trace(str(tmp_path)) as trace:
+        with pytest.raises(LLMError, match="prior-answer memory"):
+            complete_json("sys", "user", HumanFeedback, settings=real_settings(), client=client)
+    assert trace.events[-1]["nightshift_memory"]["injected"] == 2
+
+
+def test_gateway_scope_mismatch_is_rejected_even_with_no_retrieval():
+    client = FakeClient(['{"approved": true}'])
+    client.receipt = {"scope": "user", "receipt": {"hmem": None}}
+    with pytest.raises(LLMError, match="did not honor"):
+        complete_json("sys", "user", HumanFeedback, settings=real_settings(), client=client)
 
 
 def test_nightshift_cache_status_is_logged(tmp_path):

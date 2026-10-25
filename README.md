@@ -25,6 +25,7 @@ TODO: Describe the flow from the user's side in 4–6 bullets.
 ## Architecture
 
 The full diagram and design decisions are in [ARCHITECTURE.md](ARCHITECTURE.md).
+The file inventory, implemented flow and remaining work are in [docs/project-flow.md](docs/project-flow.md).
 
 Five agents run in sequence, each followed by a check:
 
@@ -45,7 +46,7 @@ See [docs/sponsor-tech.md](docs/sponsor-tech.md) for the full write-up.
 | Sponsor | How we use it | Status |
 | --- | --- | --- |
 | Meterless Nightshift | Primary AI provider: every LLM call goes through it (`litagent/integrations/llm.py`, OpenAI-compatible client) | Wired; confirm model ID in Providers tab |
-| NVIDIA | Nemotron 3.5 Super VL (`NIGHTSHIFT_MODEL`), connected through Nightshift (the NVIDIA key lives in Nightshift's Providers tab). The trace logs the model that handled each request. | Nemotron 3.5 Super VL |
+| NVIDIA | Nemotron (`NIGHTSHIFT_MODEL` in `config.py`), connected through Nightshift (the NVIDIA key lives in Nightshift's Providers tab). The trace logs the model that handled each request. | Configured model: Nemotron 3 Ultra |
 | Zetaris | Shared paper data layer, running locally in Docker: the Retriever writes papers to our paper store, which Zetaris serves as the `litagent_db` data source, and every later agent reads them through Zetaris SQL (`litagent/integrations/zetaris.py`) | Working (live round trip) |
 | Meterless World Model | Implemented in Python from Meterless's spec and reference (`litagent/integrations/world_model/`). Holds every run's papers, authors, clusters, connections (with evidence) and gaps; later agents read from it, `/run` returns it as `paper_map`, `GET /world/{run_id}` returns the full world | Working: all 8 Meterless conformance checks pass |
 | Cursor (with SpaceX XAI) | Optional: development environment, project rules in `.cursor/rules/` | Optional |
@@ -70,7 +71,14 @@ python -m venv .venv
 source .venv/bin/activate        # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 cp .env.example .env             # then fill in your values
+python scripts/setup_embeddings.py  # real clustering: download the pinned CPU encoder once
 ```
+
+Real clustering defaults to the scientific-content model `SemCSE_cosine` with complete linkage
+and a 0.7 cosine cutoff. To use the faster MiniLM baseline, prepare it with
+`python scripts/setup_embeddings.py --profile minilm` and set `EMBEDDING_PROFILE=minilm` in `.env`.
+The research, optional hybrid/adaptive strategies and ablation results are in
+[docs/similarity-optimization.md](docs/similarity-optimization.md).
 
 Set up the Zetaris paper store once (Zetaris must already be running in Docker):
 
@@ -127,6 +135,8 @@ done
 
 ```bash
 docker build -t litagent .
+# Optional smaller/faster encoder build:
+# docker build --build-arg EMBEDDING_PROFILE=minilm -t litagent-minilm .
 docker run --rm -p 8000:8000 -e SAMPLE_MODE=true litagent
 # Real run: Zetaris and Nightshift run on your machine, outside the container
 docker run --rm -p 8000:8000 --env-file .env litagent
@@ -162,6 +172,20 @@ Each effort level also has a token budget (`EFFORT_PROFILES` in `litagent/config
 ```bash
 pytest
 ```
+
+To check the newly implemented real Clusterer independently of the unfinished later agents:
+
+```bash
+python scripts/check_threshold.py --output logs/thresholds.json  # saved papers, local CPU only
+python scripts/check_clusters.py  # saved papers + real Nightshift labels, grading/redo and World Model
+python scripts/check_clusters.py --grouping-strategy semantic --max-redos 0  # experimental source-grounded grouping
+python scripts/review_clusters.py --report logs/clusters-<run_id>.json --output evals/cluster-review.json
+python scripts/benchmark_similarity.py --profiles minilm semcse  # prepare both profiles first
+```
+
+The full real `/run` pipeline still stops at the unimplemented Connection finder. Gap finding,
+PDF retrieval and Markovian full-text reasoning are also pending. Sample mode runs all stages
+using explicitly labelled placeholders; it needs neither the encoder weights nor external services.
 
 ## Evaluation
 

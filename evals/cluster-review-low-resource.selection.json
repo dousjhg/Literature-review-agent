@@ -1,0 +1,213 @@
+{
+  "corpus_fingerprint": "7fefd458fba53e4e0775f729452d0da9ed139ce54c9939930d7c515280f0668a",
+  "split": "development",
+  "selection": [
+    {
+      "paper_ids": [
+        "W4408280927",
+        "W7165482954"
+      ],
+      "stratum": "strong_between",
+      "similarity": 0.7873358682990128,
+      "same_cluster": false
+    },
+    {
+      "paper_ids": [
+        "W4402389783",
+        "W4403364915"
+      ],
+      "stratum": "weak_within",
+      "similarity": 0.7731398218951461,
+      "same_cluster": true
+    },
+    {
+      "paper_ids": [
+        "W4404389841",
+        "W4405173107"
+      ],
+      "stratum": "background",
+      "similarity": 0.6365521006442006,
+      "same_cluster": false
+    },
+    {
+      "paper_ids": [
+        "W4403364915",
+        "W7168097912"
+      ],
+      "stratum": "background",
+      "similarity": 0.5494250856742877,
+      "same_cluster": false
+    },
+    {
+      "paper_ids": [
+        "W4409178241",
+        "W7168097912"
+      ],
+      "stratum": "background",
+      "similarity": 0.3276960118744913,
+      "same_cluster": false
+    },
+    {
+      "paper_ids": [
+        "W4402389783",
+        "W4408280927"
+      ],
+      "stratum": "strong_between",
+      "similarity": 0.7532999289858041,
+      "same_cluster": false
+    },
+    {
+      "paper_ids": [
+        "W7115677253",
+        "W7168097912"
+      ],
+      "stratum": "weak_within",
+      "similarity": 0.6775710537996402,
+      "same_cluster": true
+    },
+    {
+      "paper_ids": [
+        "W4408280927",
+        "W7162479607"
+      ],
+      "stratum": "background",
+      "similarity": 0.6659675805478511,
+      "same_cluster": false
+    },
+    {
+      "paper_ids": [
+        "W4402389783",
+        "W4412889388"
+      ],
+      "stratum": "strong_between",
+      "similarity": 0.7201120547445905,
+      "same_cluster": false
+    },
+    {
+      "paper_ids": [
+        "W4407385098",
+        "W7197036362"
+      ],
+      "stratum": "background",
+      "similarity": 0.46366604127369176,
+      "same_cluster": false
+    },
+    {
+      "paper_ids": [
+        "W4403364915",
+        "W4412889388"
+      ],
+      "stratum": "strong_between",
+      "similarity": 0.728191677611186,
+      "same_cluster": false
+    },
+    {
+      "paper_ids": [
+        "W4403364915",
+        "W7162479607"
+      ],
+      "stratum": "weak_within",
+      "similarity": 0.6886974830847488,
+      "same_cluster": true
+    },
+    {
+      "paper_ids": [
+        "W4405173107",
+        "W4407385098"
+      ],
+      "stratum": "strong_between",
+      "similarity": 0.7549863677501236,
+      "same_cluster": false
+    },
+    {
+      "paper_ids": [
+        "W4408280927",
+        "W4412889388"
+      ],
+      "stratum": "weak_within",
+      "similarity": 0.8388114652346639,
+      "same_cluster": true
+    },
+    {
+      "paper_ids": [
+        "W4409178241",
+        "W7162479607"
+      ],
+      "stratum": "background",
+      "similarity": 0.5486827049344217,
+      "same_cluster": false
+    },
+    {
+      "paper_ids": [
+        "W4412889388",
+        "W7165482954"
+      ],
+      "stratum": "strong_between",
+      "similarity": 0.7692069155538064,
+      "same_cluster": false
+    },
+    {
+      "paper_ids": [
+        "W4403364915",
+        "W4408280927"
+      ],
+      "stratum": "strong_between",
+      "similarity": 0.8266595704050866,
+      "same_cluster": false
+    },
+    {
+      "paper_ids": [
+        "W7168097912",
+        "W7197036362"
+      ],
+      "stratum": "background",
+      "similarity": 0.5350712804952648,
+      "same_cluster": false
+    },
+    {
+      "paper_ids": [
+        "W4407385098",
+        "W4408280927"
+      ],
+      "stratum": "strong_between",
+      "similarity": 0.7362238279737509,
+      "same_cluster": false
+    },
+    {
+      "paper_ids": [
+        "W4407393353",
+        "W4408280927"
+      ],
+      "stratum": "background",
+      "similarity": 0.5717460273584597,
+      "same_cluster": false
+    },
+    {
+      "paper_ids": [
+        "W4407385098",
+        "W7165482954"
+      ],
+      "stratum": "weak_within",
+      "similarity": 0.7793141767258496,
+      "same_cluster": true
+    },
+    {
+      "paper_ids": [
+        "W4402389783",
+        "W7162479607"
+      ],
+      "stratum": "weak_within",
+      "similarity": 0.6622714950717897,
+      "same_cluster": true
+    },
+    {
+      "paper_ids": [
+        "W4404389841",
+        "W7197036362"
+      ],
+      "stratum": "weak_within",
+      "similarity": 0.663448436316871,
+      "same_cluster": true
+    }
+  ]
+}

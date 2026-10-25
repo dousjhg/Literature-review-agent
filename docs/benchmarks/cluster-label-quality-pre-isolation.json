@@ -1,0 +1,78 @@
+{
+  "protocol": "Fixed memberships; same grader prompt; no producer rationale or variant identity in judge input; alternating order; isolated cache per call. LLM diagnostic only; not human gold. Exact duplicate labels is a lexical metric, not semantic separability. Later inspection of installed Nightshift 0.92.3 found cross-app prior-answer retrieval within the default user scope. This run did not set per-request scope.",
+  "corpus_fingerprint": "7fefd458fba53e4e0775f729452d0da9ed139ce54c9939930d7c515280f0668a",
+  "grader_prompt_sha256": "c2a49a75f7cde0ccbf7ec6c30ca9191b66902b74d28af2e05010e7c2b43ea435",
+  "model": "nvidia/nemotron-3-ultra-550b-a55b",
+  "repeats": 2,
+  "source_reports": {
+    "baseline": "logs/clusters-20261025-060555-b625f3.json",
+    "candidate": "logs/clusters-20261025-064249-b24005.json"
+  },
+  "identical_memberships": true,
+  "exact_duplicate_label_excess": {
+    "baseline": 1,
+    "candidate": 0
+  },
+  "results": {
+    "baseline": [
+      {
+        "run_id": "20261025-064547-1841f2",
+        "grade": {
+          "stage": "clusters",
+          "accuracy": 1,
+          "appropriateness": 1,
+          "actionability": 1,
+          "fix": "Merge C2, C6, and C13 into a single cluster \"Adapting LLMs for Low-Resource Languages\" as they all cover LLM adaptation methods (fine-tuning, continued pre-training, tokenizer adaptation, synthetic data) for diverse low-resource languages. Merge C3 and C4 into \"Evaluating and Adapting LLMs for Low-Resource Languages\" because both assess LLM performance on low-resource languages (Austronesian and Irish/Gaelic/Tajik) and explore fine-tuning/adaptation. Merge C5 into the main adaptation cluster as it discusses LLM performance and challenges on low-resource languages. Reassign unclustered papers: W4407393353 (health communication) and W4409178241 (hallucination mitigation) fit the adaptation theme; W4412862878 (code generation) fits tokenizer adaptation; W4416249530 (toxic language detection) is a downstream application of adapted LLMs. Provide specific quotes from abstracts to justify each merge/split decision.",
+          "reasoning": "The clustering output contains many overlapping clusters with near-identical labels (C2, C6, C13 all describe adapting LLMs for low-resource languages) and several single-paper outliers that could belong to broader clusters. The rationale for C2, C6, C13 is nearly the same, violating the rule that no two clusters have nearly the same label. C3 and C4 both evaluate LLM performance on low-resource languages but are kept separate. C5 also overlaps heavily with C2/C6. Several unclustered papers clearly fit adaptation/evaluation themes but are left as outliers. Actionability is low because a researcher would need to manually reconcile these redundancies."
+        },
+        "total": 3
+      },
+      {
+        "run_id": "20261025-064604-662fc0",
+        "grade": {
+          "stage": "clusters",
+          "accuracy": 0,
+          "appropriateness": 0,
+          "actionability": 0,
+          "fix": "Re-cluster from scratch using the actual abstracts. Merge C2, C6, C13 into a single cluster 'Adapting LLMs for Low-Resource Languages' (fine-tuning, continued pre-training, tokenizer adaptation, synthetic data, multimodal/decoder adaptation, African languages focus). Merge C3 and C4 into 'Evaluating and Adapting LLMs for Low-Resource Languages' (Austronesian, Sinhala, Mesoamerican, Irish/Gaelic, Tajik). Merge C5 into the main adaptation cluster as it discusses LLM challenges and opportunities for low-resource languages (humanities, Swahili). Reassign unclustered papers: W4407393353 (health communication fine-tuning) and W4409178241 (hallucination mitigation) fit adaptation theme; W4412862878 (code generation) fits tokenizer adaptation; W4416249530 (toxic language detection) is a downstream application of adapted LLMs. Provide specific quotes from abstracts to justify each merge/split decision.",
+          "reasoning": "The clustering output contains many overlapping clusters with near-identical labels (C2, C6, C13 all describe adapting LLMs for low-resource languages) and several single-paper outliers that could belong to broader clusters. The rationale for C2, C6, C13 is nearly the same, violating the rule that no two clusters have nearly the same label. C3 and C4 both evaluate LLM performance on low-resource languages but are kept separate. C5 also overlaps heavily with C2/C6. Several unclustered papers clearly fit adaptation/evaluation themes but are left as outliers. Actionability is low because a researcher would need to manually reconcile these redundancies."
+        },
+        "total": 0
+      }
+    ],
+    "candidate": [
+      {
+        "run_id": "20261025-064554-bfaf19",
+        "grade": {
+          "stage": "clusters",
+          "accuracy": 0,
+          "appropriateness": 0,
+          "actionability": 0,
+          "fix": "Re-cluster from scratch using the actual abstracts. Merge C2, C6, C13 into 'Adapting LLMs for Low-Resource Languages' (fine-tuning, continued pre-training, tokenizer adaptation, synthetic data). Merge C3 and C4 into 'Evaluating and Adapting LLMs for Low-Resource Languages' (Austronesian, Irish/Gaelic, Tajik, Mesoamerican). Merge C5 into the main adaptation cluster. Reassign unclustered papers: W4407393353 (health communication) and W4409178241 (hallucination mitigation) fit adaptation theme; W4412862878 (code generation) fits tokenizer adaptation; W4416249530 (toxic language detection) is a downstream application of adapted LLMs. Provide specific quotes from abstracts to justify each merge/split decision.",
+          "reasoning": "The clustering output contains many overlapping clusters with near-identical labels (C2, C6, C13 all describe adapting LLMs for low-resource languages) and several single-paper outliers that could belong to broader clusters. The rationale for C2, C6, C13 is nearly the same, violating the rule that no two clusters have nearly the same label. C3 and C4 both evaluate LLM performance on low-resource languages but are kept separate. C5 also overlaps heavily with C2/C6. Several unclustered papers clearly fit adaptation/evaluation themes but are left as outliers. Actionability is low because a researcher would need to manually reconcile these redundancies."
+        },
+        "total": 0
+      },
+      {
+        "run_id": "20261025-064558-e3aa85",
+        "grade": {
+          "stage": "clusters",
+          "accuracy": 1,
+          "appropriateness": 1,
+          "actionability": 1,
+          "fix": "Merge C2, C6, C13 into a single cluster 'Adapting LLMs for Low-Resource Languages' (fine-tuning, continued pre-training, tokenizer adaptation, synthetic data, multimodal/decoder adaptation, African languages focus). Merge C3 and C4 into 'Evaluating and Adapting LLMs for Low-Resource Languages' (Austronesian, Sinhala, Mesoamerican, Irish/Gaelic, Tajik). Merge C5 into the main adaptation cluster as it discusses LLM challenges and opportunities for low-resource languages (humanities, Swahili). Reassign unclustered papers: W4407393353 (health communication fine-tuning) and W4409178241 (hallucination mitigation) fit adaptation theme; W4412862878 (code generation) fits tokenizer adaptation; W4416249530 (toxic language detection) is a downstream application of adapted LLMs. Provide specific quotes from abstracts to justify each merge/split decision.",
+          "reasoning": "The clustering output contains many overlapping clusters with near-identical labels (C2, C6, C13 all describe adapting LLMs for low-resource languages) and several single-paper outliers that could belong to broader clusters. The rationale for C2, C6, C13 is nearly the same, violating the rule that no two clusters have nearly the same label. C3 and C4 both evaluate LLM performance on low-resource languages but are kept separate. C5 also overlaps heavily with C2/C6. Several unclustered papers clearly fit adaptation/evaluation themes but are left as outliers. Actionability is low because a researcher would need to manually reconcile these redundancies."
+        },
+        "total": 3
+      }
+    ]
+  },
+  "usage": {
+    "prompt_tokens": 42738,
+    "completion_tokens": 1640,
+    "llm_calls": 4,
+    "estimated_calls": 0,
+    "budget": null
+  },
+  "validity": "Superseded diagnostic: per-app cache isolation did NOT isolate Nightshift H-MEM. Do not use these scores as independent quality evidence."
+}
