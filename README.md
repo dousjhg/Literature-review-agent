@@ -118,6 +118,23 @@ Request: `{"run_id": optional, "input": {"query": str, "effort": "normal|medium|
 
 `SAMPLE_MODE=true` runs the whole pipeline with no Zetaris, Nightshift or network access. Papers are real OpenAlex records saved in `data/sample/`; clustering, connections, gaps and grades are placeholders labelled "Sample mode".
 
+### Interactive literature map
+
+```bash
+cd frontend
+npm ci
+npm run build
+cd ..
+python run.py
+```
+
+Open <http://127.0.0.1:8000/> to browse saved `/cluster` maps, inspect source quotes,
+preview side-cluster moves, apply new immutable versions, roll back, and submit human
+source-support reviews. New maps accept paper JSON records; opening saved maps makes no
+model calls. Use `SAMPLE_MODE=true python run.py` for offline demonstrations.
+See [frontend setup and workflow](frontend/README.md). Node 22.12+ is required for the build;
+Docker includes the built interface.
+
 ### Examples
 
 `input_examples/` holds 4 `/run` requests (normal, medium with feedback, high, and no topic). `output_examples/` holds the matching responses, generated in sample mode:
@@ -173,7 +190,7 @@ Each effort level also has a token budget (`EFFORT_PROFILES` in `litagent/config
 pytest
 ```
 
-To check the newly implemented real Clusterer independently of the unfinished later agents:
+To check the real Clusterer independently:
 
 ```bash
 python scripts/check_threshold.py --output logs/thresholds.json  # saved papers, local CPU only
@@ -197,7 +214,9 @@ offline API flow with `python scripts/check_cluster_regeneration.py`.
 Real Connection and Gap finders now run in `/run` and through `POST /cluster/{run_id}/analyze`:
 bounded candidate selection, original quotes from both papers, independent verification,
 OpenAlex coverage checks, model grades and cached task reuse. Gaps remain provisional research
-hypotheses. See [API, real-run audit and limits](docs/grounded-findings.md), or run
+hypotheses; candidate selection covers within-group and main–side boundaries. The review
+queue has original sources and blank human judgments, with model decisions hidden by default.
+See [API, real-run audit and limits](docs/grounded-findings.md), or run
 `python scripts/check_findings.py --run-id YOUR_MAP_ID`. PDF retrieval and Markovian full-text
 reasoning remain pending. Sample mode runs all stages using explicitly labelled placeholders;
 it needs neither the encoder weights nor external services.

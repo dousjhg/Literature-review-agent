@@ -1,3 +1,10 @@
+FROM node:22-slim AS frontend-build
+WORKDIR /frontend
+COPY frontend/package.json frontend/package-lock.json ./
+RUN npm ci --no-audit --no-fund
+COPY frontend/ ./
+RUN npm run build
+
 FROM python:3.11-slim
 
 WORKDIR /app
@@ -15,6 +22,7 @@ COPY litagent/integrations/embeddings.py litagent/integrations/__init__.py ./lit
 COPY scripts/setup_embeddings.py ./scripts/setup_embeddings.py
 RUN python scripts/setup_embeddings.py
 COPY . .
+COPY --from=frontend-build /frontend/dist ./frontend/dist
 RUN mkdir -p /app/logs
 
 # Zetaris and Nightshift run outside this container: point their URLs at

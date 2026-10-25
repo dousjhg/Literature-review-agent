@@ -42,7 +42,12 @@ writes. Version selection/rollback uses the existing [regeneration API](cluster-
 ## Sources and claims
 
 The connection stage compares bounded within/cross-group paper pairs. The gap stage uses
-bounded within-group pairs and produces testable, provisional research hypotheses.
+bounded within-group and main–side pairs and produces testable, provisional research hypotheses.
+Default limits are three within-group pairs and three main–side pairs, with one per group
+or cluster pair. Main–side ranking blends the cached similarity (0.7) with local question
+TF-IDF relevance (0.3); this is an engineering retrieval policy, not calibrated scientific
+accuracy. Side–side gaps remain outside this selection. Supporting evidence does not
+move a paper into main.
 Both select original `abstract`/supplied `full_text` spans; the model references span IDs
 and code copies their exact quotes. Each accepted finding requires evidence from BOTH
 boundary papers. Invalid IDs, foreign papers, invented spans, short or missing evidence
@@ -117,7 +122,7 @@ There are no keyboard prompts, unbounded searches or model loops chasing a passi
 
 ## Recorded real run and validation
 
-The current completed map is **`20261025-144502-ad0809`**. Its original clustering map is
+The first completed finding map was **`20261025-144502-ad0809`**. Its original clustering map is
 `20261025-142442-4ae347`: the first 30 saved low-resource LLM papers, one main paper
 (W4408280927), 18 side groups, SemCSE vectors and a 30×30 cached matrix. Medium effort
 was used with the 30-record input, so each job had the existing 100,000-token budget.
@@ -144,8 +149,9 @@ question and precise reviewed-pair scope, and demanded a hypothesis outside the 
 analysis. Future grading requests now include the question and only the selected pair IDs,
 while omitting producer/verifier reasoning, verdicts and similarity scores. The recorded
 3/9 score was neither rerun nor replaced. Scientific quality and recall still require
-human review. In particular, within-group-only gap selection can miss hypotheses between
-a singleton main paper and a supporting side group; this is not an exhaustive gap search.
+human review. That version's within-group-only selection missed main–side hypotheses;
+the expansion recorded below addresses this candidate-scope limitation without claiming
+an exhaustive gap search.
 
 Because no hypothesis passed initial source verification, the actual finding run correctly
 made no novelty-search claims. Separately, the real
@@ -163,7 +169,7 @@ resume and probe report zero prior-answer-memory injection. They report 94,529 t
 the timed-out request supplied no token receipt. These are workflow measurements, not
 semantic accuracy scores.
 
-The final native suite and a network-disabled Linux CPU container both pass **288 tests**.
+That phase's native suite and a network-disabled Linux CPU container both passed **288 tests**.
 Tests cover source-reference repair, false semantic claims, title-only/duplicate exclusion,
 positive and negative caches, coverage counterevidence, API idempotency, partial resume,
 regrouping with new/invalidated findings, matrix reuse, graded scope and World Model
@@ -174,6 +180,50 @@ updated code, prompts, tests, evals and sample outputs read-only into the existi
 
 Resumable task snapshots apply to `/cluster/{run_id}/analyze` and analyzed-map regeneration.
 Normal `/run` retains its existing stage-level partial-result contract; it does not
-create resumable `/cluster` snapshots automatically. Map UI, PDF retrieval/full-text reading,
+create resumable `/cluster` snapshots automatically. Automatic PDF retrieval/full-text reading,
 duplicate-study disambiguation beyond the current heuristics, and expert semantic quality
 review remain outside this implementation.
+
+## Main–side expansion and interactive review
+
+The new completed active map is **`20261025-230430-c3fbbf`**, from the same frozen
+30-paper corpus, one main paper and 18 side groups. The
+[expansion receipt](benchmarks/main-side-gap-expansion.json) records 15 returned model calls
+and 52,596 tokens, reusing the numerical cache. Eight Connection candidates yielded one
+retained connection. Six Gap candidates (three within-group and three main–side) yielded
+five abstentions and one independently rejected proposal, leaving **zero** gaps.
+No novelty search was represented as having succeeded for a rejected hypothesis.
+
+The connection grade was **5/9** with a retained warning; the gap grade was **9/9** for
+honest abstention within the declared scope. These model judgments differ from earlier
+ones and establish neither expert accuracy nor an improvement attributable to this policy.
+The new proposal fields and both source records are available for human inspection.
+
+The [interactive map](../frontend/README.md) reads saved versions without model calls.
+It displays source quotes, numerical hints, scientific edges, move previews and version
+rollback. `GET /maps`, `GET /ui/config`, and `GET /cluster/{id}/papers` provide catalog,
+server mode and original metadata; individual `/papers/{paper_id}` reads supplied full
+text on demand. `GET /cluster/{id}/review` hides model assessments by default;
+`?reveal=true` explicitly reveals them.
+
+`POST /cluster/{id}/review/{item_id}` accepts a version token, self-declared reviewer,
+reason, verdict (`supported`, `unsupported`, `uncertain`), original evidence and whether
+the reviewer saw the model assessment. A decisive judgment requires exact quotes of at
+least 20 characters from both sources. Annotations live in a separate version/corpus-bound
+sidecar with overwrite history; the original map is immutable. Reviewer identity is not
+authenticated, and quote matching cannot establish that a judgment was made by a human.
+
+The frozen [review pack](../evals/finding-review-main-side.json) has **seven pending items**
+(one retained connection and six gap candidate pairs), all annotations blank. See
+[review instructions](../evals/README.md). Its queue includes abstentions so recall can be
+inspected, although it is still a bounded selected sample. Support rate is null until there
+are decisive valid submissions; semantic accuracy is deliberately null.
+
+The expanded native Python suite and the network-disabled Linux CPU container each pass
+**295 tests**. The frontend production build passes TypeScript checks, and three fresh
+Chrome browser tests exercise actual sample-mode HTTP routes, including JSON import,
+move/apply/rollback, explicit temporary review submissions, stale-preview conflicts,
+mobile touch panning and overflow checks. A separate read-only browser pass inspected
+the real 30-paper map and seven-item queue at 1536×1024 and 390×844, with no console errors
+or horizontal overflow. The container check reused the existing dependency image with
+updated code and assets mounted read-only; the full new Docker image was not rebuilt.

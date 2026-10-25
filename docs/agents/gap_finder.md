@@ -5,9 +5,12 @@ Prompts: `prompts/gap_finder.md`, `prompts/gaps_verify.md`, `prompts/gap_coverag
 
 **Status:** Real, provisional research hypotheses with bounded coverage checks; offline sample branch retained.
 
-1. Reuse the original matrix. Select at most three within-group paper pairs, at most one
-   per group, with similarity in the configured range (default 0.5–0.9). Exclude detected
-   duplicate studies and records lacking body evidence.
+1. Reuse the original matrix. Select at most three within-group pairs (one per group)
+   and three main–side pairs (one per cluster pair), with similarity in the configured
+   range (default 0.5–0.9). Exclude detected duplicates and records lacking body evidence.
+   Cross-boundary ranking blends matrix similarity (0.7) and local question TF-IDF
+   relevance (0.3); the latter is a retrieval hint, not evidence of scientific support.
+   These bounded defaults are not calibrated expert-quality thresholds.
 2. Propose an author-stated open problem or a clearly speculative cross-paper hypothesis,
    with a testable question, baseline/evaluation plan, importance and original span
    references from BOTH papers. Omitted mentions in a few abstracts are insufficient.
@@ -31,6 +34,8 @@ Coverage records expire after the configured lifetime (default one day); unavail
 coverage is retried only in a new explicit analysis request, never reused as absence proof.
 Dependencies include boundary membership and the connection findings supplied as context.
 
-The output extends `Gap` with `basis`, `proposed_test`, `similarity` and `coverage`.
+The output extends `Gap` with `basis`, `proposed_test`, `similarity`, `coverage`,
+`scope` and `cluster_ids`. A main–side hypothesis links both clusters in the World Model;
+its legacy `cluster_id` anchor is the main group. Legacy within-group output remains compatible.
 Findings remain reviewable model hypotheses, not confirmed research absences.
 See [API, reproduction and limitations](../grounded-findings.md).

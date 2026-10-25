@@ -45,6 +45,27 @@ python scripts/review_clusters.py --report logs/clusters-<run_id>.json \
 同一份标注可以检查不同策略的分组，只要语料完全一致；禁止用已查看的评测对反复调参后
 再把结果称为独立验证。
 
+## Connection / Gap 来源验收
+
+`finding-review-main-side.json` 冻结了真实地图 `20261025-230430-c3fbbf` 的七项材料：
+一条保留的 Connection、三对组内和三对主簇–侧簇 Gap 候选。**七项均待人工判断，
+annotation 全部为 null**。队列包含模型弃权的候选，便于检查漏召回；它不是无偏全库抽样。
+默认隐藏模型决定和理由，原文使用冻结语料，不在导出时调用模型。
+
+```bash
+python scripts/review_findings.py --run-id YOUR_MAP_ID --output evals/your-review.json
+```
+
+脚本拒绝覆盖文件。导出的 JSON 是审核材料；保存判断请使用地图的 **人工验收** 页面或
+`POST /cluster/{id}/review/{item_id}`，不会自动导入离线文件中的标签。
+先阅读双方原文，再选择 `supported`、`unsupported` 或 `uncertain`。
+明确判断要求审核者、理由和双方至少 20 字符的逐字原文引文；无法确认就选 uncertain。
+“有依据”的假设也不能证明全球新颖性。若查看了模型意见，应保留相应自报字段。
+
+审核保存到独立 sidecar，绑定版本 token 和原文指纹，修改保留历史，不改动原始地图。
+审核者身份是自行声明，系统不能验证 human 的真实性。无有效明确判断时 support_rate
+为 null；该材料不报告 semantic_accuracy。现有 23 对聚类子主题材料也仍待人工完成。
+
 ## 标签对照
 
 ```bash

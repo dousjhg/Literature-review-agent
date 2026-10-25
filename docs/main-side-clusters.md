@@ -66,7 +66,8 @@ World Model `member-of` remains single-valued. `also-related-to` is a separate,
 multi-valued hint edge and cannot create additional membership. Each paper node exposes
 its current attempt's `cluster_detail`; paper entities are not duplicated. Hint scores
 are not `connects-to` scientific findings. The UI can use these fields in paper details;
-the map UI itself is not implemented in this phase.
+the [map UI](../frontend/README.md) now renders these details and keeps hints visually
+separate from scientific findings.
 
 ## API and saved checkpoints
 
@@ -144,7 +145,9 @@ grading improved. See [recorded results](benchmarks/main-side-map.json).
 
 User-selected regeneration, zero-model movement preview, dependency tracking, numeric/label
 reuse and rollback are now implemented; see [regeneration API and limitations](cluster-regeneration.md).
-Real Connection/Gap finders are now implemented; map UI and robust duplicate study identities remain outstanding.
+Real Connection/Gap finders and the interactive map UI are now implemented. Gap candidates
+include main–side boundaries without changing exclusive paper membership. Robust duplicate
+study identities remain outstanding.
 Side-topic quality still requires the existing blind human review and further calibration.
 
 

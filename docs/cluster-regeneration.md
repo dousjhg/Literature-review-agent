@@ -14,6 +14,7 @@ The root remains available at its original URL after every edit.
 | --- | --- |
 | `GET /cluster/{run_id}/regenerate/candidates` | Numerical side-to-side candidates, with mean/minimum target scores and current admission eligibility |
 | `GET /cluster/{run_id}/regenerate/candidates?near_only=true` | Only candidates within the configured absolute margin; singleton sources have no measured margin |
+| `GET /cluster/{run_id}/regenerate/candidates?paper_id=PAPER_ID` | Filter a selected paper before applying the result limit |
 | `POST /cluster/{run_id}/regenerate/preview` | Simulate the selected simultaneous moves; zero model/embedding calls |
 | `POST /cluster/{run_id}/regenerate` | Apply a saved, applicable preview to a new immutable child version |
 | `GET /cluster/{run_id}/versions` | Lineage history and current active head |
@@ -49,7 +50,8 @@ visible. A partial child stays inspectable and leaves the source active.
 
 Candidate scores are diagnostics, not a recommendation that moving a paper improves
 scientific topic quality. The list is bounded and reports truncation; preview accepts any
-explicit valid target, including one outside the displayed list. There is no map UI yet.
+explicit valid target, including one outside the displayed list. The
+[map UI](../frontend/README.md) now exposes candidates, preview/apply and version rollback.
 
 ## Membership rules
 
