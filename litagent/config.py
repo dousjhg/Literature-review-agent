@@ -109,6 +109,20 @@ class Settings:
     rank_relevance_weight: float = 0.7
 
     # Clustering
+    cluster_map_mode: str = "question"  # question-aware main/side map when a question is provided; topic retains legacy behavior
+    main_similarity_threshold: float = 0.5  # candidate gate, not a calibrated relevance probability
+    main_relevance_batch_size: int = 10
+    main_relevance_text_chars: int = 1400
+    side_linkage: str = "complete"  # average is an explicit comparison option
+    side_similarity_threshold: float = 0.7
+    related_similarity_threshold: float = 0.5
+    related_cluster_limit: int = 2
+    related_boundary_margin: float = 0.05
+    paper_keyword_limit: int = 6
+    regeneration_max_moves: int = 20
+    regeneration_candidate_limit: int = 40
+    regeneration_max_revisions: int = 30
+    regeneration_score_tolerance: float = 1e-5
     cluster_similarity_threshold: float = 0.7  # fixed mode / fallback; hybrid scores are not probabilities
     cluster_threshold_mode: str = "fixed"  # adaptive is an experimental, unsupervised coarse-topic cut
     cluster_threshold_candidates: tuple[float, ...] = (0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8)
@@ -136,6 +150,26 @@ class Settings:
     embedding_batch_size: int = 16
     embedding_chunk_tokens: int | None = None  # profile default, bounded by the model's token window
     embedding_max_chunks_per_paper: int = 16
+
+    # Evidence-grounded scientific findings; pair caps bound model cost independently of n².
+    finding_source_chars: int = 1800
+    finding_span_chars: int = 400
+    finding_min_quote_chars: int = 20
+    finding_validation_retries: int = 1
+    finding_grader_source_chars: int = 1400
+    connection_similarity_min: float = 0.5
+    connection_within_pairs_per_cluster: int = 2
+    connection_max_within_pairs: int = 4
+    connection_max_between_pairs: int = 4
+    connection_max_pairs_per_paper: int = 2
+    gap_similarity_min: float = 0.5
+    gap_similarity_max: float = 0.9
+    gap_max_candidates: int = 3
+    gap_coverage_queries_per_gap: int = 2
+    gap_coverage_hits_per_query: int = 4
+    gap_coverage_source_chars: int = 1000
+    gap_coverage_timeout_s: float = 20.0
+    gap_coverage_ttl_s: float = 86400
 
     # Offline quality review: targeted diagnostics, not a population accuracy estimate.
     cluster_review_pairs_per_stratum: int = 8

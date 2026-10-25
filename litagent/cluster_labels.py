@@ -4,11 +4,12 @@ from __future__ import annotations
 
 import json
 import re
+import time
 
 import numpy as np
 
 from litagent.config import Settings
-from litagent.integrations.llm import LLMError, complete_json, load_prompt
+from litagent.integrations.llm import LLMError, TokenBudgetExceeded, complete_json, load_prompt
 from litagent.schemas import ClusterAssessment, ClusterAssessmentBatch, ClusterAssessmentProposals, Evidence, Paper
 from litagent.similarity import representative_indices
 from litagent.trace import current_trace
@@ -45,7 +46,7 @@ def source_spans(text: str, max_chars: int) -> list[dict]:
 
 
 def label_contexts(papers: list[Paper], texts: list[str], groups: list[list[int]],
-                   similarity: np.ndarray, settings: Settings) -> list[dict]:
+                   similarity: np.ndarray, settings: Settings, cluster_ids: list[str] | None = None) -> list[dict]:
     """Neighbors are retrieved by their closest pair, with full cross-group range shown.
 
     Titles of every member are included; bounded MMR examples supply quotable source text.
@@ -56,6 +57,9 @@ def label_contexts(papers: list[Paper], texts: list[str], groups: list[list[int]
             or settings.cluster_evidence_min_chars < 1
             or settings.cluster_evidence_span_chars < settings.cluster_evidence_min_chars):
         raise ValueError("Invalid cluster labeling limits")
+    cluster_ids = cluster_ids or [f"C{i + 1}" for i in range(len(groups))]
+    if len(cluster_ids) != len(groups) or len(set(cluster_ids)) != len(cluster_ids):
+        raise ValueError("Label contexts require one unique cluster id per group")
     contexts = []
     for g, group in enumerate(groups):
         reps = representative_indices(similarity, group, settings.cluster_label_max_papers,
@@ -68,7 +72,7 @@ def label_contexts(papers: list[Paper], texts: list[str], groups: list[list[int]
             a, b = np.unravel_index(np.argmax(block), block.shape)
             neighbor = papers[other[b]]
             neighbors.append({
-                "cluster_id": f"C{h + 1}", "max_similarity": float(block.max()),
+                "cluster_id": cluster_ids[h], "max_similarity": float(block.max()),
                 "min_similarity": float(block.min()), "mean_similarity": float(block.mean()),
                 "closest_pair": [papers[group[a]].id, neighbor.id],
                 "members": [{"id": papers[i].id, "title": papers[i].title} for i in other],
@@ -84,7 +88,7 @@ def label_contexts(papers: list[Paper], texts: list[str], groups: list[list[int]
                              "has_body": source_field != "title", "source_field": source_field,
                              "spans": source_spans(text, settings.cluster_evidence_span_chars)})
         contexts.append({
-            "cluster_id": f"C{g + 1}", "total_papers": len(group),
+            "cluster_id": cluster_ids[g], "total_papers": len(group),
             "members": [{"id": papers[i].id, "title": papers[i].title} for i in group],
             "papers": examples,
             "neighbors": neighbors[:settings.cluster_label_neighbors],
@@ -132,12 +136,27 @@ def validate_assessments(batch: ClusterAssessmentBatch, contexts: list[dict], se
             raise ValueError(f"{assessment.cluster_id}: mixed requires quotes from at least two examples")
 
 
+def contrastive_payload(contexts: list[dict], settings: Settings, fix: str | None = None) -> dict:
+    """The exact first-request payload; also used to fingerprint whole label batches."""
+    public = [{**c, "papers": [{**{k: v for k, v in p.items() if k not in {"text", "spans"}},
+                               "spans": [{"span_id": s["span_id"], "quote": s["quote"]} for s in p["spans"]]}
+                              for p in c["papers"]]} for c in contexts]
+    return {"task_version": "contrastive-cluster-labels-v2", "groups": public, "fix": fix,
+            "min_quote_chars": settings.cluster_evidence_min_chars,
+            "target_cluster_ids": [c["cluster_id"] for c in contexts]}
+
+
 def contrastive_labels(papers: list[Paper], texts: list[str], groups: list[list[int]],
-                       similarity: np.ndarray, settings: Settings, fix: str | None) -> dict[str, ClusterAssessment]:
-    contexts = [c for c in label_contexts(papers, texts, groups, similarity, settings) if c["total_papers"] > 1]
+                       similarity: np.ndarray, settings: Settings, fix: str | None,
+                       cluster_ids: list[str] | None = None,
+                       only_cluster_ids: set[str] | None = None,
+                       deadline: float | None = None) -> dict[str, ClusterAssessment]:
+    contexts = [c for c in label_contexts(papers, texts, groups, similarity, settings, cluster_ids) if c["total_papers"] > 1]
     labels = {}
     for context in contexts:
         if not any(p["has_body"] for p in context["papers"]):
+            if only_cluster_ids is not None and context["cluster_id"] not in only_cluster_ids:
+                continue
             assessment = ClusterAssessment(
                 cluster_id=context["cluster_id"], label=f"Title-only records: {context['members'][0]['title']}",
                 rationale="No abstract or full text is available to verify a shared research subtopic.",
@@ -147,18 +166,15 @@ def contrastive_labels(papers: list[Paper], texts: list[str], groups: list[list[
             if trace := current_trace():
                 trace.log("clusterer", "assess cluster", assessment.coherence, result=assessment.model_dump(),
                           why="Title-only group; deterministic abstention without an LLM call")
-    contexts = [c for c in contexts if c["cluster_id"] not in labels]
+    contexts = [c for c in contexts if any(p["has_body"] for p in c["papers"])]
     for start in range(0, len(contexts), settings.cluster_label_batch_size):
         batch_context = contexts[start:start + settings.cluster_label_batch_size]
-        # Source spans carry the text; avoid duplicating full text in the model context.
-        public_context = [{**c, "papers": [{**{k: v for k, v in p.items() if k not in {"text", "spans"}},
-                                            "spans": [{"span_id": s["span_id"], "quote": s["quote"]} for s in p["spans"]]}
-                                           for p in c["papers"]]}
-                          for c in batch_context]
-        payload = {"task_version": "contrastive-cluster-labels-v2", "groups": public_context, "fix": fix,
-                   "min_quote_chars": settings.cluster_evidence_min_chars,
-                   "target_cluster_ids": [c["cluster_id"] for c in batch_context]}
+        if only_cluster_ids is not None and not any(c["cluster_id"] in only_cluster_ids for c in batch_context):
+            continue
+        payload = contrastive_payload(batch_context, settings, fix)
         for attempt in range(settings.cluster_label_validation_retries + 1):
+            if deadline is not None and time.monotonic() >= deadline:
+                raise TokenBudgetExceeded("Regeneration time limit reached during labeling")
             proposals = complete_json(load_prompt("cluster_labeler_contrastive"), json.dumps(payload, ensure_ascii=False),
                                       ClusterAssessmentProposals, settings=settings, agent_name="clusterer")
             try:

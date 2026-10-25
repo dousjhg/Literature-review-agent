@@ -10,7 +10,7 @@ import numpy as np
 from pydantic import BaseModel, ConfigDict, Field
 
 from litagent.cluster_audit import corpus_fingerprint, duplicate_components, partition_indices
-from litagent.schemas import Cluster, Evidence, Paper
+from litagent.schemas import Cluster, Evidence, Paper, QuestionCluster
 from litagent.similarity import partition_metrics
 
 
@@ -39,8 +39,9 @@ def prepare_review(papers: list[Paper], clusters: list[Cluster], similarity: np.
     if similarity.shape != (len(papers), len(papers)):
         raise ValueError("Similarity must match input papers")
     membership = {i: g for g, members in enumerate(groups) for i in members}
+    main_ids = {pid for c in clusters if isinstance(c, QuestionCluster) and c.kind == "main" for pid in c.paper_ids}
     splits = paper_splits(papers)
-    eligible = sorted((i for i, p in enumerate(papers) if splits[p.id] == split), key=lambda i: papers[i].id)
+    eligible = sorted((i for i, p in enumerate(papers) if splits[p.id] == split and p.id not in main_ids), key=lambda i: papers[i].id)
     pairs = list(combinations(eligible, 2))
     key = lambda pair: tuple(papers[i].id for i in pair)
     strata = {
@@ -83,10 +84,11 @@ def score_reviews(pack: dict, papers: list[Paper], clusters: list[Cluster]) -> d
         raise ValueError("Unknown review split")
     partition_indices(papers, clusters)
     membership = {pid: c.id for c in clusters for pid in c.paper_ids}
+    main_ids = {pid for c in clusters if isinstance(c, QuestionCluster) and c.kind == "main" for pid in c.paper_ids}
     sources = {p.id: (p.title, p.abstract or "", p.full_text or "") for p in papers}
     splits = paper_splits(papers)
     seen = set()
-    tp = fp = fn = tn = uncertain = excluded = 0
+    tp = fp = fn = tn = uncertain = excluded = main_excluded = 0
     for row in pack["reviews"]:
         review = PairReview.model_validate(row)
         a, b = review.paper_ids
@@ -96,6 +98,9 @@ def score_reviews(pack: dict, papers: list[Paper], clusters: list[Cluster]) -> d
         if splits[a] != pack["split"] or splits[b] != pack["split"]:
             raise ValueError("Review pair leaks papers across development/holdout folds")
         seen.add(pair)
+        if main_ids.intersection(pair):
+            main_excluded += 1
+            continue  # Main is a relevance pool, not a shared-subtopic assertion.
         if review.provenance != "human" or review.judgment is None:
             excluded += 1
             continue
@@ -121,6 +126,7 @@ def score_reviews(pack: dict, papers: list[Paper], clusters: list[Cluster]) -> d
     scored = tp + fp + fn + tn
     return {"status": "scored_diagnostic_pairs" if scored else "awaiting_human_labels",
             "scored": scored, "uncertain": uncertain, "pending_or_model_excluded": excluded,
+            "main_pairs_excluded": main_excluded, "evaluation_scope": "side_topics_only" if main_ids else "topic_membership",
             "tp": tp, "fp": fp, "fn": fn, "tn": tn,
             "pair_precision": tp / (tp + fp) if tp + fp else None,
             "pair_recall": tp / (tp + fn) if tp + fn else None,

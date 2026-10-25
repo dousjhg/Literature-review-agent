@@ -1,0 +1,180 @@
+{
+  "sample_mode": false,
+  "source_run_id": "20261025-142442-4ae347",
+  "finding_run_id": "20261025-143835-c992ea",
+  "request_id": "2028ba134df94df89ab4af7a40da14ee",
+  "status": "partial",
+  "paper_count": 30,
+  "main_cluster_id": "MAIN",
+  "main_paper_ids": [
+    "W4408280927"
+  ],
+  "connection_count": 1,
+  "gap_count": 0,
+  "exact_original_quotes_checked": true,
+  "reused_numeric_cache": true,
+  "analysis": {
+    "request_id": "2028ba134df94df89ab4af7a40da14ee",
+    "source_run_id": "20261025-142442-4ae347",
+    "completed_stages": [
+      "connections"
+    ],
+    "pending_stages": [
+      "gaps"
+    ],
+    "audits": [
+      {
+        "stage": "connections",
+        "candidate_pairs": 8,
+        "accepted": 1,
+        "abstained": 5,
+        "rejected": 2,
+        "duplicate_pairs_skipped": 3,
+        "reused_tasks": 0,
+        "generated_tasks": 6,
+        "decisions": [
+          {
+            "pair_id": "PAIR-7aff325f84f760f7",
+            "paper_ids": [
+              "W7165392193",
+              "W7165482954"
+            ],
+            "decision": "accepted",
+            "reason": "Both papers explicitly address adapting LLMs for low-resource languages through supervised fine-tuning (SFT). The Azerbaijani paper (W7165392193) examines challenges of fine-tuning LLMs for Azerbaijani as a case study, reviewing data scarcity, morphological complexity, tokenization problems, and domain gaps. The African languages thesis (W7165482954) addresses fundamental bottlenecks in adapting LLMs for low-resource languages through a two-stage investigation including benchmarking via SFT, and explicitly states their first key finding: 'SFT effectively adapts decoder-only LLMs to downstream tasks, demonstrating the viability of task-specific alignment.' Both papers use distinct language families (Azerbaijani and African languages) as case studies."
+          },
+          {
+            "pair_id": "PAIR-33507d7e874b84f6",
+            "paper_ids": [
+              "W4412889388",
+              "W7165392193"
+            ],
+            "decision": "rejected",
+            "reason": "The programming languages paper (W4412889388) investigates tokenizer adaptation methods (FVT, FOCUS, ZeTT) specifically for low-resource programming languages (Elixir and Racket) in code generation tasks. The Azerbaijani paper (W7165392193) identifies 'tokenization problems' as one of several challenges for low-resource natural language model adaptation but does not investigate or evaluate specific tokenizer adaptation methods. The papers operate in different domains (programming vs natural languages) and at different levels of specificity—the claim overstates the shared investigation by suggesting both papers investigate tokenizer adaptation methods when only the programming languages paper does so experimentally."
+          },
+          {
+            "pair_id": "PAIR-6eb794cb2c7d8fdb",
+            "paper_ids": [
+              "W7123296616",
+              "W7154856337"
+            ],
+            "decision": "abstain",
+            "reason": "The two abstracts describe different approaches for low-resource languages: one uses continual learning with POS-based code-switching and a replay adapter, while the other uses contextual learning with cross-lingual transfer and lightweight fine-tuning. No shared method, task, complementary contribution, contrasting results, or explicit extension is evidenced in the provided spans."
+          },
+          {
+            "pair_id": "PAIR-960910d3e3952b8f",
+            "paper_ids": [
+              "W7123371404",
+              "W7154856337"
+            ],
+            "decision": "abstain",
+            "reason": "Both abstracts are identical to those in the previous pair; they present distinct strategies (continual learning vs. contextual learning) without any demonstrated overlap, shared method, shared task, complementary results, contrasting results, or explicit extension."
+          },
+          {
+            "pair_id": "PAIR-e20183db96222e80",
+            "paper_ids": [
+              "W4408280927",
+              "W4412889388"
+            ],
+            "decision": "abstain",
+            "reason": "The two papers address different domains (natural language machine translation vs. programming language code generation) and different methods (LoRA-based language-specific fine-tuning vs. tokenizer adaptation methods such as ZeTT, FVT, FOCUS). There is no shared method, task, complementary contribution, contrasting result, or explicit extension between them."
+          },
+          {
+            "pair_id": "PAIR-f8faa00ccde14c57",
+            "paper_ids": [
+              "W4403364915",
+              "W4408280927"
+            ],
+            "decision": "rejected",
+            "reason": "The NusaMT-7B paper's abstract (quote S3) mentions Supervised Fine-Tuning (SFT) as part of the pipeline but does not specify that SFT uses LoRA or any parameter-efficient method. The LSFTL paper's abstract (quote S3) explicitly describes low-rank adaptation applied to attention and feed-forward layers. Without evidence that NusaMT-7B's SFT employs LoRA, the claim of a shared LoRA-based method is unsupported."
+          },
+          {
+            "pair_id": "PAIR-484347b77b46664a",
+            "paper_ids": [
+              "W4407385098",
+              "W7165482954"
+            ],
+            "decision": "abstain",
+            "reason": "Paper W4407385098 is a survey of large multimodal models for low-resource languages and does not discuss LoRA fine-tuning or machine translation experiments. Paper W7165482954 focuses on supervised fine-tuning and continued pre-training for African languages, with no mention of LoRA or translation tasks. Neither paper provides evidence about LoRA fine-tuning improving machine translation for low-resource languages."
+          },
+          {
+            "pair_id": "PAIR-c1f85fbe43155874",
+            "paper_ids": [
+              "W4407385098",
+              "W4416223637"
+            ],
+            "decision": "abstain",
+            "reason": "Neither paper mentions LoRA fine-tuning or machine translation. Paper W4407385098 is a survey of large multimodal models for low-resource languages covering visual enhancement, data creation, cross-modal transfer, and fusion strategies. Paper W4416223637 is a case study developing a multimodal LLM for Basque using Llama-3.1-Instruct and Latxa backbones with image-text datasets, showing low ratios of Basque multimodal data suffice and a Basque-instructed backbone is not required. The question asks about LoRA fine-tuning improving machine translation for low-resource languages, which is not addressed in either source."
+          }
+        ]
+      },
+      {
+        "stage": "gaps",
+        "candidate_pairs": 3,
+        "accepted": 0,
+        "abstained": 0,
+        "rejected": 0,
+        "duplicate_pairs_skipped": 3,
+        "reused_tasks": 0,
+        "generated_tasks": 0,
+        "decisions": []
+      }
+    ],
+    "grades": {
+      "connections": {
+        "stage": "connections",
+        "accuracy": 3,
+        "appropriateness": 3,
+        "actionability": 3,
+        "fix": null,
+        "reasoning": "The connection is well-supported by verbatim quotes from both papers. Both papers explicitly discuss supervised fine-tuning (SFT) for low-resource languages, with the Azerbaijani paper reviewing SFT challenges (data scarcity, tokenization, morphological complexity) and the African languages paper establishing the INJONGO benchmark and demonstrating SFT effectiveness for decoder-only LLMs. The relation 'shared_task' is accurate as both address the same fundamental task of adapting LLMs via SFT for low-resource languages, albeit with different language families and specific focuses. The evidence quotes directly support the description. The output is appropriate for the connections stage, providing a clear, source-supported relationship between two papers in the same side cluster. A researcher could directly use this connection to understand the common methodological thread across different low-resource language contexts."
+      }
+    }
+  },
+  "usage": {
+    "prompt_tokens": 22039,
+    "completion_tokens": 3216,
+    "llm_calls": 10,
+    "estimated_calls": 0,
+    "budget": 100000
+  },
+  "warnings": [
+    "gaps provider request failed (APITimeoutError); completed finding tasks retained. Resume this partial version with a new analysis request."
+  ],
+  "connections": [
+    {
+      "id": "CONN-7aff325f84f760f7",
+      "kind": "within_cluster",
+      "paper_ids": [
+        "W7165392193",
+        "W7165482954"
+      ],
+      "cluster_ids": [
+        "SIDE-5ba842b65c25e312"
+      ],
+      "description": "Both papers address the fundamental challenge of adapting large language models for low-resource languages through supervised fine-tuning (SFT), using distinct language families (Azerbaijani and African languages) as case studies. The Azerbaijani study reviews SFT challenges including data scarcity and tokenization problems, while the African languages thesis establishes INJONGO benchmark and demonstrates SFT effectively adapts decoder-only LLMs to downstream tasks.",
+      "evidence": [
+        {
+          "paper_id": "W7165392193",
+          "quote": "Large Language Models have shown capabilities in natural language processing tasks. Their performance drops drastically on low-resource languages that lack large annotated corpora. We look at the challenges of fine-tuning Large Language Models for low-resource languages with Azerbaijani as a case study."
+        },
+        {
+          "paper_id": "W7165392193",
+          "quote": " We examine data scarcity, morphological complexity, tokenization problems and domain gaps that make model adaptation harder. We also review methods like data augmentation, cross-lingual pre-training and transfer learning and assess how well they work for Azerbaijani."
+        },
+        {
+          "paper_id": "W7165482954",
+          "quote": "Despite remarkable advances in Large Language Models (LLMs), African languagesremain critically underserved by the current training and adaptation pipeline. This thesisaddresses the fundamental bottlenecks in adapting LLMs for low-resource languagesthrough a unified two-stage investigation: benchmarking via Supervised Fine-Tuning(SFT) and foundational adaptation via Continued Pre-Training (CPT)."
+        },
+        {
+          "paper_id": "W7165482954",
+          "quote": " Our experiments yield two key findings: (1) SFT effectively adaptsdecoder-only LLMs to downstream tasks, demonstrating the viability of task-specificalignment; and (2) encoder models pre-trained on African languages (e.g., AfroXLMR-76L)with SFT dramatically outperform those without such exposure."
+        }
+      ],
+      "relation": "shared_task",
+      "similarity": 0.8133725691734416,
+      "verification": "source_supported"
+    }
+  ],
+  "gaps": [],
+  "evaluation_note": "Real source-reference and workflow audit; semantic support and grades are model judgments, not expert accuracy. Gaps do not establish global novelty."
+}

@@ -1,0 +1,119 @@
+{
+  "kind": "known_answer_coverage_component_probe",
+  "run_id": "20261025-144856-a5c7cd",
+  "source_run_id": "20261025-142442-4ae347",
+  "creates_research_gap": false,
+  "expected": "addressed",
+  "passed": true,
+  "coverage": {
+    "status": "addressed",
+    "checked_at": "2026-10-25T14:49:11.507339+00:00",
+    "local_papers_checked": 28,
+    "local_papers_considered": 30,
+    "searches": [
+      {
+        "query": "LoRA low resource machine translation",
+        "provider": "openalex",
+        "checked_at": "2026-10-25T14:48:57.196627+00:00",
+        "status": "ok",
+        "papers": [
+          {
+            "id": "W4408280927",
+            "title": "Toward Low-Resource Languages Machine Translation: A Language-Specific Fine-Tuning With LoRA for Specialized Large Language Models",
+            "abstract": "In the field of computational linguistics, addressing machine translation (MT) challenges for low-resource languages remains crucial, as these languages often lack extensive data compared to high-resource languages. General large language models (LLMs), such as GPT-4 and Llama, primarily trained on monolingual corpora, face significant challenges in translating low-resource languages, often resulting in subpar translation quality. This study introduces Language-Specific Fine-Tuning with Low-rank adaptation (LSFTL), a method that enhances translation for low-resource languages by optimizing the multi-head attention and feed-forward networks of Transformer layers through low-rank matrix adaptation. LSFTL preserves the majority of the model parameters while selectively fine-tuning key components, thereby maintaining stability and enhancing translation quality. Experiments on non-English centered low-resource Asian languages demonstrated that LSFTL improved COMET scores by 1-3 points compared to specialized multilingual machine translation models. Additionally, LSFTL’s parameter-efficient approach allows smaller models to achieve performance comparable to their larger counterparts, highlighting its significance in making machine translation systems more accessible and effective for low-resource languages.",
+            "year": 2025,
+            "authors": [
+              "Xiao LIANG",
+              "Yen-Min Jasmina Khaw",
+              "Soung‐Yue Liew",
+              "Tien-Ping Tan",
+              "Donghong Qin"
+            ],
+            "citation_count": 33,
+            "is_review": false,
+            "is_open_access": true,
+            "pdf_url": "https://doi.org/10.1109/access.2025.3549795",
+            "doi": "https://doi.org/10.1109/access.2025.3549795",
+            "source": "openalex",
+            "full_text": null
+          },
+          {
+            "id": "W7221161476",
+            "title": "Comparing LoRA, DoRA, and OFT for Extremely Low-Resource English–Sango Machine Translation: Adaptation Performance and Out-of-Domain Retention",
+            "abstract": "Extremely low-resource machine translation poses a difficult cross-lingual adaptation problem: improving target-language performance while preserving capabilities acquired through multilingual pretraining. This study compares three mathematically distinct parameter-efficient fine-tuning (PEFT) methods—LoRA, DoRA, and orthogonal fine-tuning (OFT)—for English–Sango translation using NLLB-200-distilled-600M, a deterministically constructed 9000-pair corpus, and three random seeds per method. Following standard domain-adaptation practice, adaptation-test performance and out-of-domain (OOD) change were evaluated separately using a native-speaker-validated adaptation test set and FLORES+ devtest, with corpus chrF as the primary metric and paired bootstrap testing with Holm correction. All nine adapted runs scored below zero-shot NLLB-200 on the complete adaptation test and FLORES+ devtest. However, the adaptation-side estimate was composition-sensitive: the descriptive direction reversed on the 38-item A-only subset, and checkpoint selection used an all-A development set whereas the final test was B-dominated. The complete adaptation-test result is therefore treated as exploratory. By contrast, the negative FLORES+ pattern was consistent across all nine adapted runs and persisted at fixed final checkpoints, making out-of-domain degradation the most stable performance finding. The methods nevertheless differed computationally: OFT used approximately one quarter of the trainable parameters required by LoRA or DoRA, whereas LoRA achieved the shortest wall-clock training time. These results provide a controlled multi-seed comparison of structurally distinct PEFT configurations for an extremely low-resource English–Sango setting and highlight the importance of considering data quality, zero-shot baselines, training variability, and computational efficiency alongside translation performance.",
+            "year": 2026,
+            "authors": [
+              "Rakhun Kim"
+            ],
+            "citation_count": 0,
+            "is_review": false,
+            "is_open_access": true,
+            "pdf_url": "https://doi.org/10.3390/info17101001",
+            "doi": "https://doi.org/10.3390/info17101001",
+            "source": "openalex",
+            "full_text": null
+          },
+          {
+            "id": "W7171471402",
+            "title": "Biomedical Machine Translation for Low-Resource Arabic-Script Languages via Cross-Lingual Transfer and LoRA Adapter Merging",
+            "abstract": "We present a systematic study of healthcare-domain cross-lingual transfer to address the scarcity of biomedical NMT resources for Arabic-script languages. We use Arabic and Persian as higher-resource pivots to improve translation for \\textbf{four severely low-resource} targets: Dari (Afghan Persian, a standardised variety of Persian), Pashto, Sorani Kurdish (Central Kurdish, a major standardized variety of Kurdish), and Urdu (closely related to Hindi). Using LoRA fine-tuning on small decoder-only LLMs, we train \\textit{domain-specific pivot adapters} and evaluate \\textbf{three transfer strategies}: few-shot in-context learning, minimal supervised adaptation, and, to the best of our knowledge, for the first time in this setting, zero-data LoRA adapter merging. Supervised adaptation with just 500 sentences achieves near pivot-language quality for Dari (CHrF++ 41.01) and meaningful gains for Urdu (28.88), while adapter merging reaches within 3.5 CHrF++ of supervised adaptation for Dari at zero additional cost. Pashto and Sorani Kurdish remain insufficient for high-stakes clinical deployment exposing the limits of cross-lingual transfer when structural distance from the pivots is too great. LoRA adapter merging works surprisingly well for closely related languages, even without target-language biomedical data.",
+            "year": 2026,
+            "authors": [
+              "Abdullah Alabdullah",
+              "Arash Eslamighayour",
+              "Sarp Harbalioglu",
+              "Lifeng Han"
+            ],
+            "citation_count": 0,
+            "is_review": false,
+            "is_open_access": true,
+            "pdf_url": "https://arxiv.org/pdf/2607.22300",
+            "doi": "https://doi.org/10.48550/arxiv.2607.22300",
+            "source": "openalex",
+            "full_text": null
+          },
+          {
+            "id": "W7221038492",
+            "title": "A Comparative Evaluation of English–Sango Machine Translation Systems: LoRA-Based Adaptation and Out-of-Domain Performance for an Extremely Low-Resource Language",
+            "abstract": "산고어(Sango)는 기계번역 자원이 매우 제한적인 극저자원 언어이다. 본 연구는 6개의 영어-산고어 번역 시스템을 비교하고, LoRA 기반 적응이 도메인 외(out-of-domain) 성능에 미치는 영향을 분석하였다. 각 시스템은 FLORES-200 devtest 전체 세트를 대상으로 BLEU, chrF₂, 및 TER,를 사용하여 평가하였으며, 일부 문장에 대해서는 산고어 원어민 평가를 추가로 실시하였다. Google Translate가 전반적으로 가장 높은 성능을 보였고, zero-shot NLLB-200이 그 뒤를 이었다. 세 가지 LoRA 적응 조건은 모두 대응 부트스트랩 검정을 비교한 결과, zero-shot 기준선보다 유의하게 낮은 BLEU 점수를 보였다. 또한 데이터 양과 학습 단계를 통제한 비교에서는 피벗 생성 데이터, 역번역, 철자 정규화를 결합한 조건이 동일한 규모의 추가 직접 수집 데이터를 사용한 조건보다 높은 성능을 보였으나, zero-shot 모델의 성능에는 도달하지 못했다. 탐색적 원어민 평가에서는 일부 적응 모델의 출력에서 관련 없는 종교적 내용이 포함되는 등 상당한 의미 왜곡도 확인되었다. 중요하게도, 본 연구의 실험은 비교적 소규모의 적응 설정에서 수행되었으므로, 여기서 관찰된 결과가 훨씬 더 큰 규모의 파인튜닝 데이터셋에도 그대로 일반화된다고 보기는 어렵다. 종합하면, 자동 수집 데이터에 기반한 파인튜닝은 극저자원 기계번역에서 도메인 외 성능을 저하시킬 수 있으며, 강력한 zero-shot 기준선, 독립적인 평가 벤치마크, 그리고 원어민 검증의 중요성을 보여준다.",
+            "year": 2026,
+            "authors": [
+              "Rakhun Kim",
+              "Axel Deo Gratias Ndema Yetomane"
+            ],
+            "citation_count": 1,
+            "is_review": false,
+            "is_open_access": false,
+            "pdf_url": null,
+            "doi": "https://doi.org/10.9708/jksci.2026.31.09.031",
+            "source": "openalex",
+            "full_text": null
+          }
+        ],
+        "error": null
+      }
+    ],
+    "addressing_paper_ids": [
+      "W4408280927"
+    ],
+    "evidence": [
+      {
+        "paper_id": "W4408280927",
+        "quote": " This study introduces Language-Specific Fine-Tuning with Low-rank adaptation (LSFTL), a method that enhances translation for low-resource languages by optimizing the multi-head attention and feed-forward networks of Transformer layers through low-rank matrix adaptation."
+      },
+      {
+        "paper_id": "W4408280927",
+        "quote": " LSFTL preserves the majority of the model parameters while selectively fine-tuning key components, thereby maintaining stability and enhancing translation quality. Experiments on non-English centered low-resource Asian languages demonstrated that LSFTL improved COMET scores by 1-3 points compa"
+      }
+    ],
+    "reason": "Paper W4408280927 explicitly proposes a Language-Specific Fine-Tuning with LoRA (LSFTL) method for low-resource machine translation and reports COMET score improvements of 1-3 points over base LLMs, directly matching the research question and proposed test.",
+    "scope": "Bounded original-source excerpts and top OpenAlex results; this does not establish global novelty."
+  },
+  "usage": {
+    "prompt_tokens": 9681,
+    "completion_tokens": 155,
+    "llm_calls": 1,
+    "estimated_calls": 0,
+    "budget": 100000
+  }
+}

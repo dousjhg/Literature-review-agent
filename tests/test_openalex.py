@@ -118,3 +118,15 @@ def test_bad_request_is_not_retried(http):
     with pytest.raises(OpenAlexError, match="HTTP 400"):
         search_openalex("gnn", SearchCriteria(topic="t"))
     assert len(http["params"]) == 1
+
+
+def test_coverage_call_can_bound_timeout_and_disable_http_retries(monkeypatch):
+    calls = []
+    def fail(url, params, timeout):
+        calls.append(timeout)
+        raise httpx.ConnectTimeout("bounded coverage request")
+    monkeypatch.setattr(openalex.httpx, "get", fail)
+    monkeypatch.setattr(openalex.time, "sleep", lambda *a: pytest.fail("One-attempt coverage must not back off"))
+    with pytest.raises(OpenAlexError, match="after 1 attempts"):
+        search_openalex("positive study", SearchCriteria(topic="coverage"), timeout_s=7.5, attempts=1)
+    assert calls == [7.5]

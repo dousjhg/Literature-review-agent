@@ -2,6 +2,8 @@
 
 Embeds papers, groups those with cosine similarity >= threshold, and labels each group.
 Normal / Medium use metadata (title + abstract); High / Ultra use full text.
+With a question, first selects a source-verified main relevance pool and organizes
+the remaining papers into side groups with numerical alternative-cluster hints.
 """
 
 from __future__ import annotations
@@ -11,17 +13,20 @@ import numpy as np
 
 from litagent.config import EFFORT_PROFILES, Effort, Settings
 from litagent.cluster_labels import contrastive_labels
+from litagent.cluster_state import ClusteringArtifacts
 from litagent.agents.grader import check_cluster_sizes
 from litagent.integrations.embeddings import embed_documents
 from litagent.integrations.llm import complete_json, load_prompt
 from litagent.schemas import Cluster, ClusterLabel, Paper
 from litagent.semantic_groups import semantic_clusters
+from litagent.question_clusters import build_question_clusters
 from litagent.similarity import cosine_matrix, paper_similarity, partition_metrics, representative_indices, select_partition
 from litagent.trace import current_trace
 
 
 def cluster(papers: list[Paper], effort: Effort, settings: Settings, fix: str | None = None,
-            *, defer_labels_on_size_failure: bool = False) -> list[Cluster]:
+            *, defer_labels_on_size_failure: bool = False, question: str | None = None,
+            artifacts: ClusteringArtifacts | None = None) -> list[Cluster]:
     """`fix` is the grading agent's one suggested fix when the previous attempt failed."""
     if settings.sample_mode:
         return _fake_clusters(papers)
@@ -35,16 +40,34 @@ def cluster(papers: list[Paper], effort: Effort, settings: Settings, fix: str | 
         raise ValueError("cluster_label_strategy must be independent or contrastive")
     if settings.cluster_grouping_strategy not in {"complete", "semantic"}:
         raise ValueError("cluster_grouping_strategy must be complete or semantic")
+    if settings.cluster_map_mode not in {"question", "topic"}:
+        raise ValueError("cluster_map_mode must be question or topic")
+    if question is not None and not question.strip():
+        raise ValueError("Research question must not be blank")
     if settings.cluster_label_text_chars < 1 or settings.cluster_label_max_papers < 1 or settings.cluster_redo_threshold_step < 0:
         raise ValueError("Cluster label limit must be positive and threshold step non-negative")
 
     use_full_text = EFFORT_PROFILES[effort].use_full_text
     texts = [_text_for(p, use_full_text) for p in papers]
-    embeddings = np.asarray(embed(texts, settings), dtype=float)
-    if (embeddings.ndim != 2 or embeddings.shape[0] != len(papers) or embeddings.shape[1] == 0
+    if use_full_text and any(not p.full_text for p in papers) and (trace := current_trace()):
+        trace.log("clusterer", "select text", "metadata fallback",
+                  result={"paper_ids": [p.id for p in papers if not p.full_text]},
+                  why="Some High/Ultra papers have no supplied full text; PDF retrieval and Markovian reading are pending")
+    question_mode = question is not None and settings.cluster_map_mode == "question"
+    embeddings = np.asarray(embed([question] + texts if question_mode else texts, settings), dtype=float)
+    if (embeddings.ndim != 2 or embeddings.shape[0] != len(papers) + int(question_mode) or embeddings.shape[1] == 0
             or not np.isfinite(embeddings).all() or (np.linalg.norm(embeddings, axis=1) == 0).any()):
         raise ValueError("Embeddings must contain one finite non-zero vector per paper")
+    question_vector = embeddings[0] if question_mode else None
+    if question_mode:
+        embeddings = embeddings[1:]
     scores = paper_similarity(papers, embeddings, settings)
+    if artifacts is not None:
+        artifacts.paper_vectors = embeddings.copy()
+        artifacts.question_vector = question_vector.copy() if question_vector is not None else None
+        artifacts.similarity = scores.combined.copy()
+    if question_mode:
+        return build_question_clusters(papers, texts, embeddings, question_vector, scores, question.strip(), settings, fix)
     if settings.cluster_grouping_strategy == "semantic":
         return semantic_clusters(papers, texts, scores.combined, settings, fix)
     # A stable paper-id order makes linkage ties independent of API result order.
@@ -60,9 +83,6 @@ def cluster(papers: list[Paper], effort: Effort, settings: Settings, fix: str | 
                   calibration={"candidates": candidates}, lexical_missing=scores.lexical_missing,
                   why=f"Complete linkage on semantic/TF-IDF similarity; dense weight={settings.cluster_dense_weight}; "
                       f"mode={settings.cluster_threshold_mode}; singletons retained; grader fix: {fix or 'none'}")
-        if use_full_text and any(not p.full_text for p in papers):
-            trace.log("clusterer", "select text", "metadata fallback", why=
-                      "Some High/Ultra papers have no full text; PDF retrieval and Markovian reading are pending")
     # In the graded pipeline the first size failure is guaranteed to trigger a redo.
     # Return its partition for that check without spending tokens on discarded names.
     if defer_labels_on_size_failure and fix is None and settings.max_redo_per_stage > 0:
@@ -143,7 +163,7 @@ def _text_for(paper: Paper, use_full_text: bool) -> str:
 
 def _fake_clusters(papers: list[Paper]) -> list[Cluster]:
     """Sample mode: split papers round-robin into 3 placeholder groups (no embeddings, no LLM)."""
-    k = 3
+    k = min(3, len(papers))
     return [
         Cluster(
             id=f"C{i + 1}", label=f"Sample theme {i + 1}", paper_ids=[p.id for p in papers[i::k]],

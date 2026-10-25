@@ -178,14 +178,29 @@ To check the newly implemented real Clusterer independently of the unfinished la
 ```bash
 python scripts/check_threshold.py --output logs/thresholds.json  # saved papers, local CPU only
 python scripts/check_clusters.py  # saved papers + real Nightshift labels, grading/redo and World Model
+python scripts/check_question_map.py --question "How does LoRA improve low-resource machine translation?"
 python scripts/check_clusters.py --grouping-strategy semantic --max-redos 0  # experimental source-grounded grouping
 python scripts/review_clusters.py --report logs/clusters-<run_id>.json --output evals/cluster-review.json
 python scripts/benchmark_similarity.py --profiles minilm semcse  # prepare both profiles first
 ```
 
-The full real `/run` pipeline still stops at the unimplemented Connection finder. Gap finding,
-PDF retrieval and Markovian full-text reasoning are also pending. Sample mode runs all stages
-using explicitly labelled placeholders; it needs neither the encoder weights nor external services.
+Question-aware runs now return one optional **main** relevance group and **side** topic groups,
+with per-paper source evidence, keywords and alternate-cluster hints. `POST /cluster` provides
+a standalone clustering checkpoint; `GET /cluster/{run_id}` retrieves it. See
+[main/side behavior, API examples and measured limitations](docs/main-side-clusters.md).
+
+New standalone question maps also support user-selected side moves: numerical candidates,
+zero-model previews, cached regeneration into immutable child versions, history and rollback.
+See [regeneration endpoints and cache rules](docs/cluster-regeneration.md), or exercise the
+offline API flow with `python scripts/check_cluster_regeneration.py`.
+
+Real Connection and Gap finders now run in `/run` and through `POST /cluster/{run_id}/analyze`:
+bounded candidate selection, original quotes from both papers, independent verification,
+OpenAlex coverage checks, model grades and cached task reuse. Gaps remain provisional research
+hypotheses. See [API, real-run audit and limits](docs/grounded-findings.md), or run
+`python scripts/check_findings.py --run-id YOUR_MAP_ID`. PDF retrieval and Markovian full-text
+reasoning remain pending. Sample mode runs all stages using explicitly labelled placeholders;
+it needs neither the encoder weights nor external services.
 
 ## Evaluation
 

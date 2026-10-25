@@ -1,0 +1,3022 @@
+{
+  "protocol": "Exploratory saved-paper integration runs; no human gold. Independent generations vary, so score differences are not a controlled accuracy estimate. First run predates the admission verifier; its generic-SFT and keyword-only main admissions were judged unsupported by its grader. Final run retains one explicitly LoRA/MT paper, while whole-map grading still fails on side-topic quality. No automatic score-driven regeneration.",
+  "source_file": "data/sample/low_resource_languages_llm.json",
+  "papers": 30,
+  "settings": {
+    "encoder": "semcse",
+    "main_similarity_threshold": 0.5,
+    "side_similarity_threshold": 0.7,
+    "side_linkage": "complete",
+    "related_similarity_threshold": 0.5
+  },
+  "runs": [
+    {
+      "run_id": "20261025-124710-195b5d",
+      "stage": "clusters",
+      "status": "done",
+      "question": "How does LoRA fine-tuning improve machine translation for low-resource languages?",
+      "sample_mode": false,
+      "map_mode": "question",
+      "main_similarity_threshold": 0.5,
+      "main_cluster_id": "MAIN",
+      "clusters": [
+        {
+          "id": "MAIN",
+          "label": "Main: How does LoRA fine-tuning improve machine translation for low-resource languages?",
+          "paper_ids": [
+            "W4403364915",
+            "W4408280927",
+            "W7115677253"
+          ],
+          "rationale": "These papers passed the question-similarity gate and a source-backed direct-relevance assessment.",
+          "kind": "main",
+          "question": "How does LoRA fine-tuning improve machine translation for low-resource languages?",
+          "paper_details": [
+            {
+              "paper_id": "W4403364915",
+              "question_similarity": 0.6884999219181649,
+              "relevance": "direct",
+              "reason": "This paper introduces NusaMT-7B, an LLM-based machine translation model for low-resource Indonesian languages using continued pre-training and Supervised Fine-Tuning (SFT) on LLaMA2-7B, directly addressing fine-tuning LLMs for low-resource machine translation.",
+              "evidence": [
+                {
+                  "paper_id": "W4403364915",
+                  "quote": " Consequently, such LLMs suffer with alignment and have lagged behind State-of-The-Art (SoTA) neural machine translation (NMT) models in these settings. This paper introduces NusaMT-7B, an LLM-based machine translation model for low-resource Indonesian languages, starting with Balinese and Minangkabau."
+                },
+                {
+                  "paper_id": "W4403364915",
+                  "quote": " Leveraging the pretrained LLaMA2-7B, our approach integrates continued pre-training on monolingual data, Supervised Fine-Tuning (SFT), self-learning, and an LLM-based data cleaner to reduce noise in parallel sentences."
+                },
+                {
+                  "paper_id": "W4403364915",
+                  "quote": " Our results show that fine-tuned LLMs can enhance translation quality for low-resource languages, aiding in linguistic preservation and cross-cultural communication."
+                }
+              ],
+              "keywords": [
+                "NusaMT-7B",
+                "spBLEU",
+                "Balinese",
+                "Indonesian",
+                "Indonesian Languages",
+                "LLM-based"
+              ],
+              "assigned_similarity": 0.7329935539610671,
+              "runner_up_cluster_id": "SIDE-f489c095d5206cda",
+              "runner_up_similarity": 0.7521240039894627,
+              "margin": -0.01913045002839553,
+              "near_boundary": true,
+              "also_related": [
+                {
+                  "cluster_id": "SIDE-f489c095d5206cda",
+                  "similarity": 0.7521240039894627,
+                  "min_similarity": 0.7311081860837793,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 2 final members: 0.7521; minimum: 0.7311. Side complete admission score 0.7311; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                },
+                {
+                  "cluster_id": "SIDE-5ba842b65c25e312",
+                  "similarity": 0.7352568819082571,
+                  "min_similarity": 0.6816096742972536,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 3 final members: 0.7353; minimum: 0.6816. Side complete admission score 0.6816; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                }
+              ]
+            },
+            {
+              "paper_id": "W4408280927",
+              "question_similarity": 0.837138015096258,
+              "relevance": "direct",
+              "reason": "This paper explicitly introduces Language-Specific Fine-Tuning with Low-rank adaptation (LSFTL), a LoRA-based method for machine translation of low-resource languages, showing improvements on Asian languages with parameter-efficient fine-tuning.",
+              "evidence": [
+                {
+                  "paper_id": "W4408280927",
+                  "quote": " This study introduces Language-Specific Fine-Tuning with Low-rank adaptation (LSFTL), a method that enhances translation for low-resource languages by optimizing the multi-head attention and feed-forward networks of Transformer layers through low-rank matrix adaptation."
+                },
+                {
+                  "paper_id": "W4408280927",
+                  "quote": " LSFTL preserves the majority of the model parameters while selectively fine-tuning key components, thereby maintaining stability and enhancing translation quality. Experiments on non-English centered low-resource Asian languages demonstrated that LSFTL improved COMET scores by 1-3 points compared to specialized multilingual machine translation models."
+                },
+                {
+                  "paper_id": "W4408280927",
+                  "quote": " Additionally, LSFTL’s parameter-efficient approach allows smaller models to achieve performance comparable to their larger counterparts, highlighting its significance in making machine translation systems more accessible and effective for low-resource languages."
+                }
+              ],
+              "keywords": [
+                "LSFTL",
+                "Language-Specific",
+                "Language-Specific Fine-Tuning",
+                "Specialized",
+                "Translation",
+                "Low-rank"
+              ],
+              "assigned_similarity": 0.771800427991739,
+              "runner_up_cluster_id": "SIDE-5ba842b65c25e312",
+              "runner_up_similarity": 0.8268125157278572,
+              "margin": -0.05501208773611821,
+              "near_boundary": false,
+              "also_related": [
+                {
+                  "cluster_id": "SIDE-5ba842b65c25e312",
+                  "similarity": 0.8268125157278572,
+                  "min_similarity": 0.7873358682990128,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 3 final members: 0.8268; minimum: 0.7873. Side complete admission score 0.7873; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                },
+                {
+                  "cluster_id": "SIDE-1bde737c01cb1f8f",
+                  "similarity": 0.7502940876031972,
+                  "min_similarity": 0.7287720766212288,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 4 final members: 0.7503; minimum: 0.7288. Side complete admission score 0.7288; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                }
+              ]
+            },
+            {
+              "paper_id": "W7115677253",
+              "question_similarity": 0.6897390205812759,
+              "relevance": "direct",
+              "reason": "The paper explicitly mentions LoRA fine-tuning for low-resource African languages in its keywords, directly addressing the research question about LoRA fine-tuning for low-resource language adaptation.",
+              "evidence": [
+                {
+                  "paper_id": "W7115677253",
+                  "quote": "PAIDeF SuperAI 2025 Conference Adaptive and Efficient Large Language Models for Low-Resource African Languages Authors: Mohammed Ajuji, Saifullahi Ibrahim Waziri, Datti Useni Emmanuel Keywords—Large Language Models, Low-Resource Languages, LoRA, Fine-Tuning, African NLP, Responsible AI, LLaMA-3, Synthetic Data Augmentation."
+                }
+              ],
+              "keywords": [
+                "African",
+                "Adaptive",
+                "Efficient Large",
+                "Low-Resource African",
+                "Efficient",
+                "African Languages"
+              ],
+              "assigned_similarity": 0.6781344115477195,
+              "runner_up_cluster_id": "SIDE-5ba842b65c25e312",
+              "runner_up_similarity": 0.7033966506774333,
+              "margin": -0.025262239129713815,
+              "near_boundary": true,
+              "also_related": [
+                {
+                  "cluster_id": "SIDE-5ba842b65c25e312",
+                  "similarity": 0.7033966506774333,
+                  "min_similarity": 0.6371343886120162,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 3 final members: 0.7034; minimum: 0.6371. Side complete admission score 0.6371; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                },
+                {
+                  "cluster_id": "SIDE-e7e19499f2ba45aa",
+                  "similarity": 0.6989211518759958,
+                  "min_similarity": 0.6989211518759958,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 1 final members: 0.6989; minimum: 0.6989. Side complete admission score 0.6989; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "SIDE-9f14e0dda6b83831",
+          "label": "Unclustered: Large Language Models and Low-Resource Languages: An Examination of Armenian NLP",
+          "paper_ids": [
+            "W4392637283"
+          ],
+          "rationale": "Remaining paper without a compatible side topic; retained individually.",
+          "kind": "side",
+          "question": "How does LoRA fine-tuning improve machine translation for low-resource languages?",
+          "paper_details": [
+            {
+              "paper_id": "W4392637283",
+              "question_similarity": 0.46021877998119454,
+              "relevance": "uncertain",
+              "reason": "Below the question-similarity candidate gate; direct relevance was not assessed.",
+              "evidence": [],
+              "keywords": [
+                "Armenian",
+                "Armenian NLP",
+                "NLP",
+                "NLP research",
+                "field",
+                "review"
+              ],
+              "assigned_similarity": null,
+              "runner_up_cluster_id": "SIDE-544b3c02b4db8b85",
+              "runner_up_similarity": 0.6425515620810993,
+              "margin": null,
+              "near_boundary": false,
+              "also_related": [
+                {
+                  "cluster_id": "SIDE-544b3c02b4db8b85",
+                  "similarity": 0.6425515620810993,
+                  "min_similarity": 0.6425515620810993,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 1 final members: 0.6426; minimum: 0.6426. Side complete admission score 0.6426; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                },
+                {
+                  "cluster_id": "SIDE-7c3771bf910de4df",
+                  "similarity": 0.6216751056696401,
+                  "min_similarity": 0.5442335688576482,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 2 final members: 0.6217; minimum: 0.5442. Side complete admission score 0.5442; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "SIDE-f3cd3f1d3b540801",
+          "label": "LLM Annotation and Zero-Shot Cross-Lingual Reranking for Low-Resource Languages",
+          "paper_ids": [
+            "W4392669965",
+            "W4402671168"
+          ],
+          "rationale": "[coherent] Both papers evaluate large language models on low-resource language tasks without fine-tuning: one uses LLMs as annotators for NLI, sentiment analysis, and news classification across Indic languages, and the other tests LLMs as listwise rerankers in cross-lingual information retrieval for four African languages. The shared research idea is zero-shot LLM application to low-resource language tasks, though the specific tasks (annotation vs. reranking) and language sets differ. Unlike neighboring clusters that focus on fine-tuning, tokenizer adaptation, or benchmarking LLM performance, this group specifically examines off-the-shelf LLM capabilities for annotation and reranking without model adaptation.",
+          "kind": "side",
+          "question": "How does LoRA fine-tuning improve machine translation for low-resource languages?",
+          "paper_details": [
+            {
+              "paper_id": "W4392669965",
+              "question_similarity": 0.6292003236392582,
+              "relevance": "uncertain",
+              "reason": "This paper evaluates LLMs as annotators for low-resource language datasets (NLI, sentiment, news classification), not machine translation or LoRA fine-tuning for translation.",
+              "evidence": [
+                {
+                  "paper_id": "W4392669965",
+                  "quote": "To that extent, we seek to evaluate multilingual large language models (LLMs) for their potential to substitute or aid human-generated annotation efforts.We use LLMs to re-label publicly available datasets in LR languages for the tasks of natural language inference, sentiment analysis, and news classification."
+                }
+              ],
+              "keywords": [
+                "annotations",
+                "human-generated",
+                "efforts",
+                "human-generated annotations",
+                "annotation",
+                "LR"
+              ],
+              "assigned_similarity": 0.7327558318223144,
+              "runner_up_cluster_id": "SIDE-8f984f17c4cadbb4",
+              "runner_up_similarity": 0.7134990060776664,
+              "margin": 0.019256825744648043,
+              "near_boundary": true,
+              "also_related": [
+                {
+                  "cluster_id": "SIDE-8f984f17c4cadbb4",
+                  "similarity": 0.7134990060776664,
+                  "min_similarity": 0.7134990060776664,
+                  "meets_membership_criteria": true,
+                  "reason": "Mean cosine to 1 final members: 0.7135; minimum: 0.7135. Side complete admission score 0.7135; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                },
+                {
+                  "cluster_id": "SIDE-5ba842b65c25e312",
+                  "similarity": 0.7027299724392018,
+                  "min_similarity": 0.6792805641370684,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 3 final members: 0.7027; minimum: 0.6793. Side complete admission score 0.6793; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                }
+              ]
+            },
+            {
+              "paper_id": "W4402671168",
+              "question_similarity": 0.7280739726277585,
+              "relevance": "uncertain",
+              "reason": "This paper investigates zero-shot cross-lingual reranking with LLMs for low-resource African languages, not machine translation or LoRA fine-tuning.",
+              "evidence": [
+                {
+                  "paper_id": "W4402671168",
+                  "quote": "Large language models (LLMs) as listwise rerankers have shown impressive zero-shot capabilities in various passage ranking tasks.Despite their success, there is still a gap in existing literature on their effectiveness in reranking low-resource languages."
+                }
+              ],
+              "keywords": [
+                "Reranking",
+                "effectiveness",
+                "setting",
+                "Cross-Lingual",
+                "translations",
+                "document"
+              ],
+              "assigned_similarity": 0.7327558318223144,
+              "runner_up_cluster_id": "SIDE-5ba842b65c25e312",
+              "runner_up_similarity": 0.7040838240906862,
+              "margin": 0.028672007731628257,
+              "near_boundary": true,
+              "also_related": [
+                {
+                  "cluster_id": "SIDE-5ba842b65c25e312",
+                  "similarity": 0.7040838240906862,
+                  "min_similarity": 0.6766257144585378,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 3 final members: 0.7041; minimum: 0.6766. Side complete admission score 0.6766; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                },
+                {
+                  "cluster_id": "MAIN",
+                  "similarity": 0.7022555520392512,
+                  "min_similarity": 0.6303978709461414,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 3 final members: 0.7023; minimum: 0.6304. Main admission also requires the question gate and source-verified direct relevance. A numerical hint, not additional membership or a verified scientific connection."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "SIDE-f489c095d5206cda",
+          "label": "LLM Performance Benchmarking on Specific Low-Resource Languages (Sinhala and Formosan)",
+          "paper_ids": [
+            "W4402389783",
+            "W4416034203"
+          ],
+          "rationale": "[coherent] Both papers benchmark recent LLMs on particular low-resource languages: one evaluates four LLMs on Sinhala with and without translation, and the other introduces FormosanBench to assess LLMs on three endangered Formosan languages across translation, ASR, and summarization. The shared focus is empirical evaluation of LLM capabilities on specific understudied language families. This group centers on benchmarking LLM performance on concrete low-resource languages (Sinhala, Formosan) with defined tasks, whereas nearby clusters address adaptation methods (tokenizer, fine-tuning) or multimodal/survey approaches.",
+          "kind": "side",
+          "question": "How does LoRA fine-tuning improve machine translation for low-resource languages?",
+          "paper_details": [
+            {
+              "paper_id": "W4402389783",
+              "question_similarity": 0.6549166166706061,
+              "relevance": "supporting",
+              "reason": "This paper evaluates fine-tuning of LLMs (Llama, Mistral) on a low-resource language (Sinhala) with small data, which is related to parameter-efficient adaptation for low-resource languages, but does not specifically study LoRA or machine translation.",
+              "evidence": [
+                {
+                  "paper_id": "W4402389783",
+                  "quote": " Although multilingual large language models have been available for some time, their performance on low-resourced languages such as Sinhala has been poor. We evaluated four recent LLMs on their performance directly in the Sinhala language, and by translation to and from English. We also evaluated their fine-tunability with a small amount of fine-tuning data."
+                },
+                {
+                  "paper_id": "W4402389783",
+                  "quote": " Claude and GPT 4o perform well out-of-the-box and do significantly better than previous versions. Llama and Mistral perform poorly but show some promise of improvement with fine tuning."
+                }
+              ],
+              "keywords": [
+                "GPT",
+                "Sinhala",
+                "Low-Resourced",
+                "Recent",
+                "versions",
+                "Perform"
+              ],
+              "assigned_similarity": 0.7293655262101,
+              "runner_up_cluster_id": "SIDE-5ba842b65c25e312",
+              "runner_up_similarity": 0.7410179224972774,
+              "margin": -0.011652396287177402,
+              "near_boundary": true,
+              "also_related": [
+                {
+                  "cluster_id": "SIDE-5ba842b65c25e312",
+                  "similarity": 0.7410179224972774,
+                  "min_similarity": 0.7046057267383046,
+                  "meets_membership_criteria": true,
+                  "reason": "Mean cosine to 3 final members: 0.7410; minimum: 0.7046. Side complete admission score 0.7046; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                },
+                {
+                  "cluster_id": "MAIN",
+                  "similarity": 0.7329130043200459,
+                  "min_similarity": 0.6722992620791873,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 3 final members: 0.7329; minimum: 0.6723. Main admission also requires the question gate and source-verified direct relevance. A numerical hint, not additional membership or a verified scientific connection."
+                }
+              ]
+            },
+            {
+              "paper_id": "W4416034203",
+              "question_similarity": 0.5491573067150305,
+              "relevance": "supporting",
+              "reason": "This paper benchmarks LLMs on low-resource Austronesian languages for machine translation among other tasks, evaluating zero-shot, few-shot, and fine-tuned settings, providing empirical context on fine-tuning LLMs for low-resource translation but not specifically LoRA.",
+              "evidence": [
+                {
+                  "paper_id": "W4416034203",
+                  "quote": "It covers three endangered Formosan languages: Atayal, Amis, and Paiwan, across three core NLP tasks: machine translation, automatic speech recognition (ASR), and text summarization.We assess model performance in zero-shot, 10-shot, and fine-tuned settings using FORMOSANBENCH.Our results reveal a substantial performance gap between high-resource and Formosan languages."
+                },
+                {
+                  "paper_id": "W4416034203",
+                  "quote": "Existing LLMs consistently perform poorly on all tasks, and 10-shot learning and fine-tuning yield only limited improvements.These findings underscore the urgent need for more inclusive NLP technologies that can effectively support endangered and underrepresented languages.We release our datasets and code to facilitate future research in this direction : https://github.com/HsiYuGit/ FormosanBench."
+                }
+              ],
+              "keywords": [
+                "FormosanBench",
+                "Austronesian",
+                "Austronesian Languages",
+                "endangered",
+                "Formosan",
+                "Formosan languages"
+              ],
+              "assigned_similarity": 0.7293655262101,
+              "runner_up_cluster_id": "MAIN",
+              "runner_up_similarity": 0.6727823202441813,
+              "margin": 0.056583205965918704,
+              "near_boundary": false,
+              "also_related": [
+                {
+                  "cluster_id": "MAIN",
+                  "similarity": 0.6727823202441813,
+                  "min_similarity": 0.6142032981200457,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 3 final members: 0.6728; minimum: 0.6142. Main admission also requires the question gate and source-verified direct relevance. A numerical hint, not additional membership or a verified scientific connection."
+                },
+                {
+                  "cluster_id": "SIDE-5ba842b65c25e312",
+                  "similarity": 0.668314419588463,
+                  "min_similarity": 0.6008445523764214,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 3 final members: 0.6683; minimum: 0.6008. Side complete admission score 0.6008; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "SIDE-3bd7f06aad46f4f0",
+          "label": "Unclustered: Evaluating and Adapting Large Language Models to Represent Folktales in Low-Resource Languages",
+          "paper_ids": [
+            "W4404389841"
+          ],
+          "rationale": "Remaining paper without a compatible side topic; retained individually.",
+          "kind": "side",
+          "question": "How does LoRA fine-tuning improve machine translation for low-resource languages?",
+          "paper_details": [
+            {
+              "paper_id": "W4404389841",
+              "question_similarity": 0.4569643266052139,
+              "relevance": "uncertain",
+              "reason": "Below the question-similarity candidate gate; direct relevance was not assessed.",
+              "evidence": [],
+              "keywords": [
+                "Folktales",
+                "Represent",
+                "representations",
+                "classification",
+                "Adapting",
+                "able"
+              ],
+              "assigned_similarity": null,
+              "runner_up_cluster_id": "SIDE-544b3c02b4db8b85",
+              "runner_up_similarity": 0.663448436316871,
+              "margin": null,
+              "near_boundary": false,
+              "also_related": [
+                {
+                  "cluster_id": "SIDE-544b3c02b4db8b85",
+                  "similarity": 0.663448436316871,
+                  "min_similarity": 0.663448436316871,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 1 final members: 0.6634; minimum: 0.6634. Side complete admission score 0.6634; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                },
+                {
+                  "cluster_id": "SIDE-8f984f17c4cadbb4",
+                  "similarity": 0.6394184798306007,
+                  "min_similarity": 0.6394184798306007,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 1 final members: 0.6394; minimum: 0.6394. Side complete admission score 0.6394; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "SIDE-7c3771bf910de4df",
+          "label": "LLMs for Low-Resource Languages in Humanities and Multimodal Survey",
+          "paper_ids": [
+            "W4405173107",
+            "W4407385098"
+          ],
+          "rationale": "[mixed] The two papers share a broad focus on low-resource languages but differ substantially in scope and method: one is a position paper on opportunities and challenges of LLMs for humanities research (linguistic, historical, cultural), while the other is a systematic survey of large multimodal models across 96 low-resource languages with a taxonomy of adaptation approaches. There is no unified research task or method linking them beyond the general domain. This group combines a humanities-oriented perspective and a multimodal survey, unlike clusters that target specific NLP tasks (annotation, reranking, benchmarking) or adaptation techniques (fine-tuning, tokenizer transfer).",
+          "kind": "side",
+          "question": "How does LoRA fine-tuning improve machine translation for low-resource languages?",
+          "paper_details": [
+            {
+              "paper_id": "W4405173107",
+              "question_similarity": 0.4497786018528043,
+              "relevance": "uncertain",
+              "reason": "Below the question-similarity candidate gate; direct relevance was not assessed.",
+              "evidence": [],
+              "keywords": [
+                "cultural",
+                "historical",
+                "Humanities",
+                "intellectual",
+                "intellectual diversity",
+                "methodologies"
+              ],
+              "assigned_similarity": 0.7549863677501236,
+              "runner_up_cluster_id": "SIDE-e7e19499f2ba45aa",
+              "runner_up_similarity": 0.7085829994674268,
+              "margin": 0.046403368282696866,
+              "near_boundary": true,
+              "also_related": [
+                {
+                  "cluster_id": "SIDE-e7e19499f2ba45aa",
+                  "similarity": 0.7085829994674268,
+                  "min_similarity": 0.7085829994674268,
+                  "meets_membership_criteria": true,
+                  "reason": "Mean cosine to 1 final members: 0.7086; minimum: 0.7086. Side complete admission score 0.7086; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                },
+                {
+                  "cluster_id": "SIDE-9f14e0dda6b83831",
+                  "similarity": 0.6991166424816321,
+                  "min_similarity": 0.6991166424816321,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 1 final members: 0.6991; minimum: 0.6991. Side complete admission score 0.6991; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                }
+              ]
+            },
+            {
+              "paper_id": "W4407385098",
+              "question_similarity": 0.5742728603581799,
+              "relevance": "supporting",
+              "reason": "This survey analyzes techniques to adapt large multimodal models for low-resource languages, providing a taxonomy of approaches including data creation and cross-modal transfer, which offers background on adaptation methods for low-resource settings but does not focus on LoRA or machine translation specifically.",
+              "evidence": [
+                {
+                  "paper_id": "W4407385098",
+                  "quote": " • Provides an open-source repository that includes implementation details, datasets, and benchmarks. In this survey, we systematically analyze techniques used to adapt large multimodal models (LMMs) for low-resource (LR) languages, examining approaches ranging from visual enhancement and data creation to cross-modal transfer and fusion strategies."
+                },
+                {
+                  "paper_id": "W4407385098",
+                  "quote": " Through a comprehensive analysis of 117 studies across 96 LR languages, we identify key patterns in how researchers tackle the challenges of limited data and computational resources. We categorize works into resource-oriented and method-oriented contributions, further dividing contributions into relevant sub-categories."
+                }
+              ],
+              "keywords": [
+                "LR",
+                "approaches",
+                "LMMs",
+                "contributions",
+                "LR languages",
+                "survey"
+              ],
+              "assigned_similarity": 0.7549863677501236,
+              "runner_up_cluster_id": "SIDE-5ba842b65c25e312",
+              "runner_up_similarity": 0.7263645883112525,
+              "margin": 0.02862177943887112,
+              "near_boundary": true,
+              "also_related": [
+                {
+                  "cluster_id": "SIDE-5ba842b65c25e312",
+                  "similarity": 0.7263645883112525,
+                  "min_similarity": 0.6821677379601796,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 3 final members: 0.7264; minimum: 0.6822. Side complete admission score 0.6822; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                },
+                {
+                  "cluster_id": "SIDE-0825c79310988496",
+                  "similarity": 0.7010436038974803,
+                  "min_similarity": 0.6547401858390571,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 2 final members: 0.7010; minimum: 0.6547. Side complete admission score 0.6547; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "SIDE-0d2bb7ce83963c6e",
+          "label": "Unclustered: Fine-tuning large language models for improved health communication in low-resource languages",
+          "paper_ids": [
+            "W4407393353"
+          ],
+          "rationale": "Remaining paper without a compatible side topic; retained individually.",
+          "kind": "side",
+          "question": "How does LoRA fine-tuning improve machine translation for low-resource languages?",
+          "paper_details": [
+            {
+              "paper_id": "W4407393353",
+              "question_similarity": 0.4630435032017077,
+              "relevance": "uncertain",
+              "reason": "Below the question-similarity candidate gate; direct relevance was not assessed.",
+              "evidence": [],
+              "keywords": [
+                "Vietnamese",
+                "healthcare",
+                "countries",
+                "developing countries",
+                "health",
+                "medical"
+              ],
+              "assigned_similarity": null,
+              "runner_up_cluster_id": "SIDE-e7e19499f2ba45aa",
+              "runner_up_similarity": 0.6488603070222043,
+              "margin": null,
+              "near_boundary": false,
+              "also_related": [
+                {
+                  "cluster_id": "SIDE-e7e19499f2ba45aa",
+                  "similarity": 0.6488603070222043,
+                  "min_similarity": 0.6488603070222043,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 1 final members: 0.6489; minimum: 0.6489. Side complete admission score 0.6489; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                },
+                {
+                  "cluster_id": "SIDE-7c3771bf910de4df",
+                  "similarity": 0.6268518121482232,
+                  "min_similarity": 0.6175039126131563,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 2 final members: 0.6269; minimum: 0.6175. Side complete admission score 0.6175; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "SIDE-da89ee762cbcfa62",
+          "label": "Unclustered: Large Language Models With Contrastive Decoding Algorithm for Hallucination Mitigation in Low‐Resource Languages",
+          "paper_ids": [
+            "W4409178241"
+          ],
+          "rationale": "Remaining paper without a compatible side topic; retained individually.",
+          "kind": "side",
+          "question": "How does LoRA fine-tuning improve machine translation for low-resource languages?",
+          "paper_details": [
+            {
+              "paper_id": "W4409178241",
+              "question_similarity": 0.5867880292714911,
+              "relevance": "supporting",
+              "reason": "This paper fine-tunes LLMs (ChatGLM, LLaMA) for low-resource NMT and proposes a contrastive decoding algorithm to mitigate hallucinations, relevant to fine-tuning LLMs for low-resource translation but does not use or study LoRA.",
+              "evidence": [
+                {
+                  "paper_id": "W4409178241",
+                  "quote": " Advanced large language NMT models, including ChatGLM and LLaMA, are fine‐tuned and implemented for their superior contextual understanding and cross‐lingual capabilities. The refined CD algorithm evaluates multiple candidate translations using BLEU score, semantic similarity, and Named Entity Recognition accuracy."
+                },
+                {
+                  "paper_id": "W4409178241",
+                  "quote": " Extensive experimental results show substantial improvements in translation quality and a significant reduction in hallucination rates. Fine‐tuned models achieve higher evaluation metrics compared to baseline models and state‐of‐the‐art models."
+                }
+              ],
+              "keywords": [
+                "Algorithm",
+                "refined",
+                "advanced",
+                "CD",
+                "CD algorithm",
+                "hallucinations"
+              ],
+              "assigned_similarity": null,
+              "runner_up_cluster_id": "SIDE-f151ffe559fd5284",
+              "runner_up_similarity": 0.6361762027806566,
+              "margin": null,
+              "near_boundary": false,
+              "also_related": [
+                {
+                  "cluster_id": "SIDE-f151ffe559fd5284",
+                  "similarity": 0.6361762027806566,
+                  "min_similarity": 0.6361762027806566,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 1 final members: 0.6362; minimum: 0.6362. Side complete admission score 0.6362; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                },
+                {
+                  "cluster_id": "SIDE-5ba842b65c25e312",
+                  "similarity": 0.6347275970440028,
+                  "min_similarity": 0.6123692210966959,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 3 final members: 0.6347; minimum: 0.6124. Side complete admission score 0.6124; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "SIDE-dc1c7055d44b2127",
+          "label": "Title-only records: Interactive Machine Translation with Large Language Models for Low-Resourced Languages",
+          "paper_ids": [
+            "W4410184664",
+            "W7134895265"
+          ],
+          "rationale": "[insufficient_evidence] No abstract or full text is available to verify a shared research subtopic. Titles suggest a topic, but no reliable distinction from neighboring research can be established.",
+          "kind": "side",
+          "question": "How does LoRA fine-tuning improve machine translation for low-resource languages?",
+          "paper_details": [
+            {
+              "paper_id": "W4410184664",
+              "question_similarity": 0.6177914304653948,
+              "relevance": "uncertain",
+              "reason": "No abstract or full text; direct relevance cannot be verified from a title alone.",
+              "evidence": [],
+              "keywords": [
+                "Interactive",
+                "Interactive Machine",
+                "Low-Resourced",
+                "Low-Resourced Languages",
+                "Machine",
+                "Machine Translation"
+              ],
+              "assigned_similarity": 0.9825982635809845,
+              "runner_up_cluster_id": "SIDE-1639fc79ec300ae6",
+              "runner_up_similarity": 0.6658321462688161,
+              "margin": 0.3167661173121683,
+              "near_boundary": false,
+              "also_related": [
+                {
+                  "cluster_id": "SIDE-1639fc79ec300ae6",
+                  "similarity": 0.6658321462688161,
+                  "min_similarity": 0.6658321462688161,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 1 final members: 0.6658; minimum: 0.6658. Side complete admission score 0.6658; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                },
+                {
+                  "cluster_id": "MAIN",
+                  "similarity": 0.6302599055002833,
+                  "min_similarity": 0.622972950094784,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 3 final members: 0.6303; minimum: 0.6230. Main admission also requires the question gate and source-verified direct relevance. A numerical hint, not additional membership or a verified scientific connection."
+                }
+              ]
+            },
+            {
+              "paper_id": "W7134895265",
+              "question_similarity": 0.626474177638361,
+              "relevance": "uncertain",
+              "reason": "No abstract or full text; direct relevance cannot be verified from a title alone.",
+              "evidence": [],
+              "keywords": [
+                "Interactive",
+                "Interactive Machine",
+                "Machine",
+                "Machine Translation",
+                "Translation",
+                "Low-resource Languages"
+              ],
+              "assigned_similarity": 0.9825982635809845,
+              "runner_up_cluster_id": "MAIN",
+              "runner_up_similarity": 0.6586895062025396,
+              "margin": 0.3239087573784448,
+              "near_boundary": false,
+              "also_related": [
+                {
+                  "cluster_id": "MAIN",
+                  "similarity": 0.6586895062025396,
+                  "min_similarity": 0.6500559583653017,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 3 final members: 0.6587; minimum: 0.6501. Main admission also requires the question gate and source-verified direct relevance. A numerical hint, not additional membership or a verified scientific connection."
+                },
+                {
+                  "cluster_id": "SIDE-0825c79310988496",
+                  "similarity": 0.6489116881879766,
+                  "min_similarity": 0.6399179264811725,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 2 final members: 0.6489; minimum: 0.6399. Side complete admission score 0.6399; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "SIDE-2f28fdd86c0730ec",
+          "label": "Unclustered: Evaluating quantized Large Language Models for code generation on low-resource language benchmarks",
+          "paper_ids": [
+            "W4412862878"
+          ],
+          "rationale": "Remaining paper without a compatible side topic; retained individually.",
+          "kind": "side",
+          "question": "How does LoRA fine-tuning improve machine translation for low-resource languages?",
+          "paper_details": [
+            {
+              "paper_id": "W4412862878",
+              "question_similarity": 0.5125146433485729,
+              "relevance": "uncertain",
+              "reason": "This paper evaluates quantized LLMs for code generation on low-resource programming languages (Lua), not machine translation or LoRA fine-tuning for natural language translation.",
+              "evidence": [
+                {
+                  "paper_id": "W4412862878",
+                  "quote": "Democratization of AI, which is making AI accessible and usable for everyone, is an important topic with the broader topic of the digital divide. This issue is especially relevant to Large Language Models (LLM) that are becoming increasingly popular as AI co-pilots but suffer from a lack of accessibility due to high computational demand."
+                },
+                {
+                  "paper_id": "W4412862878",
+                  "quote": " Furthermore, code generation is a high-precision task, which makes it a suitable benchmark to evaluate and compare quantized models for everyday use by individuals. Lua is chosen as a low-resource language to avoid models’ biases related to high-resource languages. Performance in Lua is contrasted against performance in Python, which was chosen as a high-resource lang"
+                }
+              ],
+              "keywords": [
+                "quantization",
+                "integer",
+                "lua",
+                "precision",
+                "quantized",
+                "code"
+              ],
+              "assigned_similarity": null,
+              "runner_up_cluster_id": "SIDE-e7e19499f2ba45aa",
+              "runner_up_similarity": 0.6264119401871452,
+              "margin": null,
+              "near_boundary": false,
+              "also_related": [
+                {
+                  "cluster_id": "SIDE-e7e19499f2ba45aa",
+                  "similarity": 0.6264119401871452,
+                  "min_similarity": 0.6264119401871452,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 1 final members: 0.6264; minimum: 0.6264. Side complete admission score 0.6264; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                },
+                {
+                  "cluster_id": "SIDE-f489c095d5206cda",
+                  "similarity": 0.6222525436775203,
+                  "min_similarity": 0.5675600611622919,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 2 final members: 0.6223; minimum: 0.5676. Side complete admission score 0.5676; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "SIDE-5ba842b65c25e312",
+          "label": "Tokenizer Adaptation and Fine-Tuning Strategies for Low-Resource Language Code and Text",
+          "paper_ids": [
+            "W4412889388",
+            "W7165392193",
+            "W7165482954"
+          ],
+          "rationale": "[coherent] All three papers investigate model adaptation for low-resource languages: one evaluates tokenizer transfer methods (FVT, FOCUS, ZeTT) for low-resource programming languages (Elixir, Racket); another analyzes fine-tuning challenges for Azerbaijani, covering data scarcity, morphology, and tokenization; the third presents a two-stage adaptation pipeline (SFT benchmarking and continued pre-training) for 16–20 African languages. The common thread is adaptation methodology for low-resource settings, though domains (code vs. natural language) and specific techniques vary. This group focuses on technical adaptation methods (tokenizer modification, fine-tuning analysis, continued pre-training) for low-resource languages, distinct from clusters that evaluate off-the-shelf LLMs, benchmark performance, or survey multimodal/humanities applications.",
+          "kind": "side",
+          "question": "How does LoRA fine-tuning improve machine translation for low-resource languages?",
+          "paper_details": [
+            {
+              "paper_id": "W4412889388",
+              "question_similarity": 0.6957546335768409,
+              "relevance": "uncertain",
+              "reason": "This paper studies tokenizer adaptation methods for low-resource programming languages (Elixir, Racket) in code generation, not machine translation or LoRA fine-tuning.",
+              "evidence": [
+                {
+                  "paper_id": "W4412889388",
+                  "quote": "Large language models (LLMs), which are primarily trained on high-resource programming languages (HRPLs), tend to perform suboptimally for low-resource programming languages (LRPLs).This study investigates the impact of tokenizer adaptation methods on improving code generation for LRPLs."
+                }
+              ],
+              "keywords": [
+                "Tokenizer",
+                "Tokenizer Adaptation",
+                "LRPLs",
+                "Programming Languages",
+                "Programming",
+                "Adaptation Methods"
+              ],
+              "assigned_similarity": 0.7863123287206752,
+              "runner_up_cluster_id": "MAIN",
+              "runner_up_similarity": 0.7347125104859554,
+              "margin": 0.05159981823471982,
+              "near_boundary": false,
+              "also_related": [
+                {
+                  "cluster_id": "MAIN",
+                  "similarity": 0.7347125104859554,
+                  "min_similarity": 0.6371343886120162,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 3 final members: 0.7347; minimum: 0.6371. Main admission also requires the question gate and source-verified direct relevance. A numerical hint, not additional membership or a verified scientific connection."
+                },
+                {
+                  "cluster_id": "SIDE-f3cd3f1d3b540801",
+                  "similarity": 0.6976953540559832,
+                  "min_similarity": 0.6792805641370684,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 2 final members: 0.6977; minimum: 0.6793. Side complete admission score 0.6793; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                }
+              ]
+            },
+            {
+              "paper_id": "W7165392193",
+              "question_similarity": 0.7339170739655083,
+              "relevance": "supporting",
+              "reason": "The paper analyzes fine-tuning challenges for low-resource languages with Azerbaijani as a case study, which is relevant to LLM adaptation for low-resource languages but does not specifically mention LoRA or focus on machine translation.",
+              "evidence": [
+                {
+                  "paper_id": "W7165392193",
+                  "quote": "Large Language Models have shown capabilities in natural language processing tasks. Their performance drops drastically on low-resource languages that lack large annotated corpora. We look at the challenges of fine-tuning Large Language Models for low-resource languages with Azerbaijani as a case study."
+                }
+              ],
+              "keywords": [
+                "Azerbaijani",
+                "tokenization",
+                "morphological",
+                "adaptation harder",
+                "Analysis Based",
+                "annotated corpora"
+              ],
+              "assigned_similarity": 0.8083951555304929,
+              "runner_up_cluster_id": "MAIN",
+              "runner_up_similarity": 0.8010789069636034,
+              "margin": 0.007316248566889505,
+              "near_boundary": true,
+              "also_related": [
+                {
+                  "cluster_id": "MAIN",
+                  "similarity": 0.8010789069636034,
+                  "min_similarity": 0.7529772134245839,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 3 final members: 0.8011; minimum: 0.7530. Main admission also requires the question gate and source-verified direct relevance. A numerical hint, not additional membership or a verified scientific connection."
+                },
+                {
+                  "cluster_id": "SIDE-f489c095d5206cda",
+                  "similarity": 0.7569780762989305,
+                  "min_similarity": 0.7156201665889239,
+                  "meets_membership_criteria": true,
+                  "reason": "Mean cosine to 2 final members: 0.7570; minimum: 0.7156. Side complete admission score 0.7156; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                }
+              ]
+            },
+            {
+              "paper_id": "W7165482954",
+              "question_similarity": 0.6200658919977565,
+              "relevance": "supporting",
+              "reason": "The paper investigates LLM adaptation for African languages using SFT and CPT, which is relevant to low-resource language adaptation but does not specifically mention LoRA or focus on machine translation.",
+              "evidence": [
+                {
+                  "paper_id": "W7165482954",
+                  "quote": "Despite remarkable advances in Large Language Models (LLMs), African languagesremain critically underserved by the current training and adaptation pipeline. This thesisaddresses the fundamental bottlenecks in adapting LLMs for low-resource languagesthrough a unified two-stage investigation: benchmarking via Supervised Fine-Tuning(SFT) and foundational adaptation via Continued Pre-Training (CPT)."
+                }
+              ],
+              "keywords": [
+                "African",
+                "African Languages",
+                "SFT",
+                "CPT",
+                "INJONGO",
+                "architectural"
+              ],
+              "assigned_similarity": 0.791289742363624,
+              "runner_up_cluster_id": "SIDE-7c3771bf910de4df",
+              "runner_up_similarity": 0.7358845615617058,
+              "margin": 0.05540518080191825,
+              "near_boundary": false,
+              "also_related": [
+                {
+                  "cluster_id": "SIDE-7c3771bf910de4df",
+                  "similarity": 0.7358845615617058,
+                  "min_similarity": 0.6924549463975621,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 2 final members: 0.7359; minimum: 0.6925. Side complete admission score 0.6925; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                },
+                {
+                  "cluster_id": "MAIN",
+                  "similarity": 0.7296746308639886,
+                  "min_similarity": 0.6816096742972536,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 3 final members: 0.7297; minimum: 0.6816. Main admission also requires the question gate and source-verified direct relevance. A numerical hint, not additional membership or a verified scientific connection."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "SIDE-0825c79310988496",
+          "label": "Basque low-resource language adaptation: multimodal vs text-only instruction tuning",
+          "paper_ids": [
+            "W4416223637",
+            "W4417133178"
+          ],
+          "rationale": "[mixed] The group contains two papers both targeting Basque as a low-resource language, but they address different model modalities and adaptation strategies. One paper (W4416223637) develops multimodal LLMs (MLLMs) using image-text data and compares Llama-3.1-Instruct vs a Basque-adapted backbone (Latxa), finding low Basque multimodal data ratios suffice and a Basque-instructed backbone is not required. The other paper (W4417133178) focuses on text-only instruction tuning, systematically studying synthetic instruction generation with multilingual backbones and showing that an instruction-tuned backbone outperforms a base model. The methods (multimodal training vs text-only instruction adaptation) and findings (backbone instruction necessity differs) are materially different, so the group is mixed rather than coherent around a single research idea. Unlike neighboring cluster SIDE-5ba842b65c25e312 (African languages adaptation via SFT/CPT) and SIDE-7c3771bf910de4df (survey of multimodal models for low-resource languages), this group is narrowly focused on Basque and contains two concrete empirical studies rather than a survey or multi-language benchmark. The multimodal paper contrasts with the survey by providing a case study with released datasets, while the instruction-tuning paper contrasts with African-language work by using synthetic instructions from an instructed backbone rather than continued pre-training.",
+          "kind": "side",
+          "question": "How does LoRA fine-tuning improve machine translation for low-resource languages?",
+          "paper_details": [
+            {
+              "paper_id": "W4416223637",
+              "question_similarity": 0.5234711824774418,
+              "relevance": "uncertain",
+              "reason": "The paper focuses on multimodal LLMs for Basque using image-text datasets and Llama-3.1-Instruct/Latxa backbones, with no mention of LoRA fine-tuning or machine translation.",
+              "evidence": [],
+              "keywords": [
+                "Basque",
+                "develop",
+                "Multimodal",
+                "strong",
+                "MLLM",
+                "MLLMs"
+              ],
+              "assigned_similarity": 0.7216279961100209,
+              "runner_up_cluster_id": "SIDE-f489c095d5206cda",
+              "runner_up_similarity": 0.7065259420420589,
+              "margin": 0.015102054067962056,
+              "near_boundary": true,
+              "also_related": [
+                {
+                  "cluster_id": "SIDE-f489c095d5206cda",
+                  "similarity": 0.7065259420420589,
+                  "min_similarity": 0.6875524064168018,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 2 final members: 0.7065; minimum: 0.6876. Side complete admission score 0.6876; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                },
+                {
+                  "cluster_id": "SIDE-7c3771bf910de4df",
+                  "similarity": 0.6772005156236225,
+                  "min_similarity": 0.6070540092913415,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 2 final members: 0.6772; minimum: 0.6071. Side complete admission score 0.6071; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                }
+              ]
+            },
+            {
+              "paper_id": "W4417133178",
+              "question_similarity": 0.6006065719523423,
+              "relevance": "uncertain",
+              "reason": "The paper studies instruction adaptation for Basque using synthetic instructions and backbone LLMs, but does not discuss LoRA fine-tuning or machine translation.",
+              "evidence": [],
+              "keywords": [
+                "backbone",
+                "Basque",
+                "instruction",
+                "instructions",
+                "human preferences",
+                "Instructing"
+              ],
+              "assigned_similarity": 0.7216279961100209,
+              "runner_up_cluster_id": "SIDE-5ba842b65c25e312",
+              "runner_up_similarity": 0.7292520446989545,
+              "margin": -0.0076240485889336185,
+              "near_boundary": true,
+              "also_related": [
+                {
+                  "cluster_id": "SIDE-5ba842b65c25e312",
+                  "similarity": 0.7292520446989545,
+                  "min_similarity": 0.7108296008592021,
+                  "meets_membership_criteria": true,
+                  "reason": "Mean cosine to 3 final members: 0.7293; minimum: 0.7108. Side complete admission score 0.7108; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                },
+                {
+                  "cluster_id": "MAIN",
+                  "similarity": 0.65080701064751,
+                  "min_similarity": 0.6109357286708774,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 3 final members: 0.6508; minimum: 0.6109. Main admission also requires the question gate and source-verified direct relevance. A numerical hint, not additional membership or a verified scientific connection."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "SIDE-f151ffe559fd5284",
+          "label": "Unclustered: Large Language Models for Toxic Language Detection in Low-Resource Balkan Languages",
+          "paper_ids": [
+            "W4416249530"
+          ],
+          "rationale": "Remaining paper without a compatible side topic; retained individually.",
+          "kind": "side",
+          "question": "How does LoRA fine-tuning improve machine translation for low-resource languages?",
+          "paper_details": [
+            {
+              "paper_id": "W4416249530",
+              "question_similarity": 0.4658876620636039,
+              "relevance": "uncertain",
+              "reason": "Below the question-similarity candidate gate; direct relevance was not assessed.",
+              "evidence": [],
+              "keywords": [
+                "Toxic",
+                "Detection",
+                "F1",
+                "F1 score",
+                "false",
+                "Toxic Language"
+              ],
+              "assigned_similarity": null,
+              "runner_up_cluster_id": "SIDE-da89ee762cbcfa62",
+              "runner_up_similarity": 0.6361762027806566,
+              "margin": null,
+              "near_boundary": false,
+              "also_related": [
+                {
+                  "cluster_id": "SIDE-da89ee762cbcfa62",
+                  "similarity": 0.6361762027806566,
+                  "min_similarity": 0.6361762027806566,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 1 final members: 0.6362; minimum: 0.6362. Side complete admission score 0.6362; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                },
+                {
+                  "cluster_id": "SIDE-5ba842b65c25e312",
+                  "similarity": 0.6109520817288797,
+                  "min_similarity": 0.581173473647596,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 3 final members: 0.6110; minimum: 0.5812. Side complete admission score 0.5812; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "SIDE-1bde737c01cb1f8f",
+          "label": "Continual learning and contextual strategies for low-resource language modeling",
+          "paper_ids": [
+            "W7123296616",
+            "W7123371404",
+            "W7154856337",
+            "W7155373379"
+          ],
+          "rationale": "[mixed] Three papers (W7123296616, W7123371404, W7155373379) are essentially duplicate records of the same continual-learning approach using POS-based code-switching and a replay adapter to mitigate catastrophic forgetting when adapting LLMs to low-resource languages, evaluated on vision-language tasks. The fourth paper (W7154856337) proposes a different contextual learning framework combining cross-lingual transfer, multi-task/self-supervised pretraining, and lightweight fine-tuning for zero-shot/few-shot learning, without mentioning continual learning or catastrophic forgetting. The group therefore mixes a repeated continual-learning method with a distinct contextual-learning strategy, lacking a single unifying research idea across all four members. Neighboring cluster SIDE-5ba842b65c25e312 focuses on tokenizer adaptation and fine-tuning challenges for specific languages (Azerbaijani, African languages) rather than continual learning or contextual prompt-based strategies. Cluster SIDE-f3cd3f1d3b540801 addresses zero-shot cross-lingual reranking and LLM-based annotation for low-resource languages, which are downstream tasks rather than model adaptation strategies. The continual-learning papers here are unique in targeting catastrophic forgetting with code-switching/replay adapters, while the contextual-learning paper aligns more with cross-lingual transfer but differs in its zero-shot/few-shot emphasis.",
+          "kind": "side",
+          "question": "How does LoRA fine-tuning improve machine translation for low-resource languages?",
+          "paper_details": [
+            {
+              "paper_id": "W7123296616",
+              "question_similarity": 0.6085402182328994,
+              "relevance": "supporting",
+              "reason": "The paper discusses continual learning and adapter strategies for low-resource languages from LLMs, which is related to efficient adaptation methods but does not specifically mention LoRA or machine translation.",
+              "evidence": [
+                {
+                  "paper_id": "W7123296616",
+                  "quote": "Modelling a language model for a multi-lingual scenario includes several potential challenges, among which catastrophic forgetting is the major challenge. For example, small language models (SLM) built for low-resource languages by adapting large language models (LLMs) pose the challenge of catastrophic forgetting."
+                }
+              ],
+              "keywords": [
+                "Modelling",
+                "catastrophic",
+                "catastrophic forgetting",
+                "forgetting",
+                "challenge",
+                "SLM"
+              ],
+              "assigned_similarity": 0.9294205111200595,
+              "runner_up_cluster_id": "SIDE-5ba842b65c25e312",
+              "runner_up_similarity": 0.6800567445907465,
+              "margin": 0.24936376652931302,
+              "near_boundary": false,
+              "also_related": [
+                {
+                  "cluster_id": "SIDE-5ba842b65c25e312",
+                  "similarity": 0.6800567445907465,
+                  "min_similarity": 0.6339169167924416,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 3 final members: 0.6801; minimum: 0.6339. Side complete admission score 0.6339; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                },
+                {
+                  "cluster_id": "MAIN",
+                  "similarity": 0.6723622943841803,
+                  "min_similarity": 0.6355868458930491,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 3 final members: 0.6724; minimum: 0.6356. Main admission also requires the question gate and source-verified direct relevance. A numerical hint, not additional membership or a verified scientific connection."
+                }
+              ]
+            },
+            {
+              "paper_id": "W7123371404",
+              "question_similarity": 0.6085402182328994,
+              "relevance": "supporting",
+              "reason": "The paper discusses continual learning and adapter strategies for low-resource languages from LLMs, which is related to efficient adaptation methods but does not specifically mention LoRA or machine translation.",
+              "evidence": [
+                {
+                  "paper_id": "W7123371404",
+                  "quote": "Modelling a language model for a multi-lingual scenario includes several potential challenges, among which catastrophic forgetting is the major challenge. For example, small language models (SLM) built for low-resource languages by adapting large language models (LLMs) pose the challenge of catastrophic forgetting."
+                }
+              ],
+              "keywords": [
+                "Modelling",
+                "catastrophic",
+                "catastrophic forgetting",
+                "forgetting",
+                "challenge",
+                "SLM"
+              ],
+              "assigned_similarity": 0.9294205111200595,
+              "runner_up_cluster_id": "SIDE-5ba842b65c25e312",
+              "runner_up_similarity": 0.6800567445907465,
+              "margin": 0.24936376652931302,
+              "near_boundary": false,
+              "also_related": [
+                {
+                  "cluster_id": "SIDE-5ba842b65c25e312",
+                  "similarity": 0.6800567445907465,
+                  "min_similarity": 0.6339169167924416,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 3 final members: 0.6801; minimum: 0.6339. Side complete admission score 0.6339; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                },
+                {
+                  "cluster_id": "MAIN",
+                  "similarity": 0.6723622943841803,
+                  "min_similarity": 0.6355868458930491,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 3 final members: 0.6724; minimum: 0.6356. Main admission also requires the question gate and source-verified direct relevance. A numerical hint, not additional membership or a verified scientific connection."
+                }
+              ]
+            },
+            {
+              "paper_id": "W7154856337",
+              "question_similarity": 0.63727757223923,
+              "relevance": "supporting",
+              "reason": "The paper proposes efficient training strategies including lightweight fine-tuning for low-resource languages, which is related to parameter-efficient adaptation but does not specifically mention LoRA or machine translation.",
+              "evidence": [
+                {
+                  "paper_id": "W7154856337",
+                  "quote": " A lightweight fine-tuning stage with a small amount of labeled data is then employed for targeted adaptation to specific downstream tasks and languages. The proposed framework is designed to be computationally efficient, reducing training cost while maintaining or improving performance."
+                }
+              ],
+              "keywords": [
+                "Contextual",
+                "Contextual Learning",
+                "Few-Shot",
+                "Efficient",
+                "Learning",
+                "Efficient Training"
+              ],
+              "assigned_similarity": 0.7882615333601789,
+              "runner_up_cluster_id": "SIDE-5ba842b65c25e312",
+              "runner_up_similarity": 0.7576926272876657,
+              "margin": 0.03056890607251317,
+              "near_boundary": true,
+              "also_related": [
+                {
+                  "cluster_id": "SIDE-5ba842b65c25e312",
+                  "similarity": 0.7576926272876657,
+                  "min_similarity": 0.7101513416438883,
+                  "meets_membership_criteria": true,
+                  "reason": "Mean cosine to 3 final members: 0.7577; minimum: 0.7102. Side complete admission score 0.7102; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                },
+                {
+                  "cluster_id": "MAIN",
+                  "similarity": 0.7228172236716395,
+                  "min_similarity": 0.6461998030102112,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 3 final members: 0.7228; minimum: 0.6462. Main admission also requires the question gate and source-verified direct relevance. A numerical hint, not additional membership or a verified scientific connection."
+                }
+              ]
+            },
+            {
+              "paper_id": "W7155373379",
+              "question_similarity": 0.6085402182328994,
+              "relevance": "supporting",
+              "reason": "The paper discusses continual learning and adapter strategies for low-resource languages from LLMs, which is related to efficient adaptation methods but does not specifically mention LoRA or machine translation.",
+              "evidence": [
+                {
+                  "paper_id": "W7155373379",
+                  "quote": "Modelling a language model for a multi-lingual scenario includes several potential challenges, among which catastrophic forgetting is the major challenge. For example, small language models (SLM) built for low-resource languages by adapting large language models (LLMs) pose the challenge of catastrophic forgetting."
+                }
+              ],
+              "keywords": [
+                "Modelling",
+                "catastrophic",
+                "catastrophic forgetting",
+                "forgetting",
+                "challenge",
+                "SLM"
+              ],
+              "assigned_similarity": 0.9294205111200595,
+              "runner_up_cluster_id": "SIDE-5ba842b65c25e312",
+              "runner_up_similarity": 0.6800567445907465,
+              "margin": 0.24936376652931302,
+              "near_boundary": false,
+              "also_related": [
+                {
+                  "cluster_id": "SIDE-5ba842b65c25e312",
+                  "similarity": 0.6800567445907465,
+                  "min_similarity": 0.6339169167924416,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 3 final members: 0.6801; minimum: 0.6339. Side complete admission score 0.6339; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                },
+                {
+                  "cluster_id": "MAIN",
+                  "similarity": 0.6723622943841803,
+                  "min_similarity": 0.6355868458930491,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 3 final members: 0.6724; minimum: 0.6356. Main admission also requires the question gate and source-verified direct relevance. A numerical hint, not additional membership or a verified scientific connection."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "SIDE-e7e19499f2ba45aa",
+          "label": "Unclustered: Employing large language models in Swahili, a low-resource language",
+          "paper_ids": [
+            "W7155356580"
+          ],
+          "rationale": "Remaining paper without a compatible side topic; retained individually.",
+          "kind": "side",
+          "question": "How does LoRA fine-tuning improve machine translation for low-resource languages?",
+          "paper_details": [
+            {
+              "paper_id": "W7155356580",
+              "question_similarity": 0.4558077363819841,
+              "relevance": "uncertain",
+              "reason": "Below the question-similarity candidate gate; direct relevance was not assessed.",
+              "evidence": [],
+              "keywords": [
+                "Swahili",
+                "inaccuracies",
+                "outputs",
+                "Tanzania",
+                "ai",
+                "use"
+              ],
+              "assigned_similarity": null,
+              "runner_up_cluster_id": "SIDE-7c3771bf910de4df",
+              "runner_up_similarity": 0.6715800778412829,
+              "margin": null,
+              "near_boundary": false,
+              "also_related": [
+                {
+                  "cluster_id": "SIDE-7c3771bf910de4df",
+                  "similarity": 0.6715800778412829,
+                  "min_similarity": 0.6345771562151391,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 2 final members: 0.6716; minimum: 0.6346. Side complete admission score 0.6346; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                },
+                {
+                  "cluster_id": "SIDE-f489c095d5206cda",
+                  "similarity": 0.6533639400411279,
+                  "min_similarity": 0.6304285295455008,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 2 final members: 0.6534; minimum: 0.6304. Side complete admission score 0.6304; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "SIDE-8f984f17c4cadbb4",
+          "label": "Unclustered: Enhancing Low-Resource Language Data Using Large Language Models",
+          "paper_ids": [
+            "W7162479607"
+          ],
+          "rationale": "Remaining paper without a compatible side topic; retained individually.",
+          "kind": "side",
+          "question": "How does LoRA fine-tuning improve machine translation for low-resource languages?",
+          "paper_details": [
+            {
+              "paper_id": "W7162479607",
+              "question_similarity": 0.5911400743190384,
+              "relevance": "supporting",
+              "reason": "The paper explores LLM fine-tuning for low-resource language data enhancement including translation tasks, which is relevant to machine translation for low-resource languages but does not specifically mention LoRA.",
+              "evidence": [
+                {
+                  "paper_id": "W7162479607",
+                  "quote": " For language data, data denoising is a process where a dataset is standardized if there is an existing standard, else it is normalized- made consistent through manual or computational methods. This dissertation tests computational methods of denoising through fine-tuning and prompting pre-trained LLMs. For denoising with LLMs, two approaches are used."
+                }
+              ],
+              "keywords": [
+                "denoising",
+                "morphological generation",
+                "LRLs",
+                "morphological",
+                "data denoising",
+                "used"
+              ],
+              "assigned_similarity": null,
+              "runner_up_cluster_id": "SIDE-f3cd3f1d3b540801",
+              "runner_up_similarity": 0.6876609874036008,
+              "margin": null,
+              "near_boundary": false,
+              "also_related": [
+                {
+                  "cluster_id": "SIDE-f3cd3f1d3b540801",
+                  "similarity": 0.6876609874036008,
+                  "min_similarity": 0.6618229687295353,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 2 final members: 0.6877; minimum: 0.6618. Side complete admission score 0.6618; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                },
+                {
+                  "cluster_id": "SIDE-7c3771bf910de4df",
+                  "similarity": 0.6811035987499217,
+                  "min_similarity": 0.6780206399907717,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 2 final members: 0.6811; minimum: 0.6780. Side complete admission score 0.6780; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "SIDE-1639fc79ec300ae6",
+          "label": "Unclustered: THE ALGORITHMIC TRANSLATOR Using Large Language Models to Revive Low-Resource Programming Languages",
+          "paper_ids": [
+            "W7168097912"
+          ],
+          "rationale": "Remaining paper without a compatible side topic; retained individually.",
+          "kind": "side",
+          "question": "How does LoRA fine-tuning improve machine translation for low-resource languages?",
+          "paper_details": [
+            {
+              "paper_id": "W7168097912",
+              "question_similarity": 0.5574308367019655,
+              "relevance": "uncertain",
+              "reason": "The supplied abstract only mentions reviving low-resource programming languages using large language models, without any reference to LoRA fine-tuning or machine translation for natural languages. There is insufficient information to determine if the paper addresses the research question.",
+              "evidence": [
+                {
+                  "paper_id": "W7168097912",
+                  "quote": "THE ALGORITHMIC TRANSLATOR Using Large Language Models to Revive Low-Resource Programming Languages"
+                }
+              ],
+              "keywords": [
+                "ALGORITHMIC",
+                "ALGORITHMIC TRANSLATOR",
+                "Revive",
+                "Revive Low-Resource",
+                "TRANSLATOR",
+                "TRANSLATOR Using"
+              ],
+              "assigned_similarity": null,
+              "runner_up_cluster_id": "SIDE-dc1c7055d44b2127",
+              "runner_up_similarity": 0.6460415646735607,
+              "margin": null,
+              "near_boundary": false,
+              "also_related": [
+                {
+                  "cluster_id": "SIDE-dc1c7055d44b2127",
+                  "similarity": 0.6460415646735607,
+                  "min_similarity": 0.6262509830783051,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 2 final members: 0.6460; minimum: 0.6263. Side complete admission score 0.6263; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                },
+                {
+                  "cluster_id": "MAIN",
+                  "similarity": 0.6070978481541028,
+                  "min_similarity": 0.5494250856742877,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 3 final members: 0.6071; minimum: 0.5494. Main admission also requires the question gate and source-verified direct relevance. A numerical hint, not additional membership or a verified scientific connection."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "SIDE-544b3c02b4db8b85",
+          "label": "Unclustered: Large Language Models for Low-Resource Languages: A Conceptual Framework for an Electronic Explanatory Dictionary of the Tajik Language",
+          "paper_ids": [
+            "W7197036362"
+          ],
+          "rationale": "Remaining paper without a compatible side topic; retained individually.",
+          "kind": "side",
+          "question": "How does LoRA fine-tuning improve machine translation for low-resource languages?",
+          "paper_details": [
+            {
+              "paper_id": "W7197036362",
+              "question_similarity": 0.4247448286034205,
+              "relevance": "uncertain",
+              "reason": "Below the question-similarity candidate gate; direct relevance was not assessed.",
+              "evidence": [],
+              "keywords": [
+                "Dictionary",
+                "Tajik",
+                "Conceptual",
+                "Electronic",
+                "Explanatory",
+                "Explanatory Dictionary"
+              ],
+              "assigned_similarity": null,
+              "runner_up_cluster_id": "SIDE-3bd7f06aad46f4f0",
+              "runner_up_similarity": 0.663448436316871,
+              "margin": null,
+              "near_boundary": false,
+              "also_related": [
+                {
+                  "cluster_id": "SIDE-3bd7f06aad46f4f0",
+                  "similarity": 0.663448436316871,
+                  "min_similarity": 0.663448436316871,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 1 final members: 0.6634; minimum: 0.6634. Side complete admission score 0.6634; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                },
+                {
+                  "cluster_id": "SIDE-9f14e0dda6b83831",
+                  "similarity": 0.6425515620810993,
+                  "min_similarity": 0.6425515620810993,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 1 final members: 0.6426; minimum: 0.6426. Side complete admission score 0.6426; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "grade": {
+        "stage": "clusters",
+        "accuracy": 2,
+        "appropriateness": 2,
+        "actionability": 2,
+        "fix": "Re-evaluate MAIN cluster membership: only W4408280927 explicitly uses LoRA for low-resource MT. W4403364915 uses continued pre-training + SFT (not LoRA). W7115677253 mentions LoRA in keywords but abstract lacks method details. Consider moving W4403364915 and W7115677253 to side clusters and renaming MAIN to reflect LSFTL/LoRA-specific MT. Also, merge side clusters with overlapping themes (e.g., SIDE-5ba842b65c25e312 tokenizer adaptation + fine-tuning; SIDE-1bde737c01cb1f8f continual learning duplicates). Ensure labels describe actual content, not just titles.",
+        "reasoning": "Accuracy: MAIN cluster claims LoRA fine-tuning for MT but only one paper (W4408280927) directly supports this. W4403364915 uses SFT/continued pre-training without LoRA mention. W7115677253 only lists LoRA as keyword. Quotes provided don't fully justify grouping. Appropriateness: Main cluster should directly answer the question; current grouping overclaims LoRA focus. Side clusters have vague labels (e.g., 'Unclustered: ...' repeats title), duplicate records (W7123296616/W7123371404/W7155373379 same paper), and mixed themes (tokenizer adaptation + fine-tuning). Actionability: Researcher cannot rely on MAIN for LoRA MT papers; side clusters need consolidation and accurate labeling."
+      },
+      "warnings": [
+        "Cluster map did not pass grading; retained for review without automatic regeneration."
+      ],
+      "usage": {
+        "prompt_tokens": 32184,
+        "completion_tokens": 5152,
+        "llm_calls": 6,
+        "estimated_calls": 0,
+        "budget": 50000
+      },
+      "variant": "before_independent_admission_check",
+      "validated_original_field_quotes": 28,
+      "memory_receipts": [
+        {
+          "reported": true,
+          "scope": "litagent-call-aaf1233ed86146cbbb093e1fea2ca515",
+          "injected": 0
+        },
+        {
+          "reported": true,
+          "scope": "litagent-call-221daac559c54622ac7ef6de0688cd83",
+          "injected": 0
+        },
+        {
+          "reported": true,
+          "scope": "litagent-call-6851a7b59ac24959aa87caf4b1e15341",
+          "injected": 0
+        },
+        {
+          "reported": true,
+          "scope": "litagent-call-b0ffaa5eaa024bcbb314f0fec04a6284",
+          "injected": 0
+        },
+        {
+          "reported": true,
+          "scope": "litagent-call-f49adb92dad342ffbfa8bccc17661c5c",
+          "injected": 0
+        },
+        {
+          "reported": true,
+          "scope": "litagent-call-eda1f64e15814bf2a0372045351b8459",
+          "injected": 0
+        }
+      ],
+      "graph_counts": {
+        "member-of": 30,
+        "also-related-to": 60
+      },
+      "paper_node_count": 30,
+      "admission_verification": []
+    },
+    {
+      "run_id": "20261025-125211-381a8d",
+      "stage": "clusters",
+      "status": "done",
+      "question": "How does LoRA fine-tuning improve machine translation for low-resource languages?",
+      "sample_mode": false,
+      "map_mode": "question",
+      "main_similarity_threshold": 0.5,
+      "main_cluster_id": "MAIN",
+      "clusters": [
+        {
+          "id": "MAIN",
+          "label": "Main: How does LoRA fine-tuning improve machine translation for low-resource languages?",
+          "paper_ids": [
+            "W4408280927"
+          ],
+          "rationale": "These papers passed the question-similarity gate and a source-backed direct-relevance assessment.",
+          "kind": "main",
+          "question": "How does LoRA fine-tuning improve machine translation for low-resource languages?",
+          "paper_details": [
+            {
+              "paper_id": "W4408280927",
+              "question_similarity": 0.837138015096258,
+              "relevance": "direct",
+              "reason": "The paper explicitly introduces LSFTL (Language-Specific Fine-Tuning with LoRA) for low-resource language machine translation, evaluating it on Asian languages and showing COMET score improvements over specialized multilingual MT models.",
+              "evidence": [
+                {
+                  "paper_id": "W4408280927",
+                  "quote": " This study introduces Language-Specific Fine-Tuning with Low-rank adaptation (LSFTL), a method that enhances translation for low-resource languages by optimizing the multi-head attention and feed-forward networks of Transformer layers through low-rank matrix adaptation."
+                },
+                {
+                  "paper_id": "W4408280927",
+                  "quote": " LSFTL preserves the majority of the model parameters while selectively fine-tuning key components, thereby maintaining stability and enhancing translation quality. Experiments on non-English centered low-resource Asian languages demonstrated that LSFTL improved COMET scores by 1-3 points compared to specialized multilingual machine translation models."
+                },
+                {
+                  "paper_id": "W4408280927",
+                  "quote": " Additionally, LSFTL’s parameter-efficient approach allows smaller models to achieve performance comparable to their larger counterparts, highlighting its significance in making machine translation systems more accessible and effective for low-resource languages."
+                }
+              ],
+              "keywords": [
+                "LSFTL",
+                "Language-Specific",
+                "Language-Specific Fine-Tuning",
+                "Specialized",
+                "Translation",
+                "Low-rank"
+              ],
+              "assigned_similarity": null,
+              "runner_up_cluster_id": "SIDE-5ba842b65c25e312",
+              "runner_up_similarity": 0.8268125157278572,
+              "margin": null,
+              "near_boundary": false,
+              "also_related": [
+                {
+                  "cluster_id": "SIDE-5ba842b65c25e312",
+                  "similarity": 0.8268125157278572,
+                  "min_similarity": 0.7873358682990128,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 3 final members: 0.8268; minimum: 0.7873. Side complete admission score 0.7873; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                },
+                {
+                  "cluster_id": "SIDE-823f78baa866fb26",
+                  "similarity": 0.7509983253065365,
+                  "min_similarity": 0.673035476528719,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 3 final members: 0.7510; minimum: 0.6730. Side complete admission score 0.6730; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "SIDE-9f14e0dda6b83831",
+          "label": "Unclustered: Large Language Models and Low-Resource Languages: An Examination of Armenian NLP",
+          "paper_ids": [
+            "W4392637283"
+          ],
+          "rationale": "Remaining paper without a compatible side topic; retained individually.",
+          "kind": "side",
+          "question": "How does LoRA fine-tuning improve machine translation for low-resource languages?",
+          "paper_details": [
+            {
+              "paper_id": "W4392637283",
+              "question_similarity": 0.46021877998119454,
+              "relevance": "uncertain",
+              "reason": "Below the question-similarity candidate gate; direct relevance was not assessed.",
+              "evidence": [],
+              "keywords": [
+                "Armenian",
+                "Armenian NLP",
+                "NLP",
+                "NLP research",
+                "field",
+                "review"
+              ],
+              "assigned_similarity": null,
+              "runner_up_cluster_id": "SIDE-544b3c02b4db8b85",
+              "runner_up_similarity": 0.6425515620810993,
+              "margin": null,
+              "near_boundary": false,
+              "also_related": [
+                {
+                  "cluster_id": "SIDE-544b3c02b4db8b85",
+                  "similarity": 0.6425515620810993,
+                  "min_similarity": 0.6425515620810993,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 1 final members: 0.6426; minimum: 0.6426. Side complete admission score 0.6426; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                },
+                {
+                  "cluster_id": "SIDE-58217f00e274c2d6",
+                  "similarity": 0.6291167796137082,
+                  "min_similarity": 0.6291167796137082,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 1 final members: 0.6291; minimum: 0.6291. Side complete admission score 0.6291; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "SIDE-f3cd3f1d3b540801",
+          "label": "LLM Annotation and Reranking for Low-Resource Languages",
+          "paper_ids": [
+            "W4392669965",
+            "W4402671168"
+          ],
+          "rationale": "[mixed] Both papers explore using large language models (LLMs) for low-resource languages but with different tasks: one evaluates LLMs as annotators for NLI, sentiment, and news classification (W4392669965), while the other investigates LLMs as zero-shot cross-lingual rerankers for African languages in CLIR (W4402671168). The shared theme is applying off-the-shelf or proprietary LLMs to low-resource language tasks without fine-tuning, but the specific tasks (annotation vs. reranking) and languages (Indic vs. African) differ substantially. Unlike neighbor SIDE-823f78baa866fb26 which focuses on benchmarking and translation for specific low-resource language families (Austronesian, Indonesian, Sinhala), this group examines LLM applications for annotation and reranking tasks across different language sets. Unlike SIDE-1bde737c01cb1f8f which explores continual learning and contextual training strategies, this group uses LLMs in zero-shot/off-the-shelf modes.",
+          "kind": "side",
+          "question": "How does LoRA fine-tuning improve machine translation for low-resource languages?",
+          "paper_details": [
+            {
+              "paper_id": "W4392669965",
+              "question_similarity": 0.6292003236392582,
+              "relevance": "uncertain",
+              "reason": "The paper evaluates LLMs as annotators for low-resource languages, but does not mention LoRA fine-tuning or machine translation.",
+              "evidence": [],
+              "keywords": [
+                "annotations",
+                "human-generated",
+                "efforts",
+                "human-generated annotations",
+                "annotation",
+                "LR"
+              ],
+              "assigned_similarity": 0.7327558318223144,
+              "runner_up_cluster_id": "SIDE-8f984f17c4cadbb4",
+              "runner_up_similarity": 0.7134990060776664,
+              "margin": 0.019256825744648043,
+              "near_boundary": true,
+              "also_related": [
+                {
+                  "cluster_id": "SIDE-8f984f17c4cadbb4",
+                  "similarity": 0.7134990060776664,
+                  "min_similarity": 0.7134990060776664,
+                  "meets_membership_criteria": true,
+                  "reason": "Mean cosine to 1 final members: 0.7135; minimum: 0.7135. Side complete admission score 0.7135; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                },
+                {
+                  "cluster_id": "SIDE-5ba842b65c25e312",
+                  "similarity": 0.7027299724392018,
+                  "min_similarity": 0.6792805641370684,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 3 final members: 0.7027; minimum: 0.6793. Side complete admission score 0.6793; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                }
+              ]
+            },
+            {
+              "paper_id": "W4402671168",
+              "question_similarity": 0.7280739726277585,
+              "relevance": "uncertain",
+              "reason": "The paper investigates LLMs as rerankers for cross-lingual information retrieval in low-resource languages, not LoRA fine-tuning for machine translation.",
+              "evidence": [],
+              "keywords": [
+                "Reranking",
+                "effectiveness",
+                "setting",
+                "Cross-Lingual",
+                "translations",
+                "document"
+              ],
+              "assigned_similarity": 0.7327558318223144,
+              "runner_up_cluster_id": "MAIN",
+              "runner_up_similarity": 0.7695827662821841,
+              "margin": -0.03682693445986973,
+              "near_boundary": true,
+              "also_related": [
+                {
+                  "cluster_id": "MAIN",
+                  "similarity": 0.7695827662821841,
+                  "min_similarity": 0.7695827662821841,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 1 final members: 0.7696; minimum: 0.7696. Main admission also requires the question gate and source-verified direct relevance. A numerical hint, not additional membership or a verified scientific connection."
+                },
+                {
+                  "cluster_id": "SIDE-5ba842b65c25e312",
+                  "similarity": 0.7040838240906862,
+                  "min_similarity": 0.6766257144585378,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 3 final members: 0.7041; minimum: 0.6766. Side complete admission score 0.6766; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "SIDE-823f78baa866fb26",
+          "label": "Benchmarking and Translation for Low-Resource Austronesian and Indonesian Languages",
+          "paper_ids": [
+            "W4402389783",
+            "W4403364915",
+            "W4416034203"
+          ],
+          "rationale": "[coherent] All three papers focus on evaluating or improving LLM performance for specific low-resource language families: Sinhala (W4402389783), Indonesian languages Balinese/Minangkabau (W4403364915), and Formosan Austronesian languages (W4416034203). They share a common emphasis on benchmarking, translation, and assessing model capabilities in zero-shot, few-shot, and fine-tuned settings. The coherence comes from the geographic/linguistic focus (Austronesian/Indonesian) and the evaluation-centric methodology. Unlike SIDE-5ba842b65c25e312 which addresses tokenizer adaptation and continued pre-training for African languages and programming languages, this group is centered on evaluation benchmarks and translation for specific Austronesian/Indonesian languages. Unlike SIDE-0825c79310988496 which focuses on multimodal models for Basque, this group is text-only and covers multiple language families.",
+          "kind": "side",
+          "question": "How does LoRA fine-tuning improve machine translation for low-resource languages?",
+          "paper_details": [
+            {
+              "paper_id": "W4402389783",
+              "question_similarity": 0.6549166166706061,
+              "relevance": "uncertain",
+              "reason": "The paper evaluates recent LLMs on a low-resource language (Sinhala) and mentions fine-tuning, but does not specify LoRA or focus on machine translation.",
+              "evidence": [],
+              "keywords": [
+                "GPT",
+                "Sinhala",
+                "Low-Resourced",
+                "Recent",
+                "versions",
+                "Perform"
+              ],
+              "assigned_similarity": 0.7512526740526231,
+              "runner_up_cluster_id": "MAIN",
+              "runner_up_similarity": 0.7532999289858041,
+              "margin": -0.002047254933181031,
+              "near_boundary": true,
+              "also_related": [
+                {
+                  "cluster_id": "MAIN",
+                  "similarity": 0.7532999289858041,
+                  "min_similarity": 0.7532999289858041,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 1 final members: 0.7533; minimum: 0.7533. Main admission also requires the question gate and source-verified direct relevance. A numerical hint, not additional membership or a verified scientific connection."
+                },
+                {
+                  "cluster_id": "SIDE-5ba842b65c25e312",
+                  "similarity": 0.7410179224972774,
+                  "min_similarity": 0.7046057267383046,
+                  "meets_membership_criteria": true,
+                  "reason": "Mean cosine to 3 final members: 0.7410; minimum: 0.7046. Side complete admission score 0.7046; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                }
+              ]
+            },
+            {
+              "paper_id": "W4403364915",
+              "question_similarity": 0.6884999219181649,
+              "relevance": "supporting",
+              "reason": "The paper presents an LLM-based machine translation model for low-resource Indonesian languages using continued pre-training and supervised fine-tuning (SFT), but does not explicitly mention LoRA. It provides relevant background on fine-tuning LLMs for low-resource MT.",
+              "evidence": [
+                {
+                  "paper_id": "W4403364915",
+                  "quote": " Leveraging the pretrained LLaMA2-7B, our approach integrates continued pre-training on monolingual data, Supervised Fine-Tuning (SFT), self-learning, and an LLM-based data cleaner to reduce noise in parallel sentences."
+                },
+                {
+                  "paper_id": "W4403364915",
+                  "quote": " Our results show that fine-tuned LLMs can enhance translation quality for low-resource languages, aiding in linguistic preservation and cross-cultural communication."
+                }
+              ],
+              "keywords": [
+                "NusaMT-7B",
+                "spBLEU",
+                "Balinese",
+                "Indonesian",
+                "Indonesian Languages",
+                "LLM-based"
+              ],
+              "assigned_similarity": 0.7521240039894627,
+              "runner_up_cluster_id": "MAIN",
+              "runner_up_similarity": 0.8266595704050866,
+              "margin": -0.07453556641562398,
+              "near_boundary": false,
+              "also_related": [
+                {
+                  "cluster_id": "MAIN",
+                  "similarity": 0.8266595704050866,
+                  "min_similarity": 0.8266595704050866,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 1 final members: 0.8267; minimum: 0.8267. Main admission also requires the question gate and source-verified direct relevance. A numerical hint, not additional membership or a verified scientific connection."
+                },
+                {
+                  "cluster_id": "SIDE-5ba842b65c25e312",
+                  "similarity": 0.7352568819082571,
+                  "min_similarity": 0.6816096742972536,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 3 final members: 0.7353; minimum: 0.6816. Side complete admission score 0.6816; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                }
+              ]
+            },
+            {
+              "paper_id": "W4416034203",
+              "question_similarity": 0.5491573067150305,
+              "relevance": "supporting",
+              "reason": "The paper benchmarks LLMs on low-resource Austronesian languages including machine translation, and evaluates fine-tuned settings, but does not mention LoRA. It provides relevant benchmark context.",
+              "evidence": [
+                {
+                  "paper_id": "W4416034203",
+                  "quote": "It covers three endangered Formosan languages: Atayal, Amis, and Paiwan, across three core NLP tasks: machine translation, automatic speech recognition (ASR), and text summarization.We assess model performance in zero-shot, 10-shot, and fine-tuned settings using FORMOSANBENCH.Our results reveal a substantial performance gap between high-resource and Formosan languages."
+                },
+                {
+                  "paper_id": "W4416034203",
+                  "quote": "Existing LLMs consistently perform poorly on all tasks, and 10-shot learning and fine-tuning yield only limited improvements.These findings underscore the urgent need for more inclusive NLP technologies that can effectively support endangered and underrepresented languages.We release our datasets and code to facilitate future research in this direction : https://github.com/HsiYuGit/ FormosanBench."
+                }
+              ],
+              "keywords": [
+                "FormosanBench",
+                "Austronesian",
+                "Austronesian Languages",
+                "endangered",
+                "Formosan",
+                "Formosan languages"
+              ],
+              "assigned_similarity": 0.7302368561469397,
+              "runner_up_cluster_id": "MAIN",
+              "runner_up_similarity": 0.673035476528719,
+              "margin": 0.057201379618220694,
+              "near_boundary": false,
+              "also_related": [
+                {
+                  "cluster_id": "MAIN",
+                  "similarity": 0.673035476528719,
+                  "min_similarity": 0.673035476528719,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 1 final members: 0.6730; minimum: 0.6730. Main admission also requires the question gate and source-verified direct relevance. A numerical hint, not additional membership or a verified scientific connection."
+                },
+                {
+                  "cluster_id": "SIDE-5ba842b65c25e312",
+                  "similarity": 0.668314419588463,
+                  "min_similarity": 0.6008445523764214,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 3 final members: 0.6683; minimum: 0.6008. Side complete admission score 0.6008; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "SIDE-3bd7f06aad46f4f0",
+          "label": "Unclustered: Evaluating and Adapting Large Language Models to Represent Folktales in Low-Resource Languages",
+          "paper_ids": [
+            "W4404389841"
+          ],
+          "rationale": "Remaining paper without a compatible side topic; retained individually.",
+          "kind": "side",
+          "question": "How does LoRA fine-tuning improve machine translation for low-resource languages?",
+          "paper_details": [
+            {
+              "paper_id": "W4404389841",
+              "question_similarity": 0.4569643266052139,
+              "relevance": "uncertain",
+              "reason": "Below the question-similarity candidate gate; direct relevance was not assessed.",
+              "evidence": [],
+              "keywords": [
+                "Folktales",
+                "Represent",
+                "representations",
+                "classification",
+                "Adapting",
+                "able"
+              ],
+              "assigned_similarity": null,
+              "runner_up_cluster_id": "SIDE-544b3c02b4db8b85",
+              "runner_up_similarity": 0.663448436316871,
+              "margin": null,
+              "near_boundary": false,
+              "also_related": [
+                {
+                  "cluster_id": "SIDE-544b3c02b4db8b85",
+                  "similarity": 0.663448436316871,
+                  "min_similarity": 0.663448436316871,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 1 final members: 0.6634; minimum: 0.6634. Side complete admission score 0.6634; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                },
+                {
+                  "cluster_id": "SIDE-8f984f17c4cadbb4",
+                  "similarity": 0.6394184798306007,
+                  "min_similarity": 0.6394184798306007,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 1 final members: 0.6394; minimum: 0.6394. Side complete admission score 0.6394; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "SIDE-7c3771bf910de4df",
+          "label": "LLM Opportunities and Multimodal Survey for Low-Resource Languages in Humanities",
+          "paper_ids": [
+            "W4405173107",
+            "W4407385098"
+          ],
+          "rationale": "[mixed] The two papers share a broad focus on LLMs for low-resource languages but differ significantly in scope and contribution: W4405173107 is a position paper on opportunities/challenges for humanities research (linguistic, historical, cultural), while W4407385098 is a systematic survey of 117 studies on adapting large multimodal models (LMMs) for 96 low-resource languages. The first is interdisciplinary and application-oriented; the second is a technical taxonomy and literature review. No shared methodology, language set, or task unites them beyond the general topic. Unlike SIDE-5ba842b65c25e312 which investigates concrete adaptation methods (tokenizer transfer, continued pre-training, benchmarking) for specific languages, this group contains a high-level humanities perspective and a broad multimodal survey. Unlike SIDE-0825c79310988496 which presents a case study on Basque multimodal models, the survey here covers 96 languages without a single case study focus.",
+          "kind": "side",
+          "question": "How does LoRA fine-tuning improve machine translation for low-resource languages?",
+          "paper_details": [
+            {
+              "paper_id": "W4405173107",
+              "question_similarity": 0.4497786018528043,
+              "relevance": "uncertain",
+              "reason": "Below the question-similarity candidate gate; direct relevance was not assessed.",
+              "evidence": [],
+              "keywords": [
+                "cultural",
+                "historical",
+                "Humanities",
+                "intellectual",
+                "intellectual diversity",
+                "methodologies"
+              ],
+              "assigned_similarity": 0.7549863677501236,
+              "runner_up_cluster_id": "SIDE-e7e19499f2ba45aa",
+              "runner_up_similarity": 0.7085829994674268,
+              "margin": 0.046403368282696866,
+              "near_boundary": true,
+              "also_related": [
+                {
+                  "cluster_id": "SIDE-e7e19499f2ba45aa",
+                  "similarity": 0.7085829994674268,
+                  "min_similarity": 0.7085829994674268,
+                  "meets_membership_criteria": true,
+                  "reason": "Mean cosine to 1 final members: 0.7086; minimum: 0.7086. Side complete admission score 0.7086; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                },
+                {
+                  "cluster_id": "SIDE-9f14e0dda6b83831",
+                  "similarity": 0.6991166424816321,
+                  "min_similarity": 0.6991166424816321,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 1 final members: 0.6991; minimum: 0.6991. Side complete admission score 0.6991; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                }
+              ]
+            },
+            {
+              "paper_id": "W4407385098",
+              "question_similarity": 0.5742728603581799,
+              "relevance": "uncertain",
+              "reason": "This is a survey of large multimodal models for low-resource languages, not focused on LoRA fine-tuning for machine translation.",
+              "evidence": [],
+              "keywords": [
+                "LR",
+                "approaches",
+                "LMMs",
+                "contributions",
+                "LR languages",
+                "survey"
+              ],
+              "assigned_similarity": 0.7549863677501236,
+              "runner_up_cluster_id": "MAIN",
+              "runner_up_similarity": 0.7362238279737509,
+              "margin": 0.018762539776372766,
+              "near_boundary": true,
+              "also_related": [
+                {
+                  "cluster_id": "MAIN",
+                  "similarity": 0.7362238279737509,
+                  "min_similarity": 0.7362238279737509,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 1 final members: 0.7362; minimum: 0.7362. Main admission also requires the question gate and source-verified direct relevance. A numerical hint, not additional membership or a verified scientific connection."
+                },
+                {
+                  "cluster_id": "SIDE-5ba842b65c25e312",
+                  "similarity": 0.7263645883112525,
+                  "min_similarity": 0.6821677379601796,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 3 final members: 0.7264; minimum: 0.6822. Side complete admission score 0.6822; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "SIDE-0d2bb7ce83963c6e",
+          "label": "Unclustered: Fine-tuning large language models for improved health communication in low-resource languages",
+          "paper_ids": [
+            "W4407393353"
+          ],
+          "rationale": "Remaining paper without a compatible side topic; retained individually.",
+          "kind": "side",
+          "question": "How does LoRA fine-tuning improve machine translation for low-resource languages?",
+          "paper_details": [
+            {
+              "paper_id": "W4407393353",
+              "question_similarity": 0.4630435032017077,
+              "relevance": "uncertain",
+              "reason": "Below the question-similarity candidate gate; direct relevance was not assessed.",
+              "evidence": [],
+              "keywords": [
+                "Vietnamese",
+                "healthcare",
+                "countries",
+                "developing countries",
+                "health",
+                "medical"
+              ],
+              "assigned_similarity": null,
+              "runner_up_cluster_id": "SIDE-e7e19499f2ba45aa",
+              "runner_up_similarity": 0.6488603070222043,
+              "margin": null,
+              "near_boundary": false,
+              "also_related": [
+                {
+                  "cluster_id": "SIDE-e7e19499f2ba45aa",
+                  "similarity": 0.6488603070222043,
+                  "min_similarity": 0.6488603070222043,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 1 final members: 0.6489; minimum: 0.6489. Side complete admission score 0.6489; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                },
+                {
+                  "cluster_id": "SIDE-7c3771bf910de4df",
+                  "similarity": 0.6268518121482232,
+                  "min_similarity": 0.6175039126131563,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 2 final members: 0.6269; minimum: 0.6175. Side complete admission score 0.6175; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "SIDE-da89ee762cbcfa62",
+          "label": "Unclustered: Large Language Models With Contrastive Decoding Algorithm for Hallucination Mitigation in Low‐Resource Languages",
+          "paper_ids": [
+            "W4409178241"
+          ],
+          "rationale": "Remaining paper without a compatible side topic; retained individually.",
+          "kind": "side",
+          "question": "How does LoRA fine-tuning improve machine translation for low-resource languages?",
+          "paper_details": [
+            {
+              "paper_id": "W4409178241",
+              "question_similarity": 0.5867880292714911,
+              "relevance": "supporting",
+              "reason": "The paper fine-tunes LLMs (ChatGLM, LLaMA) for low-resource NMT and addresses hallucination mitigation, but does not mention LoRA. It provides relevant context on fine-tuning LLMs for low-resource MT.",
+              "evidence": [
+                {
+                  "paper_id": "W4409178241",
+                  "quote": " Advanced large language NMT models, including ChatGLM and LLaMA, are fine‐tuned and implemented for their superior contextual understanding and cross‐lingual capabilities. The refined CD algorithm evaluates multiple candidate translations using BLEU score, semantic similarity, and Named Entity Recognition accuracy."
+                },
+                {
+                  "paper_id": "W4409178241",
+                  "quote": " Extensive experimental results show substantial improvements in translation quality and a significant reduction in hallucination rates. Fine‐tuned models achieve higher evaluation metrics compared to baseline models and state‐of‐the‐art models."
+                }
+              ],
+              "keywords": [
+                "Algorithm",
+                "refined",
+                "advanced",
+                "CD",
+                "CD algorithm",
+                "hallucinations"
+              ],
+              "assigned_similarity": null,
+              "runner_up_cluster_id": "MAIN",
+              "runner_up_similarity": 0.6903042001961478,
+              "margin": null,
+              "near_boundary": false,
+              "also_related": [
+                {
+                  "cluster_id": "MAIN",
+                  "similarity": 0.6903042001961478,
+                  "min_similarity": 0.6903042001961478,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 1 final members: 0.6903; minimum: 0.6903. Main admission also requires the question gate and source-verified direct relevance. A numerical hint, not additional membership or a verified scientific connection."
+                },
+                {
+                  "cluster_id": "SIDE-f151ffe559fd5284",
+                  "similarity": 0.6361762027806566,
+                  "min_similarity": 0.6361762027806566,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 1 final members: 0.6362; minimum: 0.6362. Side complete admission score 0.6362; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "SIDE-dc1c7055d44b2127",
+          "label": "Title-only records: Interactive Machine Translation with Large Language Models for Low-Resourced Languages",
+          "paper_ids": [
+            "W4410184664",
+            "W7134895265"
+          ],
+          "rationale": "[insufficient_evidence] No abstract or full text is available to verify a shared research subtopic. Titles suggest a topic, but no reliable distinction from neighboring research can be established.",
+          "kind": "side",
+          "question": "How does LoRA fine-tuning improve machine translation for low-resource languages?",
+          "paper_details": [
+            {
+              "paper_id": "W4410184664",
+              "question_similarity": 0.6177914304653948,
+              "relevance": "uncertain",
+              "reason": "No abstract or full text; direct relevance cannot be verified from a title alone.",
+              "evidence": [],
+              "keywords": [
+                "Interactive",
+                "Interactive Machine",
+                "Low-Resourced",
+                "Low-Resourced Languages",
+                "Machine",
+                "Machine Translation"
+              ],
+              "assigned_similarity": 0.9825982635809845,
+              "runner_up_cluster_id": "SIDE-1639fc79ec300ae6",
+              "runner_up_similarity": 0.6658321462688161,
+              "margin": 0.3167661173121683,
+              "near_boundary": false,
+              "also_related": [
+                {
+                  "cluster_id": "SIDE-1639fc79ec300ae6",
+                  "similarity": 0.6658321462688161,
+                  "min_similarity": 0.6658321462688161,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 1 final members: 0.6658; minimum: 0.6658. Side complete admission score 0.6658; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                },
+                {
+                  "cluster_id": "SIDE-58217f00e274c2d6",
+                  "similarity": 0.6441192838707361,
+                  "min_similarity": 0.6441192838707361,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 1 final members: 0.6441; minimum: 0.6441. Side complete admission score 0.6441; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                }
+              ]
+            },
+            {
+              "paper_id": "W7134895265",
+              "question_similarity": 0.626474177638361,
+              "relevance": "uncertain",
+              "reason": "No abstract or full text; direct relevance cannot be verified from a title alone.",
+              "evidence": [],
+              "keywords": [
+                "Interactive",
+                "Interactive Machine",
+                "Machine",
+                "Machine Translation",
+                "Translation",
+                "Low-resource Languages"
+              ],
+              "assigned_similarity": 0.9825982635809845,
+              "runner_up_cluster_id": "SIDE-58217f00e274c2d6",
+              "runner_up_similarity": 0.6507459965731645,
+              "margin": 0.33185226700782,
+              "near_boundary": false,
+              "also_related": [
+                {
+                  "cluster_id": "SIDE-58217f00e274c2d6",
+                  "similarity": 0.6507459965731645,
+                  "min_similarity": 0.6507459965731645,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 1 final members: 0.6507; minimum: 0.6507. Side complete admission score 0.6507; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                },
+                {
+                  "cluster_id": "MAIN",
+                  "similarity": 0.6500559583653017,
+                  "min_similarity": 0.6500559583653017,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 1 final members: 0.6501; minimum: 0.6501. Main admission also requires the question gate and source-verified direct relevance. A numerical hint, not additional membership or a verified scientific connection."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "SIDE-2f28fdd86c0730ec",
+          "label": "Unclustered: Evaluating quantized Large Language Models for code generation on low-resource language benchmarks",
+          "paper_ids": [
+            "W4412862878"
+          ],
+          "rationale": "Remaining paper without a compatible side topic; retained individually.",
+          "kind": "side",
+          "question": "How does LoRA fine-tuning improve machine translation for low-resource languages?",
+          "paper_details": [
+            {
+              "paper_id": "W4412862878",
+              "question_similarity": 0.5125146433485729,
+              "relevance": "uncertain",
+              "reason": "The paper evaluates quantized LLMs for code generation on low-resource programming languages, not LoRA fine-tuning for machine translation.",
+              "evidence": [],
+              "keywords": [
+                "quantization",
+                "integer",
+                "lua",
+                "precision",
+                "quantized",
+                "code"
+              ],
+              "assigned_similarity": null,
+              "runner_up_cluster_id": "SIDE-e7e19499f2ba45aa",
+              "runner_up_similarity": 0.6264119401871452,
+              "margin": null,
+              "near_boundary": false,
+              "also_related": [
+                {
+                  "cluster_id": "SIDE-e7e19499f2ba45aa",
+                  "similarity": 0.6264119401871452,
+                  "min_similarity": 0.6264119401871452,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 1 final members: 0.6264; minimum: 0.6264. Side complete admission score 0.6264; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                },
+                {
+                  "cluster_id": "SIDE-5ba842b65c25e312",
+                  "similarity": 0.6136050980567802,
+                  "min_similarity": 0.5759903084744575,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 3 final members: 0.6136; minimum: 0.5760. Side complete admission score 0.5760; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "SIDE-5ba842b65c25e312",
+          "label": "Tokenizer Adaptation and Continued Pre-training for Low-Resource Languages",
+          "paper_ids": [
+            "W4412889388",
+            "W7165392193",
+            "W7165482954"
+          ],
+          "rationale": "[coherent] All three papers investigate model adaptation techniques for low-resource languages: tokenizer adaptation methods (FVT, ZeTT) for programming languages Elixir/Racket (W4412889388), fine-tuning challenges and solutions for Azerbaijani (W7165392193), and continued pre-training (CPT) with benchmarking (INJONGO) for 16/20 African languages (W7165482954). They share a methodological focus on adaptation strategies—tokenizer transfer, data augmentation, cross-lingual transfer, CPT—and evaluating their effectiveness on specific low-resource languages. Unlike SIDE-823f78baa866fb26 which benchmarks existing models on translation tasks for Austronesian languages, this group develops and tests adaptation methods (tokenizer, CPT, SFT) for diverse low-resource languages including programming languages. Unlike SIDE-1bde737c01cb1f8f which explores continual learning and contextual learning for zero/few-shot scenarios, this group emphasizes supervised fine-tuning and continued pre-training with curated datasets.",
+          "kind": "side",
+          "question": "How does LoRA fine-tuning improve machine translation for low-resource languages?",
+          "paper_details": [
+            {
+              "paper_id": "W4412889388",
+              "question_similarity": 0.6957546335768409,
+              "relevance": "uncertain",
+              "reason": "The paper investigates tokenizer adaptation methods for low-resource programming languages, not LoRA fine-tuning for machine translation.",
+              "evidence": [],
+              "keywords": [
+                "Tokenizer",
+                "Tokenizer Adaptation",
+                "LRPLs",
+                "Programming Languages",
+                "Programming",
+                "Adaptation Methods"
+              ],
+              "assigned_similarity": 0.7863123287206752,
+              "runner_up_cluster_id": "MAIN",
+              "runner_up_similarity": 0.8388114652346639,
+              "margin": -0.05249913651398863,
+              "near_boundary": false,
+              "also_related": [
+                {
+                  "cluster_id": "MAIN",
+                  "similarity": 0.8388114652346639,
+                  "min_similarity": 0.8388114652346639,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 1 final members: 0.8388; minimum: 0.8388. Main admission also requires the question gate and source-verified direct relevance. A numerical hint, not additional membership or a verified scientific connection."
+                },
+                {
+                  "cluster_id": "SIDE-f3cd3f1d3b540801",
+                  "similarity": 0.6976953540559832,
+                  "min_similarity": 0.6792805641370684,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 2 final members: 0.6977; minimum: 0.6793. Side complete admission score 0.6793; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                }
+              ]
+            },
+            {
+              "paper_id": "W7165392193",
+              "question_similarity": 0.7339170739655083,
+              "relevance": "supporting",
+              "reason": "The paper analyzes fine-tuning challenges for Azerbaijani, mentioning data scarcity, tokenization, and transfer learning, but does not discuss LoRA or machine translation. It supports understanding of fine-tuning difficulties in low-resource settings.",
+              "evidence": [
+                {
+                  "paper_id": "W7165392193",
+                  "quote": "Large Language Models have shown capabilities in natural language processing tasks. Their performance drops drastically on low-resource languages that lack large annotated corpora. We look at the challenges of fine-tuning Large Language Models for low-resource languages with Azerbaijani as a case study."
+                }
+              ],
+              "keywords": [
+                "Azerbaijani",
+                "tokenization",
+                "morphological",
+                "adaptation harder",
+                "Analysis Based",
+                "annotated corpora"
+              ],
+              "assigned_similarity": 0.8083951555304929,
+              "runner_up_cluster_id": "MAIN",
+              "runner_up_similarity": 0.8542902136498949,
+              "margin": -0.04589505811940198,
+              "near_boundary": true,
+              "also_related": [
+                {
+                  "cluster_id": "MAIN",
+                  "similarity": 0.8542902136498949,
+                  "min_similarity": 0.8542902136498949,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 1 final members: 0.8543; minimum: 0.8543. Main admission also requires the question gate and source-verified direct relevance. A numerical hint, not additional membership or a verified scientific connection."
+                },
+                {
+                  "cluster_id": "SIDE-823f78baa866fb26",
+                  "similarity": 0.7699751488047308,
+                  "min_similarity": 0.7156201665889239,
+                  "meets_membership_criteria": true,
+                  "reason": "Mean cosine to 3 final members: 0.7700; minimum: 0.7156. Side complete admission score 0.7156; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                }
+              ]
+            },
+            {
+              "paper_id": "W7165482954",
+              "question_similarity": 0.6200658919977565,
+              "relevance": "supporting",
+              "reason": "The thesis investigates LLM adaptation for African languages via Supervised Fine-Tuning (SFT) and Continued Pre-Training, but the supplied abstract does not mention LoRA or machine translation. It supports the broader adaptation pipeline for low-resource languages.",
+              "evidence": [
+                {
+                  "paper_id": "W7165482954",
+                  "quote": "Despite remarkable advances in Large Language Models (LLMs), African languagesremain critically underserved by the current training and adaptation pipeline. This thesisaddresses the fundamental bottlenecks in adapting LLMs for low-resource languagesthrough a unified two-stage investigation: benchmarking via Supervised Fine-Tuning(SFT) and foundational adaptation via Continued Pre-Training (CPT)."
+                }
+              ],
+              "keywords": [
+                "African",
+                "African Languages",
+                "SFT",
+                "CPT",
+                "INJONGO",
+                "architectural"
+              ],
+              "assigned_similarity": 0.791289742363624,
+              "runner_up_cluster_id": "MAIN",
+              "runner_up_similarity": 0.7873358682990128,
+              "margin": 0.003953874064611229,
+              "near_boundary": true,
+              "also_related": [
+                {
+                  "cluster_id": "MAIN",
+                  "similarity": 0.7873358682990128,
+                  "min_similarity": 0.7873358682990128,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 1 final members: 0.7873; minimum: 0.7873. Main admission also requires the question gate and source-verified direct relevance. A numerical hint, not additional membership or a verified scientific connection."
+                },
+                {
+                  "cluster_id": "SIDE-7c3771bf910de4df",
+                  "similarity": 0.7358845615617058,
+                  "min_similarity": 0.6924549463975621,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 2 final members: 0.7359; minimum: 0.6925. Side complete admission score 0.6925; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "SIDE-0825c79310988496",
+          "label": "Multimodal and Instruction Adaptation of LLMs for Basque",
+          "paper_ids": [
+            "W4416223637",
+            "W4417133178"
+          ],
+          "rationale": "[mixed] Both papers target Basque, a low‑resource language, but pursue different adaptation paths: W4416223637 builds multimodal image‑text datasets and trains MLLMs using Llama‑3.1‑Instruct and a Basque‑adapted Latxa backbone (S1‑S3), while W4417133178 systematically studies instruction‑tuning pipelines with synthetic instructions and finds that an instructed backbone outperforms a base model (S1‑S4). The shared language and low‑resource setting give a loose thematic link, yet the core research tasks (multimodal vs. text‑only instruction tuning) and methods differ materially. Neighbor SIDE‑7c3771bf910de4df contains a survey of multimodal models for low‑resource languages (W4407385098), which is broader and not Basque‑specific. Neighbor SIDE‑5ba842b65c25e312 focuses on adaptation for African languages and tokenizer issues, a different language family and set of techniques.",
+          "kind": "side",
+          "question": "How does LoRA fine-tuning improve machine translation for low-resource languages?",
+          "paper_details": [
+            {
+              "paper_id": "W4416223637",
+              "question_similarity": 0.5234711824774418,
+              "relevance": "supporting",
+              "reason": "The paper focuses on multimodal LLMs for Basque and does not mention LoRA fine-tuning or machine translation. It provides background on low-resource language adaptation but does not directly address the question.",
+              "evidence": [
+                {
+                  "paper_id": "W4416223637",
+                  "quote": "Current Multimodal Large Language Models exhibit very strong performance for several demanding tasks. While commercial MLLMs deliver acceptable performance in low-resource languages, comparable results remain unattained within the open science community. In this paper, we aim to develop a strong MLLM for a low-resource language, namely Basque."
+                }
+              ],
+              "keywords": [
+                "Basque",
+                "develop",
+                "Multimodal",
+                "strong",
+                "MLLM",
+                "MLLMs"
+              ],
+              "assigned_similarity": 0.7216279961100209,
+              "runner_up_cluster_id": "SIDE-823f78baa866fb26",
+              "runner_up_similarity": 0.706645853969143,
+              "margin": 0.014982142140877897,
+              "near_boundary": true,
+              "also_related": [
+                {
+                  "cluster_id": "SIDE-823f78baa866fb26",
+                  "similarity": 0.706645853969143,
+                  "min_similarity": 0.6875524064168018,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 3 final members: 0.7066; minimum: 0.6876. Side complete admission score 0.6876; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                },
+                {
+                  "cluster_id": "SIDE-7c3771bf910de4df",
+                  "similarity": 0.6772005156236225,
+                  "min_similarity": 0.6070540092913415,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 2 final members: 0.6772; minimum: 0.6071. Side complete admission score 0.6071; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                }
+              ]
+            },
+            {
+              "paper_id": "W4417133178",
+              "question_similarity": 0.6006065719523423,
+              "relevance": "supporting",
+              "reason": "This paper studies instruction adaptation for Basque using synthetic data and backbone LLMs, but it does not discuss LoRA fine-tuning or machine translation. It is relevant to low-resource language adaptation generally, not the specific method and task in the question.",
+              "evidence": [
+                {
+                  "paper_id": "W4417133178",
+                  "quote": "Instructing language models with user intent requires large instruction datasets, which are only available for a limited set of languages. In this paper, we explore alternatives to conventional instruction adaptation pipelines in low-resource scenarios."
+                }
+              ],
+              "keywords": [
+                "backbone",
+                "Basque",
+                "instruction",
+                "instructions",
+                "human preferences",
+                "Instructing"
+              ],
+              "assigned_similarity": 0.7216279961100209,
+              "runner_up_cluster_id": "SIDE-5ba842b65c25e312",
+              "runner_up_similarity": 0.7292520446989545,
+              "margin": -0.0076240485889336185,
+              "near_boundary": true,
+              "also_related": [
+                {
+                  "cluster_id": "SIDE-5ba842b65c25e312",
+                  "similarity": 0.7292520446989545,
+                  "min_similarity": 0.7108296008592021,
+                  "meets_membership_criteria": true,
+                  "reason": "Mean cosine to 3 final members: 0.7293; minimum: 0.7108. Side complete admission score 0.7108; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                },
+                {
+                  "cluster_id": "MAIN",
+                  "similarity": 0.7092695031125364,
+                  "min_similarity": 0.7092695031125364,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 1 final members: 0.7093; minimum: 0.7093. Main admission also requires the question gate and source-verified direct relevance. A numerical hint, not additional membership or a verified scientific connection."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "SIDE-f151ffe559fd5284",
+          "label": "Unclustered: Large Language Models for Toxic Language Detection in Low-Resource Balkan Languages",
+          "paper_ids": [
+            "W4416249530"
+          ],
+          "rationale": "Remaining paper without a compatible side topic; retained individually.",
+          "kind": "side",
+          "question": "How does LoRA fine-tuning improve machine translation for low-resource languages?",
+          "paper_details": [
+            {
+              "paper_id": "W4416249530",
+              "question_similarity": 0.4658876620636039,
+              "relevance": "uncertain",
+              "reason": "Below the question-similarity candidate gate; direct relevance was not assessed.",
+              "evidence": [],
+              "keywords": [
+                "Toxic",
+                "Detection",
+                "F1",
+                "F1 score",
+                "false",
+                "Toxic Language"
+              ],
+              "assigned_similarity": null,
+              "runner_up_cluster_id": "SIDE-da89ee762cbcfa62",
+              "runner_up_similarity": 0.6361762027806566,
+              "margin": null,
+              "near_boundary": false,
+              "also_related": [
+                {
+                  "cluster_id": "SIDE-da89ee762cbcfa62",
+                  "similarity": 0.6361762027806566,
+                  "min_similarity": 0.6361762027806566,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 1 final members: 0.6362; minimum: 0.6362. Side complete admission score 0.6362; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                },
+                {
+                  "cluster_id": "SIDE-5ba842b65c25e312",
+                  "similarity": 0.6109520817288797,
+                  "min_similarity": 0.581173473647596,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 3 final members: 0.6110; minimum: 0.5812. Side complete admission score 0.5812; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "SIDE-58217f00e274c2d6",
+          "label": "Unclustered: Adaptive and Efficient Large Language Models for Low-Resource African Languages",
+          "paper_ids": [
+            "W7115677253"
+          ],
+          "rationale": "Remaining paper without a compatible side topic; retained individually.",
+          "kind": "side",
+          "question": "How does LoRA fine-tuning improve machine translation for low-resource languages?",
+          "paper_details": [
+            {
+              "paper_id": "W7115677253",
+              "question_similarity": 0.6897390205812759,
+              "relevance": "uncertain",
+              "reason": "The provided span only lists keywords including LoRA and fine-tuning for low-resource African languages, but does not describe any application or evaluation of LoRA fine-tuning specifically for machine translation. No mention of translation task or results.",
+              "evidence": [],
+              "keywords": [
+                "African",
+                "Adaptive",
+                "Efficient Large",
+                "Low-Resource African",
+                "Efficient",
+                "African Languages"
+              ],
+              "assigned_similarity": null,
+              "runner_up_cluster_id": "MAIN",
+              "runner_up_similarity": 0.7169412855783912,
+              "margin": null,
+              "near_boundary": false,
+              "also_related": [
+                {
+                  "cluster_id": "MAIN",
+                  "similarity": 0.7169412855783912,
+                  "min_similarity": 0.7169412855783912,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 1 final members: 0.7169; minimum: 0.7169. Main admission also requires the question gate and source-verified direct relevance. A numerical hint, not additional membership or a verified scientific connection."
+                },
+                {
+                  "cluster_id": "SIDE-5ba842b65c25e312",
+                  "similarity": 0.7033966506774333,
+                  "min_similarity": 0.6371343886120162,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 3 final members: 0.7034; minimum: 0.6371. Side complete admission score 0.6371; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "SIDE-1bde737c01cb1f8f",
+          "label": "Continual Learning and Contextual Strategies for Low‑Resource LLM Adaptation",
+          "paper_ids": [
+            "W7123296616",
+            "W7123371404",
+            "W7154856337",
+            "W7155373379"
+          ],
+          "rationale": "[mixed] Three papers (W7123296616, W7123371404, W7155373379) are near‑duplicates proposing a continual‑learning framework with POS‑based code‑switching and replay adapters to mitigate catastrophic forgetting when distilling LLMs into small models for low‑resource languages, evaluated on vision‑language tasks (S1‑S2). The fourth paper (W7154856337) investigates a different approach: contextual learning with cross‑lingual transfer, multi‑task/self‑supervised pre‑training, and lightweight fine‑tuning for zero‑/few‑shot generalization (S1‑S5). The group therefore mixes a specific continual‑learning method with a broader contextual‑learning strategy. Neighbor SIDE‑5ba842b65c25e312 examines fine‑tuning challenges and tokenizer adaptation for African languages and programming languages, not continual or contextual learning. Neighbor SIDE‑f3cd3f1d3b540801 covers zero‑shot cross‑lingual reranking and LLM‑as‑annotator for African languages, a different task and evaluation focus.",
+          "kind": "side",
+          "question": "How does LoRA fine-tuning improve machine translation for low-resource languages?",
+          "paper_details": [
+            {
+              "paper_id": "W7123296616",
+              "question_similarity": 0.6085402182328994,
+              "relevance": "supporting",
+              "reason": "The paper proposes a continual learning strategy with replay adapters to mitigate catastrophic forgetting when adapting LLMs for low-resource languages. It does not mention LoRA or machine translation, so it provides supporting background on adaptation challenges rather than directly answering the question.",
+              "evidence": [
+                {
+                  "paper_id": "W7123296616",
+                  "quote": "Modelling a language model for a multi-lingual scenario includes several potential challenges, among which catastrophic forgetting is the major challenge. For example, small language models (SLM) built for low-resource languages by adapting large language models (LLMs) pose the challenge of catastrophic forgetting."
+                }
+              ],
+              "keywords": [
+                "Modelling",
+                "catastrophic",
+                "catastrophic forgetting",
+                "forgetting",
+                "challenge",
+                "SLM"
+              ],
+              "assigned_similarity": 0.9294205111200595,
+              "runner_up_cluster_id": "MAIN",
+              "runner_up_similarity": 0.7287720766212288,
+              "margin": 0.20064843449883074,
+              "near_boundary": false,
+              "also_related": [
+                {
+                  "cluster_id": "MAIN",
+                  "similarity": 0.7287720766212288,
+                  "min_similarity": 0.7287720766212288,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 1 final members: 0.7288; minimum: 0.7288. Main admission also requires the question gate and source-verified direct relevance. A numerical hint, not additional membership or a verified scientific connection."
+                },
+                {
+                  "cluster_id": "SIDE-5ba842b65c25e312",
+                  "similarity": 0.6800567445907465,
+                  "min_similarity": 0.6339169167924416,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 3 final members: 0.6801; minimum: 0.6339. Side complete admission score 0.6339; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                }
+              ]
+            },
+            {
+              "paper_id": "W7123371404",
+              "question_similarity": 0.6085402182328994,
+              "relevance": "supporting",
+              "reason": "Duplicate of W7123296616; same continual learning approach without reference to LoRA or machine translation. Supports background on low-resource language adaptation challenges.",
+              "evidence": [
+                {
+                  "paper_id": "W7123371404",
+                  "quote": "Modelling a language model for a multi-lingual scenario includes several potential challenges, among which catastrophic forgetting is the major challenge. For example, small language models (SLM) built for low-resource languages by adapting large language models (LLMs) pose the challenge of catastrophic forgetting."
+                }
+              ],
+              "keywords": [
+                "Modelling",
+                "catastrophic",
+                "catastrophic forgetting",
+                "forgetting",
+                "challenge",
+                "SLM"
+              ],
+              "assigned_similarity": 0.9294205111200595,
+              "runner_up_cluster_id": "MAIN",
+              "runner_up_similarity": 0.7287720766212288,
+              "margin": 0.20064843449883074,
+              "near_boundary": false,
+              "also_related": [
+                {
+                  "cluster_id": "MAIN",
+                  "similarity": 0.7287720766212288,
+                  "min_similarity": 0.7287720766212288,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 1 final members: 0.7288; minimum: 0.7288. Main admission also requires the question gate and source-verified direct relevance. A numerical hint, not additional membership or a verified scientific connection."
+                },
+                {
+                  "cluster_id": "SIDE-5ba842b65c25e312",
+                  "similarity": 0.6800567445907465,
+                  "min_similarity": 0.6339169167924416,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 3 final members: 0.6801; minimum: 0.6339. Side complete admission score 0.6339; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                }
+              ]
+            },
+            {
+              "paper_id": "W7154856337",
+              "question_similarity": 0.63727757223923,
+              "relevance": "supporting",
+              "reason": "The paper proposes an efficient training strategy based on contextual learning, multi-task learning, and a lightweight fine-tuning stage for low-resource languages. It mentions fine-tuning but not LoRA specifically, and does not address machine translation. It supports the broader theme of efficient adaptation.",
+              "evidence": [
+                {
+                  "paper_id": "W7154856337",
+                  "quote": " A lightweight fine-tuning stage with a small amount of labeled data is then employed for targeted adaptation to specific downstream tasks and languages. The proposed framework is designed to be computationally efficient, reducing training cost while maintaining or improving performance."
+                }
+              ],
+              "keywords": [
+                "Contextual",
+                "Contextual Learning",
+                "Few-Shot",
+                "Efficient",
+                "Learning",
+                "Efficient Training"
+              ],
+              "assigned_similarity": 0.7882615333601789,
+              "runner_up_cluster_id": "MAIN",
+              "runner_up_similarity": 0.8148601205491024,
+              "margin": -0.026598587188923495,
+              "near_boundary": true,
+              "also_related": [
+                {
+                  "cluster_id": "MAIN",
+                  "similarity": 0.8148601205491024,
+                  "min_similarity": 0.8148601205491024,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 1 final members: 0.8149; minimum: 0.8149. Main admission also requires the question gate and source-verified direct relevance. A numerical hint, not additional membership or a verified scientific connection."
+                },
+                {
+                  "cluster_id": "SIDE-5ba842b65c25e312",
+                  "similarity": 0.7576926272876657,
+                  "min_similarity": 0.7101513416438883,
+                  "meets_membership_criteria": true,
+                  "reason": "Mean cosine to 3 final members: 0.7577; minimum: 0.7102. Side complete admission score 0.7102; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                }
+              ]
+            },
+            {
+              "paper_id": "W7155373379",
+              "question_similarity": 0.6085402182328994,
+              "relevance": "supporting",
+              "reason": "Another duplicate of the continual learning paper; no mention of LoRA or machine translation. Provides supporting context on adaptation challenges.",
+              "evidence": [
+                {
+                  "paper_id": "W7155373379",
+                  "quote": "Modelling a language model for a multi-lingual scenario includes several potential challenges, among which catastrophic forgetting is the major challenge. For example, small language models (SLM) built for low-resource languages by adapting large language models (LLMs) pose the challenge of catastrophic forgetting."
+                }
+              ],
+              "keywords": [
+                "Modelling",
+                "catastrophic",
+                "catastrophic forgetting",
+                "forgetting",
+                "challenge",
+                "SLM"
+              ],
+              "assigned_similarity": 0.9294205111200595,
+              "runner_up_cluster_id": "MAIN",
+              "runner_up_similarity": 0.7287720766212288,
+              "margin": 0.20064843449883074,
+              "near_boundary": false,
+              "also_related": [
+                {
+                  "cluster_id": "MAIN",
+                  "similarity": 0.7287720766212288,
+                  "min_similarity": 0.7287720766212288,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 1 final members: 0.7288; minimum: 0.7288. Main admission also requires the question gate and source-verified direct relevance. A numerical hint, not additional membership or a verified scientific connection."
+                },
+                {
+                  "cluster_id": "SIDE-5ba842b65c25e312",
+                  "similarity": 0.6800567445907465,
+                  "min_similarity": 0.6339169167924416,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 3 final members: 0.6801; minimum: 0.6339. Side complete admission score 0.6339; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "SIDE-e7e19499f2ba45aa",
+          "label": "Unclustered: Employing large language models in Swahili, a low-resource language",
+          "paper_ids": [
+            "W7155356580"
+          ],
+          "rationale": "Remaining paper without a compatible side topic; retained individually.",
+          "kind": "side",
+          "question": "How does LoRA fine-tuning improve machine translation for low-resource languages?",
+          "paper_details": [
+            {
+              "paper_id": "W7155356580",
+              "question_similarity": 0.4558077363819841,
+              "relevance": "uncertain",
+              "reason": "Below the question-similarity candidate gate; direct relevance was not assessed.",
+              "evidence": [],
+              "keywords": [
+                "Swahili",
+                "inaccuracies",
+                "outputs",
+                "Tanzania",
+                "ai",
+                "use"
+              ],
+              "assigned_similarity": null,
+              "runner_up_cluster_id": "SIDE-58217f00e274c2d6",
+              "runner_up_similarity": 0.6989211518759958,
+              "margin": null,
+              "near_boundary": false,
+              "also_related": [
+                {
+                  "cluster_id": "SIDE-58217f00e274c2d6",
+                  "similarity": 0.6989211518759958,
+                  "min_similarity": 0.6989211518759958,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 1 final members: 0.6989; minimum: 0.6989. Side complete admission score 0.6989; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                },
+                {
+                  "cluster_id": "SIDE-7c3771bf910de4df",
+                  "similarity": 0.6715800778412829,
+                  "min_similarity": 0.6345771562151391,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 2 final members: 0.6716; minimum: 0.6346. Side complete admission score 0.6346; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "SIDE-8f984f17c4cadbb4",
+          "label": "Unclustered: Enhancing Low-Resource Language Data Using Large Language Models",
+          "paper_ids": [
+            "W7162479607"
+          ],
+          "rationale": "Remaining paper without a compatible side topic; retained individually.",
+          "kind": "side",
+          "question": "How does LoRA fine-tuning improve machine translation for low-resource languages?",
+          "paper_details": [
+            {
+              "paper_id": "W7162479607",
+              "question_similarity": 0.5911400743190384,
+              "relevance": "supporting",
+              "reason": "This dissertation explores LLM fine-tuning for low-resource language data enhancement (denoising, morphological generation) but does not mention LoRA or machine translation. It supports the general use of fine-tuning for low-resource languages.",
+              "evidence": [
+                {
+                  "paper_id": "W7162479607",
+                  "quote": " For language data, data denoising is a process where a dataset is standardized if there is an existing standard, else it is normalized- made consistent through manual or computational methods. This dissertation tests computational methods of denoising through fine-tuning and prompting pre-trained LLMs. For denoising with LLMs, two approaches are used."
+                }
+              ],
+              "keywords": [
+                "denoising",
+                "morphological generation",
+                "LRLs",
+                "morphological",
+                "data denoising",
+                "used"
+              ],
+              "assigned_similarity": null,
+              "runner_up_cluster_id": "SIDE-f3cd3f1d3b540801",
+              "runner_up_similarity": 0.6876609874036008,
+              "margin": null,
+              "near_boundary": false,
+              "also_related": [
+                {
+                  "cluster_id": "SIDE-f3cd3f1d3b540801",
+                  "similarity": 0.6876609874036008,
+                  "min_similarity": 0.6618229687295353,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 2 final members: 0.6877; minimum: 0.6618. Side complete admission score 0.6618; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                },
+                {
+                  "cluster_id": "SIDE-7c3771bf910de4df",
+                  "similarity": 0.6811035987499217,
+                  "min_similarity": 0.6780206399907717,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 2 final members: 0.6811; minimum: 0.6780. Side complete admission score 0.6780; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "SIDE-1639fc79ec300ae6",
+          "label": "Unclustered: THE ALGORITHMIC TRANSLATOR Using Large Language Models to Revive Low-Resource Programming Languages",
+          "paper_ids": [
+            "W7168097912"
+          ],
+          "rationale": "Remaining paper without a compatible side topic; retained individually.",
+          "kind": "side",
+          "question": "How does LoRA fine-tuning improve machine translation for low-resource languages?",
+          "paper_details": [
+            {
+              "paper_id": "W7168097912",
+              "question_similarity": 0.5574308367019655,
+              "relevance": "uncertain",
+              "reason": "The paper title mentions \"Low-Resource Programming Languages\" and \"Large Language Models\", but the abstract span provided does not discuss LoRA fine-tuning, machine translation, or natural language low-resource translation. The available text is insufficient to determine relevance to the specific question about LoRA fine-tuning for low-resource language machine translation.",
+              "evidence": [
+                {
+                  "paper_id": "W7168097912",
+                  "quote": "THE ALGORITHMIC TRANSLATOR Using Large Language Models to Revive Low-Resource Programming Languages"
+                }
+              ],
+              "keywords": [
+                "ALGORITHMIC",
+                "ALGORITHMIC TRANSLATOR",
+                "Revive",
+                "Revive Low-Resource",
+                "TRANSLATOR",
+                "TRANSLATOR Using"
+              ],
+              "assigned_similarity": null,
+              "runner_up_cluster_id": "SIDE-58217f00e274c2d6",
+              "runner_up_similarity": 0.6775710537996402,
+              "margin": null,
+              "near_boundary": false,
+              "also_related": [
+                {
+                  "cluster_id": "SIDE-58217f00e274c2d6",
+                  "similarity": 0.6775710537996402,
+                  "min_similarity": 0.6775710537996402,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 1 final members: 0.6776; minimum: 0.6776. Side complete admission score 0.6776; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                },
+                {
+                  "cluster_id": "SIDE-dc1c7055d44b2127",
+                  "similarity": 0.6460415646735607,
+                  "min_similarity": 0.6262509830783051,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 2 final members: 0.6460; minimum: 0.6263. Side complete admission score 0.6263; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "SIDE-544b3c02b4db8b85",
+          "label": "Unclustered: Large Language Models for Low-Resource Languages: A Conceptual Framework for an Electronic Explanatory Dictionary of the Tajik Language",
+          "paper_ids": [
+            "W7197036362"
+          ],
+          "rationale": "Remaining paper without a compatible side topic; retained individually.",
+          "kind": "side",
+          "question": "How does LoRA fine-tuning improve machine translation for low-resource languages?",
+          "paper_details": [
+            {
+              "paper_id": "W7197036362",
+              "question_similarity": 0.4247448286034205,
+              "relevance": "uncertain",
+              "reason": "Below the question-similarity candidate gate; direct relevance was not assessed.",
+              "evidence": [],
+              "keywords": [
+                "Dictionary",
+                "Tajik",
+                "Conceptual",
+                "Electronic",
+                "Explanatory",
+                "Explanatory Dictionary"
+              ],
+              "assigned_similarity": null,
+              "runner_up_cluster_id": "SIDE-3bd7f06aad46f4f0",
+              "runner_up_similarity": 0.663448436316871,
+              "margin": null,
+              "near_boundary": false,
+              "also_related": [
+                {
+                  "cluster_id": "SIDE-3bd7f06aad46f4f0",
+                  "similarity": 0.663448436316871,
+                  "min_similarity": 0.663448436316871,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 1 final members: 0.6634; minimum: 0.6634. Side complete admission score 0.6634; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                },
+                {
+                  "cluster_id": "SIDE-9f14e0dda6b83831",
+                  "similarity": 0.6425515620810993,
+                  "min_similarity": 0.6425515620810993,
+                  "meets_membership_criteria": false,
+                  "reason": "Mean cosine to 1 final members: 0.6426; minimum: 0.6426. Side complete admission score 0.6426; cutoff 0.7000. Main membership takes priority. A numerical hint, not additional membership or a verified scientific connection."
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "grade": {
+        "stage": "clusters",
+        "accuracy": 1,
+        "appropriateness": 1,
+        "actionability": 1,
+        "fix": "Re-cluster with a single MAIN cluster containing only papers that directly answer the question (LoRA fine-tuning for low-resource MT). All other papers should be grouped into coherent side clusters by research theme (e.g., benchmarking, tokenizer adaptation, health communication, toxic detection, multimodal, continual learning, dictionary building). Avoid labeling side clusters as 'Unclustered' when they contain multiple papers; give each a specific thematic label. Remove duplicate records (W7123296616, W7123371404, W7155373379 are the same study; W4410184664 and W7134895265 are the same study). Do not put title-only records in a separate cluster; either assign them to the appropriate thematic side cluster or omit them.",
+        "reasoning": "The output creates a MAIN cluster of size 1 (W4408280927) which does directly address LoRA fine-tuning for low-resource MT, so that part is acceptable. However, the side clusters are poorly constructed: many are labeled 'Unclustered' despite containing single papers that could be grouped thematically (e.g., health communication, toxic detection, multimodal Basque, tokenizer adaptation, benchmarking). Several side clusters mix unrelated topics (e.g., SIDE-1bde737c01cb1f8f groups four records of the same continual-learning paper as if they were distinct). Duplicate records are treated as independent papers, inflating cluster sizes. Title-only records are placed in a separate cluster without thematic justification. The clustering does not reflect the actual research subtopics present in the set, making it unactionable for a researcher. Accuracy is low because cluster membership does not match paper content; appropriateness is low because side clusters are not coherent; actionability is low because a researcher cannot use these groupings to navigate the literature."
+      },
+      "warnings": [
+        "Cluster map did not pass grading; retained for review without automatic regeneration."
+      ],
+      "usage": {
+        "prompt_tokens": 34320,
+        "completion_tokens": 5421,
+        "llm_calls": 8,
+        "estimated_calls": 0,
+        "budget": 50000
+      },
+      "variant": "with_independent_admission_check",
+      "validated_original_field_quotes": 19,
+      "memory_receipts": [
+        {
+          "reported": true,
+          "scope": "litagent-call-aa8435f7438f4d8c9023799689d81ae5",
+          "injected": 0
+        },
+        {
+          "reported": true,
+          "scope": "litagent-call-d4752d64501c42e691756428a4ab4351",
+          "injected": 0
+        },
+        {
+          "reported": true,
+          "scope": "litagent-call-bcc51597431d45c19802301782cba999",
+          "injected": 0
+        },
+        {
+          "reported": true,
+          "scope": "litagent-call-b657f352f8aa4de8abd3fbebfad2d722",
+          "injected": 0
+        },
+        {
+          "reported": true,
+          "scope": "litagent-call-ec0f35ded944450ba9c591534c6d57a7",
+          "injected": 0
+        },
+        {
+          "reported": true,
+          "scope": "litagent-call-4704b1c599aa4427b50a98495e58889f",
+          "injected": 0
+        },
+        {
+          "reported": true,
+          "scope": "litagent-call-2c8e097b403f467790ae080a7ad5e647",
+          "injected": 0
+        },
+        {
+          "reported": true,
+          "scope": "litagent-call-b5d800efae1c4f0cb6812d76201e31fb",
+          "injected": 0
+        }
+      ],
+      "graph_counts": {
+        "member-of": 30,
+        "also-related-to": 60
+      },
+      "paper_node_count": 30,
+      "admission_verification": [
+        {
+          "downgraded_ids": []
+        },
+        {
+          "downgraded_ids": [
+            "W7115677253"
+          ]
+        }
+      ]
+    }
+  ],
+  "human_validation_status": "pending; model grades and source-substring checks do not prove semantic correctness"
+}

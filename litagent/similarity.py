@@ -88,17 +88,24 @@ def _validated_similarity(similarity: np.ndarray) -> np.ndarray:
 
 def complete_linkage_groups(similarity: np.ndarray, threshold: float) -> list[list[int]]:
     """Every pair inside each returned group meets the threshold, including boundary ties."""
+    return linkage_groups(similarity, threshold, "complete")
+
+
+def linkage_groups(similarity: np.ndarray, threshold: float, method: str) -> list[list[int]]:
+    """Average linkage is optional; only complete linkage bounds every within-group pair."""
     from scipy.cluster.hierarchy import fcluster, linkage
     from scipy.spatial.distance import squareform
 
     matrix = _validated_similarity(similarity)
+    if method not in {"complete", "average"}:
+        raise ValueError("Linkage must be complete or average")
     if not np.isfinite(threshold) or not 0 <= threshold <= 1:
         raise ValueError("Similarity threshold must be between 0 and 1")
     if len(matrix) < 2:
         return [[0]] if len(matrix) else []
     distances = np.maximum(0, 1 - matrix)
     np.fill_diagonal(distances, 0)
-    tree = linkage(squareform(distances, checks=False), method="complete")
+    tree = linkage(squareform(distances, checks=False), method=method)
     labels = fcluster(tree, t=1 - threshold, criterion="distance")
     groups: dict[int, list[int]] = {}
     for index, label in enumerate(labels):

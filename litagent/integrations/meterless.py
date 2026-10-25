@@ -28,11 +28,11 @@ from typing import Any
 
 from litagent.config import WORLD_MODEL_MAX_AUTHORS
 from litagent.integrations.world_model import WorldModel, iso
-from litagent.schemas import Cluster, Connection, Gap, Grade, Paper
+from litagent.schemas import Cluster, Connection, Gap, Grade, Paper, QuestionCluster
 from litagent.trace import current_trace
 
 SYSTEM = "litagent"
-MULTI_VALUED = {"authored-by", "connects-to", "between"}  # every other edge type has one current target
+MULTI_VALUED = {"authored-by", "connects-to", "between", "also-related-to"}  # membership remains single-valued
 # Authors: never auto-merge near-matches (different people with short names score >= 0.85); queue them
 RESOLVER_BANDS = {"author": (float("inf"), 0.82)}
 
@@ -41,6 +41,9 @@ class ResearchWorld:
     def __init__(self, run_id: str = "default", directory: str | None = None):
         self.run_id = run_id
         if directory:
+            if any((Path(directory) / f"{prefix}-{run_id}.json").exists()
+                   for prefix in ("cluster-map", "cluster-state")):
+                raise ValueError("Cannot replace the World Model of an immutable cluster version; use a new run ID")
             # A run id names one run: running it again starts a fresh world instead of extending the old one
             (Path(directory) / f"world-{run_id}.json").unlink(missing_ok=True)
         self.world = WorldModel(namespace=run_id, storage="local" if directory else "memory", directory=directory,
@@ -92,16 +95,40 @@ class ResearchWorld:
              f"similar author names: {merged} merged, {queued} queued for operator review")
 
     def write_clusters(self, clusters: list[Cluster]) -> None:
+        if any(isinstance(c, QuestionCluster) for c in clusters):
+            members = [pid for c in clusters for pid in c.paper_ids]
+            if (len(members) != len(set(members)) or not set(members) <= self._papers.keys()
+                    or len({c.id for c in clusters}) != len(clusters)
+                    or sum(isinstance(c, QuestionCluster) and c.kind == "main" for c in clusters) > 1):
+                raise ValueError("Question map requires unique, known members and cluster IDs, with at most one main")
         src = self._src("clusterer")
         for c in clusters:
+            attrs = {"ref": c.id, "label": c.label, "rationale": c.rationale}
+            if isinstance(c, QuestionCluster):
+                attrs.update(kind=c.kind, question=c.question)
             cid = self.world.upsert_entity(
                 type="cluster", external_key={"system": SYSTEM, "id": f"{self.run_id}:{self.attempt}:{c.id}"},
-                source=src, attrs={"ref": c.id, "label": c.label, "rationale": c.rationale},
+                source=src, attrs=attrs,
             )["id"]
             self._clusters[c.id] = cid
             for ref in c.paper_ids:
                 if ref in self._papers:
                     self.world.relate(self._papers[ref], "member-of", cid, source=src, context=self.context)
+        # All target cluster nodes must exist before alternative edges are written.
+        for c in clusters:
+            if not isinstance(c, QuestionCluster):
+                continue
+            for detail in c.paper_details:
+                if detail.paper_id not in self._papers:
+                    raise ValueError("Question-map details reference an unknown paper")
+                self.world.assert_fact(self._papers[detail.paper_id], "cluster_detail", detail.model_dump(mode="json"),
+                                       source=src, context=self.context)
+                for alternative in detail.also_related:
+                    if alternative.cluster_id not in self._clusters:
+                        raise ValueError("Alternative references an unknown cluster")
+                    attrs = alternative.model_dump(exclude={"cluster_id"})
+                    self.world.relate(self._papers[detail.paper_id], "also-related-to", self._clusters[alternative.cluster_id],
+                                      attrs=attrs, source=src, context=self.context)
         self.world.flush()
         _log("write clusters", f"{len(clusters)} clusters", "paper -member-of-> cluster edges")
 
@@ -115,7 +142,8 @@ class ResearchWorld:
             self.world.relate(
                 self._papers[refs[0]], "connects-to", self._papers[refs[1]], source=src, context=self.context,
                 attrs={"ref": conn.id, "kind": conn.kind, "description": conn.description,
-                       "cluster_refs": conn.cluster_ids, "evidence": [e.model_dump() for e in conn.evidence]},
+                       "cluster_refs": conn.cluster_ids, "evidence": [e.model_dump() for e in conn.evidence],
+                       **conn.model_dump(mode="json", exclude={"id", "kind", "description", "cluster_ids", "paper_ids", "evidence"})},
             )
             written += 1
         self.world.flush()
@@ -127,7 +155,8 @@ class ResearchWorld:
             gid = self.world.upsert_entity(
                 type="gap", external_key={"system": SYSTEM, "id": f"{self.run_id}:{self.attempt}:{g.id}"}, source=src,
                 attrs={"ref": g.id, "description": g.description, "why_it_matters": g.why_it_matters,
-                       "cluster_ref": g.cluster_id, "evidence": [e.model_dump() for e in g.evidence]},
+                       "cluster_ref": g.cluster_id, "evidence": [e.model_dump() for e in g.evidence],
+                       **g.model_dump(mode="json", exclude={"id", "description", "why_it_matters", "cluster_id", "between_paper_ids", "evidence"})},
             )["id"]
             for ref in g.between_paper_ids:
                 if ref in self._papers:
@@ -186,7 +215,7 @@ class ResearchWorld:
         nodes += [self._node_json(graph.entity(wid)) for wid in self._clusters.values()]
         gap_ids = {rel["from"] for rel in self._edges("between")} | {rel["from"] for rel in self._edges("in-cluster")}
         nodes += [self._node_json(graph.entity(wid)) for wid in sorted(gap_ids)]
-        edges = [self._edge_json(rel) for t in ("member-of", "connects-to", "between") for rel in self._edges(t)]
+        edges = [self._edge_json(rel) for t in ("member-of", "also-related-to", "connects-to", "between") for rel in self._edges(t)]
         return {
             "nodes": nodes,
             "edges": edges,
@@ -208,10 +237,17 @@ class ResearchWorld:
 
     def _node_json(self, entity: dict) -> dict[str, Any]:
         attrs = dict(entity["attrs"])
+        attrs.pop("cluster_detail", None)  # Reattach only a fact from the current planning attempt.
         node = {"id": attrs.pop("ref", entity["id"]), "world_id": entity["id"], "type": entity["type"], **attrs}
         if entity["type"] == "paper":
             graph = self.world.view("graph")
             node["authors"] = [graph.entity(r["to"])["name"] for r in self._edges("authored-by") if r["from"] == entity["id"]]
+            # Facts are context-scoped and latest-wins; the paper entity itself stays unique.
+            facts = self.world.view("facts").about(entity["id"])
+            detail = next((f for f in reversed(facts) if f["predicate"] == "cluster_detail"
+                           and f.get("context") == self.context and not f.get("supersededBy")), None)
+            if detail:
+                node["cluster_detail"] = detail["value"]
         return node
 
     def _edge_json(self, rel: dict) -> dict[str, Any]:

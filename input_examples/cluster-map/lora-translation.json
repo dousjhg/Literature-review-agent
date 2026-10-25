@@ -1,0 +1,62 @@
+{
+  "input": {
+    "query": "How does LoRA fine-tuning improve machine translation for low-resource languages?",
+    "effort": "normal",
+    "papers": [
+      {
+        "id": "W4408280927",
+        "title": "Toward Low-Resource Languages Machine Translation: A Language-Specific Fine-Tuning With LoRA for Specialized Large Language Models",
+        "abstract": "In the field of computational linguistics, addressing machine translation (MT) challenges for low-resource languages remains crucial, as these languages often lack extensive data compared to high-resource languages. General large language models (LLMs), such as GPT-4 and Llama, primarily trained on monolingual corpora, face significant challenges in translating low-resource languages, often resulting in subpar translation quality. This study introduces Language-Specific Fine-Tuning with Low-rank adaptation (LSFTL), a method that enhances translation for low-resource languages by optimizing the multi-head attention and feed-forward networks of Transformer layers through low-rank matrix adaptation. LSFTL preserves the majority of the model parameters while selectively fine-tuning key components, thereby maintaining stability and enhancing translation quality. Experiments on non-English centered low-resource Asian languages demonstrated that LSFTL improved COMET scores by 1-3 points compared to specialized multilingual machine translation models. Additionally, LSFTL’s parameter-efficient approach allows smaller models to achieve performance comparable to their larger counterparts, highlighting its significance in making machine translation systems more accessible and effective for low-resource languages.",
+        "year": 2025,
+        "authors": [
+          "Xiao LIANG",
+          "Yen-Min Jasmina Khaw",
+          "Soung‐Yue Liew",
+          "Tien-Ping Tan",
+          "Donghong Qin"
+        ],
+        "citation_count": 33,
+        "is_review": false,
+        "is_open_access": true,
+        "pdf_url": "https://doi.org/10.1109/access.2025.3549795",
+        "doi": "https://doi.org/10.1109/access.2025.3549795",
+        "source": "openalex",
+        "full_text": null
+      },
+      {
+        "id": "W4403364915",
+        "title": "NusaMT-7B: Machine Translation for Low-Resource Indonesian Languages with Large Language Models",
+        "abstract": "Large Language Models (LLMs) have demonstrated exceptional promise in translation tasks for high-resource languages. However, their performance in low-resource languages is limited by the scarcity of both parallel and monolingual corpora, as well as the presence of noise. Consequently, such LLMs suffer with alignment and have lagged behind State-of-The-Art (SoTA) neural machine translation (NMT) models in these settings. This paper introduces NusaMT-7B, an LLM-based machine translation model for low-resource Indonesian languages, starting with Balinese and Minangkabau. Leveraging the pretrained LLaMA2-7B, our approach integrates continued pre-training on monolingual data, Supervised Fine-Tuning (SFT), self-learning, and an LLM-based data cleaner to reduce noise in parallel sentences. In the FLORES-200 multilingual translation benchmark, NusaMT-7B outperforms SoTA models in the spBLEU metric by up to +6.69 spBLEU in translations into Balinese and Minangkabau, but underperforms by up to -3.38 spBLEU in translations into higher-resource languages. Our results show that fine-tuned LLMs can enhance translation quality for low-resource languages, aiding in linguistic preservation and cross-cultural communication.",
+        "year": 2024,
+        "authors": [
+          "William Tan",
+          "Kevin Zhu"
+        ],
+        "citation_count": 1,
+        "is_review": false,
+        "is_open_access": true,
+        "pdf_url": "https://arxiv.org/pdf/2410.07830",
+        "doi": "https://doi.org/10.48550/arxiv.2410.07830",
+        "source": "openalex",
+        "full_text": null
+      },
+      {
+        "id": "W4416249530",
+        "title": "Large Language Models for Toxic Language Detection in Low-Resource Balkan Languages",
+        "abstract": "Online toxic language causes real harm, especially in regions with limited moderation tools. In this study, we evaluate how large language models handle toxic comments in Serbian, Croatian, and Bosnian, which are languages with limited labeled data. We built and manually labeled a dataset of 4,500 YouTube and TikTok comments drawn from videos across diverse categories, including music, politics, sports, modeling, influencer content, discussions of sexism, and general topics. We demonstrate how adding minimal context can improve toxic language detection in low-resource settings and suggest practical strategies such as improved prompt design and threshold calibration. Four models (GPT-3.5 Turbo, GPT-4.1, Gemini 1.5 Pro, and Claude 3 Opus) were tested in two modes: zero-shot and context-augmented. We measured precision, recall, F1 score, accuracy, and false positive rates. Including a short context snippet raised recall by about 0.12 on average and improved F1 score by up to 0.10, though it sometimes increased false positives. The best balance came from Gemini in context-augmented mode, reaching an F1 score of 0.82 and accuracy of 0.82, while zero-shot GPT-4.1 led on precision and had the lowest false alarms. These results show that prompt design alone can yield meaningful gains in toxicity detection for underserved Balkan language communities.",
+        "year": 2025,
+        "authors": [
+          "A Muminovic",
+          "A Muminovic"
+        ],
+        "citation_count": 2,
+        "is_review": false,
+        "is_open_access": true,
+        "pdf_url": "https://arxiv.org/pdf/2506.09992",
+        "doi": "https://doi.org/10.1109/cyber-ai66431.2025.11233432",
+        "source": "openalex",
+        "full_text": null
+      }
+    ]
+  }
+}

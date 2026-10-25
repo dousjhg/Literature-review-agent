@@ -1,0 +1,92 @@
+{
+  "sample_mode": true,
+  "quality_claim": null,
+  "note": "API/versioning smoke only. Synthetic sample scores and placeholder topics; not a semantic quality evaluation.",
+  "root_run_id": "20261025-141433-415fd5",
+  "child_run_id": "20261025-141433-2ce925",
+  "paper_count": 6,
+  "checks": {
+    "preview_applicable": true,
+    "source_snapshot_unchanged": true,
+    "one_membership_per_paper": true,
+    "idempotent_replay": true,
+    "child_became_active": true,
+    "rollback_restored_source": true,
+    "zero_llm_calls": true,
+    "reused_embeddings": true,
+    "reused_similarity_matrix": true
+  },
+  "preview": {
+    "preview_id": "33f6810827144d9290c1f61b42fe16e2",
+    "sample_mode": true,
+    "source_run_id": "20261025-141433-415fd5",
+    "source_version_token": "6d02bdeac0814d5abf53388add93372b",
+    "root_run_id": "20261025-141433-415fd5",
+    "proposed_run_id": "20261025-141433-2ce925",
+    "revision": 1,
+    "moves": [
+      {
+        "paper_id": "W4392637283",
+        "target_cluster_id": "SIDE-0434d06e6d6f2877"
+      }
+    ],
+    "changes": [
+      {
+        "cluster_id": "SIDE-0434d06e6d6f2877",
+        "before": [
+          "W4402389783",
+          "W4407393353"
+        ],
+        "after": [
+          "W4392637283",
+          "W4402389783",
+          "W4407393353"
+        ]
+      },
+      {
+        "cluster_id": "SIDE-7dc6bdd60255f774",
+        "before": [
+          "W7155356580",
+          "W4392637283"
+        ],
+        "after": [
+          "W7155356580"
+        ]
+      }
+    ],
+    "relabel_cluster_ids": [
+      "SIDE-0434d06e6d6f2877",
+      "SIDE-7dc6bdd60255f774",
+      "SIDE-a3bafe5a9da1b313"
+    ],
+    "reused_label_cluster_ids": [],
+    "invalidated_connection_ids": [],
+    "invalidated_gap_ids": [],
+    "applicable": true,
+    "errors": []
+  },
+  "regeneration": {
+    "preview_id": "33f6810827144d9290c1f61b42fe16e2",
+    "moved_paper_ids": [
+      "W4392637283"
+    ],
+    "relabelled_cluster_ids": [
+      "SIDE-0434d06e6d6f2877",
+      "SIDE-7dc6bdd60255f774",
+      "SIDE-a3bafe5a9da1b313"
+    ],
+    "reused_label_cluster_ids": [],
+    "invalidated_connection_ids": [],
+    "invalidated_gap_ids": [],
+    "pending_stages": [],
+    "reused_embeddings": true,
+    "reused_similarity_matrix": true
+  },
+  "child_usage": {
+    "prompt_tokens": 0,
+    "completion_tokens": 0,
+    "llm_calls": 0,
+    "estimated_calls": 0,
+    "budget": 50000
+  }
+}

@@ -729,7 +729,7 @@
           "W7154856337",
           "W4405173107"
         ],
-        "why_it_matters": "Sample mode: shows the output shape; the real Gap finder is not implemented yet",
+        "why_it_matters": "Sample mode: illustrates the output shape; no actual gap or novelty assessment was performed.",
         "evidence": [
           {
             "paper_id": "W7154856337",
@@ -745,7 +745,7 @@
           "W4402389783",
           "W4407393353"
         ],
-        "why_it_matters": "Sample mode: shows the output shape; the real Gap finder is not implemented yet",
+        "why_it_matters": "Sample mode: illustrates the output shape; no actual gap or novelty assessment was performed.",
         "evidence": [
           {
             "paper_id": "W4402389783",
@@ -761,7 +761,7 @@
           "W7155356580",
           "W4392637283"
         ],
-        "why_it_matters": "Sample mode: shows the output shape; the real Gap finder is not implemented yet",
+        "why_it_matters": "Sample mode: illustrates the output shape; no actual gap or novelty assessment was performed.",
         "evidence": [
           {
             "paper_id": "W7155356580",
@@ -1267,7 +1267,7 @@
           "world_id": "gap:litagent:example-01:1:C1-G1",
           "type": "gap",
           "description": "Sample mode: placeholder gap between the first two papers of this group.",
-          "why_it_matters": "Sample mode: shows the output shape; the real Gap finder is not implemented yet",
+          "why_it_matters": "Sample mode: illustrates the output shape; no actual gap or novelty assessment was performed.",
           "cluster_ref": "C1",
           "evidence": [
             {
@@ -1281,7 +1281,7 @@
           "world_id": "gap:litagent:example-01:1:C2-G1",
           "type": "gap",
           "description": "Sample mode: placeholder gap between the first two papers of this group.",
-          "why_it_matters": "Sample mode: shows the output shape; the real Gap finder is not implemented yet",
+          "why_it_matters": "Sample mode: illustrates the output shape; no actual gap or novelty assessment was performed.",
           "cluster_ref": "C2",
           "evidence": [
             {
@@ -1295,7 +1295,7 @@
           "world_id": "gap:litagent:example-01:1:C3-G1",
           "type": "gap",
           "description": "Sample mode: placeholder gap between the first two papers of this group.",
-          "why_it_matters": "Sample mode: shows the output shape; the real Gap finder is not implemented yet",
+          "why_it_matters": "Sample mode: illustrates the output shape; no actual gap or novelty assessment was performed.",
           "cluster_ref": "C3",
           "evidence": [
             {

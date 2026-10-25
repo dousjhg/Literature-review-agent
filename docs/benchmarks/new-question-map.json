@@ -1,0 +1,42 @@
+{
+  "run_id": "20261025-142442-4ae347",
+  "sample_mode": false,
+  "paper_count": 30,
+  "main_paper_ids": [
+    "W4408280927"
+  ],
+  "side_cluster_count": 18,
+  "effort": "medium",
+  "encoder": {
+    "model": "CLAUSE-Bielefeld/SemCSE_cosine",
+    "revision": "abc74650cfd087c38d27c480778ac41907a08367",
+    "pooling": "cls",
+    "chunk_tokens": 448,
+    "batch_size": 4
+  },
+  "cached_similarity_shape": [
+    30,
+    30
+  ],
+  "cached_paper_vector_shape": [
+    30,
+    768
+  ],
+  "grade": {
+    "stage": "clusters",
+    "accuracy": 3,
+    "appropriateness": 2,
+    "actionability": 2,
+    "fix": "The MAIN cluster should contain all papers that directly address LoRA fine-tuning for machine translation in low-resource languages, not just one paper. Several side clusters contain papers that actually use LoRA for MT (e.g., W7115677253, W4407393353, W4409178241). These should be moved to MAIN or a new side cluster explicitly about LoRA for MT. Also, side cluster labels like 'LLM Benchmarking and Translation for Low-Resource Languages' contain papers that do LoRA fine-tuning (W4403364915 uses SFT/continued pre-training, not necessarily LoRA; but W4402389783 evaluates fine-tunability). Need to re-examine each paper's content for LoRA+MT relevance.",
+    "reasoning": "The clustering output has a MAIN cluster with only one paper (W4408280927) that explicitly introduces LSFTL (LoRA) for low-resource MT. However, several other papers in side clusters also directly address LoRA fine-tuning for machine translation in low-resource languages: W7115677253 (Adaptive and Efficient LLMs for Low-Resource African Languages, mentions LoRA in keywords), W4407393353 (Fine-tuning LLMs for health communication in low-resource languages using LoRA/QLoRA), W4409178241 (LLMs with Contrastive Decoding for hallucination mitigation in low-resource NMT, fine-tunes ChatGLM/LLaMA). These should be in MAIN or a dedicated LoRA-for-MT side cluster. The current MAIN cluster is too narrow. Also, some side clusters have vague labels that don't reflect actual content (e.g., 'LLM Benchmarking and Translation' includes W4403364915 which is about NusaMT-7B using continued pre-training and SFT, not necessarily LoRA). The clustering should group by method (LoRA) and task (MT) for the main question. The fix is to re-cluster: create a MAIN cluster with all papers that use LoRA for low-resource MT, and side clusters for other topics (benchmarking, annotation, tokenizer adaptation, etc.)."
+  },
+  "usage": {
+    "prompt_tokens": 34312,
+    "completion_tokens": 5425,
+    "llm_calls": 8,
+    "estimated_calls": 0,
+    "budget": 100000
+  },
+  "active_head": "20261025-144502-ad0809",
+  "evaluation_note": "Fresh real map on the first 30 saved low-resource LLM records; model grade only, not a causal comparison or expert topic-quality approval."
+}

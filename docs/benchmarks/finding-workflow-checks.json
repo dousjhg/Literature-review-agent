@@ -1,0 +1,22 @@
+{
+  "scope": "Real workflow/integrity and coverage-component checks, not expert semantic accuracy",
+  "source_run_id": "20261025-142442-4ae347",
+  "active_run_id": "20261025-144502-ad0809",
+  "checks": {
+    "source_cache_and_current_version_integrity": true,
+    "memberships_unchanged": true,
+    "vectors_and_matrix_identical": true,
+    "one_membership_per_original_paper": true,
+    "connection_tasks_reused_on_resume": true,
+    "all_finding_stages_completed": true,
+    "coverage_found_existing_answer": true,
+    "real_openalex_request_succeeded": true,
+    "all_returned_llm_receipts_reported_zero_answer_memory": true,
+    "active_head_is_completed_finding_version": true
+  },
+  "passed": 10,
+  "total": 10,
+  "returned_llm_calls": 23,
+  "reported_tokens": 94529,
+  "quality_limit": "The preserved gap grade was 3/9. Zero hypotheses survived source verification; no positive gap was fabricated. A timed-out request has no returned token receipt."
+}

@@ -16,7 +16,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from evals.cluster_pairs import prepare_review, score_reviews  # noqa: E402
 from litagent.agents.clusterer import _text_for, embed  # noqa: E402
 from litagent.config import Settings  # noqa: E402
-from litagent.schemas import Cluster, Paper  # noqa: E402
+from litagent.schemas import Cluster, Paper, QuestionCluster  # noqa: E402
 from litagent.similarity import paper_similarity  # noqa: E402
 
 
@@ -30,7 +30,7 @@ def main() -> int:
     parser.add_argument("--per-stratum", type=int, default=Settings().cluster_review_pairs_per_stratum)
     args = parser.parse_args()
     report = json.loads(args.report.read_text())
-    clusters = [Cluster.model_validate(c) for c in report["clusters"]]
+    clusters = [QuestionCluster.model_validate(c) if "kind" in c else Cluster.model_validate(c) for c in report["clusters"]]
     required = {pid for c in clusters for pid in c.paper_ids}
     papers = [Paper.model_validate(p) for p in json.loads(args.papers.read_text()) if p["id"] in required]
     if args.annotations:
@@ -42,8 +42,10 @@ def main() -> int:
         parser.error("Review/selection file exists; choose another --output to preserve annotations")
     allowed_settings = {"cluster_dense_weight", "cluster_lexical_title_weight", "cluster_lexical_max_df",
                         "cluster_lexical_max_features", "cluster_lexical_ngram_range"}
-    settings = Settings(embedding_profile=report.get("embedding_profile", "semcse"),
-                        **{k: v for k, v in report.get("similarity_settings", {}).items() if k in allowed_settings})
+    overrides = {k: v for k, v in report.get("similarity_settings", {}).items() if k in allowed_settings}
+    if "cluster_lexical_ngram_range" in overrides:
+        overrides["cluster_lexical_ngram_range"] = tuple(overrides["cluster_lexical_ngram_range"])
+    settings = Settings(embedding_profile=report.get("embedding_profile", "semcse"), **overrides)
     texts = [_text_for(p, report.get("use_full_text", False)) for p in papers]
     scores = paper_similarity(papers, embed(texts, settings), settings)
     pack, manifest = prepare_review(papers, clusters, scores.combined, args.per_stratum, args.split)

@@ -36,8 +36,9 @@ class OpenAlexError(RuntimeError):
     pass
 
 
-def search_openalex(query: str, criteria: SearchCriteria, limit: int = 25, open_access_only: bool = True) -> list[Paper]:
-    data = _get_with_retry(BASE_URL, build_params(query, criteria, limit, open_access_only))
+def search_openalex(query: str, criteria: SearchCriteria, limit: int = 25, open_access_only: bool = True,
+                   *, timeout_s: float = TIMEOUT_S, attempts: int = 3) -> list[Paper]:
+    data = _get_with_retry(BASE_URL, build_params(query, criteria, limit, open_access_only), attempts, timeout_s)
     return [_to_paper(w) for w in data.get("results", [])]
 
 
@@ -62,11 +63,11 @@ def build_params(query: str, criteria: SearchCriteria, limit: int, open_access_o
     return params
 
 
-def _get_with_retry(url: str, params: dict, attempts: int = 3) -> dict:
+def _get_with_retry(url: str, params: dict, attempts: int = 3, timeout_s: float = TIMEOUT_S) -> dict:
     problem = ""
     for i in range(attempts):
         try:
-            r = httpx.get(url, params=params, timeout=TIMEOUT_S)
+            r = httpx.get(url, params=params, timeout=timeout_s)
         except httpx.HTTPError as e:
             problem = f"network error: {type(e).__name__}"
         else:

@@ -39,6 +39,8 @@ python scripts/review_clusters.py --report logs/clusters-<run_id>.json \
 ```
 
 只对具备审核者、理由、双方有效引文的 human 判断计算 co-membership precision/recall/F1。
+读取 main/side 地图时，保留角色字段，抽样和评分均排除涉及 main 的论文对，单独报告排除数。
+主组是问题相关性池；其中两篇论文不必属于同一研究子主题。主组应另按问题直接性和证据判断。
 模型建议、未填记录不纳入分数；uncertain 单独计数，无有效标签时分数为 null。
 同一份标注可以检查不同策略的分组，只要语料完全一致；禁止用已查看的评测对反复调参后
 再把结果称为独立验证。
