@@ -1,0 +1,298 @@
+{
+  "sample_mode": false,
+  "source_run_id": "20261025-144502-ad0809",
+  "finding_run_id": "20261025-230430-c3fbbf",
+  "request_id": "e7faf276c3bc4aefb84b983ab1e713aa",
+  "status": "done",
+  "paper_count": 30,
+  "main_cluster_id": "MAIN",
+  "main_paper_ids": [
+    "W4408280927"
+  ],
+  "connection_count": 1,
+  "gap_count": 0,
+  "exact_original_quotes_checked": true,
+  "reused_numeric_cache": true,
+  "analysis": {
+    "request_id": "e7faf276c3bc4aefb84b983ab1e713aa",
+    "source_run_id": "20261025-144502-ad0809",
+    "completed_stages": [
+      "connections",
+      "gaps"
+    ],
+    "pending_stages": [],
+    "audits": [
+      {
+        "stage": "connections",
+        "candidate_pairs": 8,
+        "accepted": 1,
+        "abstained": 6,
+        "rejected": 1,
+        "duplicate_pairs_skipped": 3,
+        "reused_tasks": 0,
+        "generated_tasks": 6,
+        "decisions": [
+          {
+            "pair_id": "PAIR-7aff325f84f760f7",
+            "paper_ids": [
+              "W7165392193",
+              "W7165482954"
+            ],
+            "decision": "abstain",
+            "reason": "The two papers address low-resource language adaptation but with different methods: W7165392193 focuses on fine-tuning challenges (data scarcity, tokenization, morphology) and reviews methods like data augmentation and transfer learning; W7165482954 investigates a two-stage pipeline of SFT and continued pre-training (CPT) with a specific model suite (AfriqueLLM). No span explicitly mentions LoRA, and the methods compared (SFT/CPT vs. generic fine-tuning) are not directly comparable for a shared method, task, or contrasting result on LoRA. The question asks about LoRA, which neither abstract discusses."
+          },
+          {
+            "pair_id": "PAIR-33507d7e874b84f6",
+            "paper_ids": [
+              "W4412889388",
+              "W7165392193"
+            ],
+            "decision": "abstain",
+            "reason": "W4412889388 studies tokenizer adaptation (FVT, FOCUS, ZeTT) for low-resource programming languages (Elixir, Racket) and reports declines in non-target languages; W7165392193 reviews fine-tuning challenges for Azerbaijani (natural language) and mentions tokenization problems as one challenge. They address different domains (programming vs. natural language) and different adaptation techniques (tokenizer adaptation vs. fine-tuning methods). No shared method, task, or explicit extension is supported by the provided spans."
+          },
+          {
+            "pair_id": "PAIR-6eb794cb2c7d8fdb",
+            "paper_ids": [
+              "W7123296616",
+              "W7154856337"
+            ],
+            "decision": "abstain",
+            "reason": "Paper W7123296616 proposes a continual learning strategy with POS-based code-switching and replay adapter to mitigate catastrophic forgetting when adapting LLMs to low-resource languages, evaluated on vision-language tasks and language modeling. Paper W7154856337 proposes a contextual learning framework with cross-lingual transfer, multi-task/self-supervised pretraining, and lightweight fine-tuning for zero-shot/few-shot learning on language understanding/generation benchmarks. The methods (continual learning with adapters vs. contextual learning with prompt enhancement), tasks (vision-language/language modeling vs. zero-shot/few-shot understanding/generation), and evaluation settings differ substantially. No shared method, task, complementary contribution to the same question, contrasting results on comparable settings, or explicit extension is supported by the provided abstracts."
+          },
+          {
+            "pair_id": "PAIR-960910d3e3952b8f",
+            "paper_ids": [
+              "W7123371404",
+              "W7154856337"
+            ],
+            "decision": "abstain",
+            "reason": "Paper W7123371404 (identical abstract to W7123296616) proposes continual learning with POS-based code-switching and replay adapter for catastrophic forgetting when adapting LLMs to low-resource languages, evaluated on vision-language tasks and language modeling. Paper W7154856337 proposes contextual learning with cross-lingual transfer, multi-task/self-supervised pretraining, and lightweight fine-tuning for zero-shot/few-shot learning on language understanding/generation benchmarks. The methods, tasks, and evaluation settings differ substantially. No shared method, task, complementary contribution, contrasting results on comparable settings, or explicit extension is supported by the provided abstracts."
+          },
+          {
+            "pair_id": "PAIR-e20183db96222e80",
+            "paper_ids": [
+              "W4408280927",
+              "W4412889388"
+            ],
+            "decision": "abstain",
+            "reason": "The two papers address different domains (natural language machine translation vs. programming language code generation) and employ distinct adaptation techniques (LoRA fine-tuning vs. tokenizer adaptation methods like FVT, FOCUS, ZeTT). There is no shared method, task, complementary contribution, contrasting result, or explicit extension between them."
+          },
+          {
+            "pair_id": "PAIR-f8faa00ccde14c57",
+            "paper_ids": [
+              "W4403364915",
+              "W4408280927"
+            ],
+            "decision": "accepted",
+            "reason": "Both papers explicitly address machine translation for low-resource languages using fine-tuned large language models. The first paper (NusaMT-7B) uses continued pre-training and Supervised Fine-Tuning (SFT) on LLaMA2-7B as stated in the quotes. The second paper introduces Language-Specific Fine-Tuning with Low-rank adaptation (LSFTL) which uses LoRA on Transformer layers. The claim accurately captures the shared task (low-resource MT) and different fine-tuning approaches."
+          },
+          {
+            "pair_id": "PAIR-484347b77b46664a",
+            "paper_ids": [
+              "W4407385098",
+              "W7165482954"
+            ],
+            "decision": "abstain",
+            "reason": "The two papers address low-resource language adaptation but from different perspectives: one is a survey of large multimodal models (LMMs) covering visual enhancement, cross-modal transfer, and fusion strategies across 96 languages; the other is a thesis on adapting decoder-only LLMs for African languages using supervised fine-tuning (SFT) and continued pre-training (CPT) with a new benchmark (INJONGO) and model suite (AfriqueLLM). There is no shared specific method, task, complementary contribution to a single question, contrasting results on comparable settings, or explicit extension cited between them. The survey may reference the thesis's work, but the provided abstract spans do not contain such a citation or direct link."
+          },
+          {
+            "pair_id": "PAIR-c1f85fbe43155874",
+            "paper_ids": [
+              "W4407385098",
+              "W4416223637"
+            ],
+            "decision": "rejected",
+            "reason": "The claim mentions LoRA fine-tuning improving machine translation for low-resource languages, but neither paper's evidence references LoRA, fine-tuning, or machine translation. W4407385098 is a survey of multimodal models for low-resource languages discussing visual enhancement and data creation; W4416223637 is a case study on Basque MLLMs using image-text data mixtures. No LoRA or MT content is present in the provided quotes."
+          }
+        ]
+      },
+      {
+        "stage": "gaps",
+        "candidate_pairs": 6,
+        "accepted": 0,
+        "abstained": 5,
+        "rejected": 1,
+        "duplicate_pairs_skipped": 3,
+        "reused_tasks": 0,
+        "generated_tasks": 1,
+        "decisions": [
+          {
+            "pair_id": "PAIR-7aff325f84f760f7",
+            "paper_ids": [
+              "W7165392193",
+              "W7165482954"
+            ],
+            "cluster_ids": [
+              "SIDE-5ba842b65c25e312"
+            ],
+            "scope": "within_cluster",
+            "proposal": null,
+            "decision": "abstain",
+            "reason": "Neither paper explicitly mentions LoRA fine-tuning or machine translation as a task. W7165392193 discusses fine-tuning challenges for Azerbaijani (data scarcity, tokenization, morphology) and reviews methods like data augmentation and transfer learning, but not LoRA. W7165482954 focuses on SFT and continued pre-training for African languages on intent classification and slot-filling, not MT. No shared task or method supports a LoRA-specific MT hypothesis."
+          },
+          {
+            "pair_id": "PAIR-6eb794cb2c7d8fdb",
+            "paper_ids": [
+              "W7123296616",
+              "W7154856337"
+            ],
+            "cluster_ids": [
+              "SIDE-1bde737c01cb1f8f"
+            ],
+            "scope": "within_cluster",
+            "proposal": null,
+            "decision": "abstain",
+            "reason": "Both papers address low-resource language modeling but not machine translation or LoRA fine-tuning. W7123296616 proposes continual learning with POS-based code-switching and replay adapters for vision-language tasks and language modeling. W7154856337 proposes contextual learning with cross-lingual transfer for zero-shot/few-shot understanding and generation. No MT task, no LoRA, no direct methodological overlap for a testable LoRA MT hypothesis."
+          },
+          {
+            "pair_id": "PAIR-f4f8230d90b0ffcf",
+            "paper_ids": [
+              "W4402389783",
+              "W4403364915"
+            ],
+            "cluster_ids": [
+              "SIDE-823f78baa866fb26"
+            ],
+            "scope": "within_cluster",
+            "proposal": null,
+            "decision": "abstain",
+            "reason": "W4402389783 evaluates four LLMs on Sinhala with fine-tuning but does not specify LoRA. W4403364915 introduces NusaMT-7B for Indonesian languages using continued pre-training, SFT, self-learning, and data cleaning on LLaMA2-7B, not LoRA. Neither paper studies LoRA fine-tuning for MT; the fine-tuning methods differ and LoRA is not mentioned. No basis for a LoRA-specific MT hypothesis."
+          },
+          {
+            "pair_id": "PAIR-f8faa00ccde14c57",
+            "paper_ids": [
+              "W4403364915",
+              "W4408280927"
+            ],
+            "cluster_ids": [
+              "MAIN",
+              "SIDE-823f78baa866fb26"
+            ],
+            "scope": "main_side",
+            "proposal": {
+              "research_question": "Does LoRA fine-tuning (LSFTL) achieve comparable or better translation quality than full-parameter Supervised Fine-Tuning (SFT) with continued pre-training for low-resource Indonesian languages (Balinese, Minangkabau) when both start from LLaMA2-7B and are evaluated on FLORES-200 spBLEU and COMET?",
+              "proposed_test": "Train two models from LLaMA2-7B on the same Balinese and Minangkabau monolingual and parallel data: (1) NusaMT-7B pipeline (continued pre-training + SFT + self-learning + data cleaning) and (2) LSFTL (LoRA on multi-head attention and feed-forward layers). Evaluate on FLORES-200 for spBLEU and COMET into and out of the low-resource languages. Compare parameter counts trained, training compute, and catastrophic forgetting on high-resource language translation.",
+              "basis": "cross_paper_hypothesis",
+              "evidence": [
+                {
+                  "paper_id": "W4403364915",
+                  "quote": " Leveraging the pretrained LLaMA2-7B, our approach integrates continued pre-training on monolingual data, Supervised Fine-Tuning (SFT), self-learning, and an LLM-based data cleaner to reduce noise in parallel sentences."
+                },
+                {
+                  "paper_id": "W4403364915",
+                  "quote": " In the FLORES-200 multilingual translation benchmark, NusaMT-7B outperforms SoTA models in the spBLEU metric by up to +6.69 spBLEU in translations into Balinese and Minangkabau, but underperforms by up to -3.38 spBLEU in translations into higher-resource languages."
+                },
+                {
+                  "paper_id": "W4408280927",
+                  "quote": " This study introduces Language-Specific Fine-Tuning with Low-rank adaptation (LSFTL), a method that enhances translation for low-resource languages by optimizing the multi-head attention and feed-forward networks of Transformer layers through low-rank matrix adaptation."
+                },
+                {
+                  "paper_id": "W4408280927",
+                  "quote": " LSFTL preserves the majority of the model parameters while selectively fine-tuning key components, thereby maintaining stability and enhancing translation quality. Experiments on non-English centered low-resource Asian languages demonstrated that LSFTL improved COMET scores by 1-3 points compared to specialized multilingual machine translation models."
+                }
+              ]
+            },
+            "decision": "rejected",
+            "reason": "The two papers describe different approaches (NusaMT-7B uses continued pre-training + full SFT + self-learning + data cleaning on LLaMA2-7B for Balinese/Minangkabau; LSFTL uses LoRA on attention and FFN layers on unspecified base models for non-English-centered low-resource Asian languages). The sources do not share the same base model, data, languages, or evaluation setup, so a controlled comparison as proposed cannot be substantiated from the provided evidence."
+          },
+          {
+            "pair_id": "PAIR-3da386d02005148f",
+            "paper_ids": [
+              "W4408280927",
+              "W7165392193"
+            ],
+            "cluster_ids": [
+              "MAIN",
+              "SIDE-5ba842b65c25e312"
+            ],
+            "scope": "main_side",
+            "proposal": null,
+            "decision": "abstain",
+            "reason": "W4408280927 presents LSFTL (LoRA) for MT on non-English-centered Asian languages. W7165392193 analyzes fine-tuning challenges for Azerbaijani (tokenization, morphology, data scarcity) and reviews methods like data augmentation and transfer learning, but does not address MT or LoRA. The tasks (MT vs general fine-tuning analysis) and languages (Asian vs Azerbaijani) differ with no shared method or evaluation. No source support for a joint LoRA MT hypothesis."
+          },
+          {
+            "pair_id": "PAIR-a82681eff9c8b02e",
+            "paper_ids": [
+              "W4408280927",
+              "W7154856337"
+            ],
+            "cluster_ids": [
+              "MAIN",
+              "SIDE-1bde737c01cb1f8f"
+            ],
+            "scope": "main_side",
+            "proposal": null,
+            "decision": "abstain",
+            "reason": "W4408280927 introduces LSFTL (LoRA) for low-resource MT on Asian languages. W7154856337 proposes contextual learning with cross-lingual transfer for zero-shot/few-shot understanding and generation, using a lightweight fine-tuning stage but not LoRA and not MT. Different tasks (MT vs NLU/NLG), different methods (LoRA vs contextual learning + lightweight FT), no shared evaluation. No basis for a testable LoRA MT hypothesis."
+          }
+        ]
+      }
+    ],
+    "grades": {
+      "connections": {
+        "stage": "connections",
+        "accuracy": 2,
+        "appropriateness": 2,
+        "actionability": 1,
+        "fix": "Provide verbatim quotes that explicitly mention LoRA, low-rank adaptation, or LSFTL for the paper W4408280927, and for W4403364915 provide quotes that explicitly mention continued pre-training and SFT on LLaMA2-7B. The current quotes only state general motivation and do not support the specific fine-tuning method claims.",
+        "reasoning": "The connection claims specific fine-tuning approaches (LoRA/LSFTL vs continued pre-training + SFT) but the supplied quotes do not contain those method details. The W4408280927 quote only mentions the general problem of low-resource MT and introduces LSFTL by name but does not quote the low-rank adaptation mechanism. The W4403364915 quote mentions continued pre-training and SFT but does not explicitly tie them to LLaMA2-7B. Without verbatim evidence for the method descriptions, the connection is not properly supported. Additionally, only one connection was produced from eight reviewed pairs, which limits actionability."
+      },
+      "gaps": {
+        "stage": "gaps",
+        "accuracy": 3,
+        "appropriateness": 3,
+        "actionability": 3,
+        "fix": null,
+        "reasoning": "The output is an empty list, which is valid for the gaps stage when no gaps are identified from the reviewed pairs. The scope explicitly states that abstention is valid and no accepted finding does not prove none exist. The empty output matches the requirement: it is accurate (no unsupported claims), appropriate (fits the stage rubric for gaps where honest abstention is preferred over invented gaps), and actionable (a researcher sees that no provisional hypotheses were derived from the supplied pairs)."
+      }
+    }
+  },
+  "usage": {
+    "prompt_tokens": 43806,
+    "completion_tokens": 8790,
+    "llm_calls": 15,
+    "estimated_calls": 0,
+    "budget": 100000
+  },
+  "warnings": [
+    "connections did not pass independent grading; retained without automatic score-driven regeneration."
+  ],
+  "connections": [
+    {
+      "id": "CONN-f8faa00ccde14c57",
+      "kind": "between_clusters",
+      "paper_ids": [
+        "W4403364915",
+        "W4408280927"
+      ],
+      "cluster_ids": [
+        "MAIN",
+        "SIDE-823f78baa866fb26"
+      ],
+      "description": "Both papers address machine translation for low-resource languages using fine-tuned large language models, but they employ different fine-tuning approaches: NusaMT-7B uses continued pre-training and Supervised Fine-Tuning (SFT) on LLaMA2-7B, while the other introduces Language-Specific Fine-Tuning with LoRA (LSFTL) on unspecified LLMs.",
+      "evidence": [
+        {
+          "paper_id": "W4403364915",
+          "quote": " Consequently, such LLMs suffer with alignment and have lagged behind State-of-The-Art (SoTA) neural machine translation (NMT) models in these settings. This paper introduces NusaMT-7B, an LLM-based machine translation model for low-resource Indonesian languages, starting with Balinese and Minangkabau."
+        },
+        {
+          "paper_id": "W4403364915",
+          "quote": " Leveraging the pretrained LLaMA2-7B, our approach integrates continued pre-training on monolingual data, Supervised Fine-Tuning (SFT), self-learning, and an LLM-based data cleaner to reduce noise in parallel sentences."
+        },
+        {
+          "paper_id": "W4408280927",
+          "quote": "In the field of computational linguistics, addressing machine translation (MT) challenges for low-resource languages remains crucial, as these languages often lack extensive data compared to high-resource languages."
+        },
+        {
+          "paper_id": "W4408280927",
+          "quote": " This study introduces Language-Specific Fine-Tuning with Low-rank adaptation (LSFTL), a method that enhances translation for low-resource languages by optimizing the multi-head attention and feed-forward networks of Transformer layers through low-rank matrix adaptation."
+        }
+      ],
+      "relation": "shared_task",
+      "similarity": 0.8266595704050866,
+      "verification": "source_supported"
+    }
+  ],
+  "gaps": [],
+  "evaluation_note": "Real source-reference and workflow audit; semantic support and grades are model judgments, not expert accuracy. Gaps do not establish global novelty."
+}

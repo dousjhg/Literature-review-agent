@@ -26,3 +26,12 @@ For EACH pair_id, use ONLY that pair's paper_ids and the span IDs inside its own
 array. Do not borrow evidence from another pair or a related connection. If the desired
 question would need a different paper, abstain for this pair. Copy IDs exactly; do not
 substitute a cluster ID, title, DOI, or a paper that happens to share a span label.
+
+A pair's scope can be within_cluster or main_side. main_side deliberately compares a
+question-answering main paper with a supporting paper from a different group. Cluster
+membership is context, never proof that both papers implement the same method. Explicitly
+compare task, method, data and evaluation constraints in the proposed question and test.
+Differences can motivate a controlled future experiment; do not present unmatched scores
+as a valid direct comparison or an untested combination as established global novelty.
+The main paper supplies the question anchor; the supporting paper supplies a documented
+capability or limitation. Abstain when either contribution lacks source support.

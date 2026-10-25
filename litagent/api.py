@@ -184,8 +184,8 @@ def _version_response(run_id: str, operation):
 
 
 @app.get("/cluster/{run_id}/regenerate/candidates")
-def regeneration_candidates(run_id: str, near_only: bool = False, settings: Settings = Depends(get_settings)):
-    return _version_response(run_id, lambda: cluster_regeneration.candidates(run_id, settings, near_only=near_only))
+def regeneration_candidates(run_id: str, near_only: bool = False, paper_id: str | None = None, settings: Settings = Depends(get_settings)):
+    return _version_response(run_id, lambda: cluster_regeneration.candidates(run_id, settings, near_only=near_only, paper_id=paper_id))
 
 
 @app.post("/cluster/{run_id}/regenerate/preview")
@@ -226,3 +226,8 @@ def saved_cluster_preview(run_id: str, settings: Settings = Depends(get_settings
     except Exception as error:
         return _error(run_id, 500, type(error).__name__, str(error))
     return {"run_id": run_id, "status": "success", "output": result.model_dump(mode="json")}
+
+
+from litagent.map_routes import install_map_routes  # noqa: E402
+
+install_map_routes(app, get_settings, _version_response)

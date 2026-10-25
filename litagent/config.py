@@ -165,6 +165,8 @@ class Settings:
     gap_similarity_min: float = 0.5
     gap_similarity_max: float = 0.9
     gap_max_candidates: int = 3
+    gap_main_side_max_candidates: int = 3
+    gap_main_side_question_weight: float = 0.3  # ranking hint only; evidence still decides support
     gap_coverage_queries_per_gap: int = 2
     gap_coverage_hits_per_query: int = 4
     gap_coverage_source_chars: int = 1000

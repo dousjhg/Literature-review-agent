@@ -53,16 +53,20 @@ def version_history(run_id: str, settings: Settings) -> dict:
     return {"root_run_id": result.root_run_id, "active_head": head(result.root_run_id, settings), "versions": versions}
 
 
-def candidates(run_id: str, settings: Settings, *, near_only: bool = False) -> dict:
+def candidates(run_id: str, settings: Settings, *, near_only: bool = False, paper_id: str | None = None) -> dict:
     result, state, arrays = load_version(run_id, settings)
     _limits(settings)
     indices = {p.id: i for i, p in enumerate(state.papers)}
+    if paper_id is not None and paper_id not in indices:
+        raise VersionError("Unknown paper in this map", 404)
     cfg = effective_settings(state, settings)
     items = []
     for source in result.clusters:
         if source.kind == "main":
             continue
         for detail in source.paper_details:
+            if paper_id is not None and detail.paper_id != paper_id:
+                continue
             i = indices[detail.paper_id]
             for target in result.clusters:
                 if target.kind == "main" or target.id == source.id:

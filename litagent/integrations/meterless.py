@@ -32,7 +32,7 @@ from litagent.schemas import Cluster, Connection, Gap, Grade, Paper, QuestionClu
 from litagent.trace import current_trace
 
 SYSTEM = "litagent"
-MULTI_VALUED = {"authored-by", "connects-to", "between", "also-related-to"}  # membership remains single-valued
+MULTI_VALUED = {"authored-by", "connects-to", "between", "also-related-to", "in-cluster"}  # paper membership stays single-valued
 # Authors: never auto-merge near-matches (different people with short names score >= 0.85); queue them
 RESOLVER_BANDS = {"author": (float("inf"), 0.82)}
 
@@ -161,8 +161,9 @@ class ResearchWorld:
             for ref in g.between_paper_ids:
                 if ref in self._papers:
                     self.world.relate(gid, "between", self._papers[ref], source=src, context=self.context)
-            if g.cluster_id in self._clusters:
-                self.world.relate(gid, "in-cluster", self._clusters[g.cluster_id], source=src, context=self.context)
+            for cid in getattr(g, "cluster_ids", [g.cluster_id]):
+                if cid in self._clusters:
+                    self.world.relate(gid, "in-cluster", self._clusters[cid], source=src, context=self.context)
         self.world.flush()
         _log("write gaps", f"{len(gaps)} gaps", "gap entities with -between-> paper edges")
 
@@ -216,6 +217,10 @@ class ResearchWorld:
         gap_ids = {rel["from"] for rel in self._edges("between")} | {rel["from"] for rel in self._edges("in-cluster")}
         nodes += [self._node_json(graph.entity(wid)) for wid in sorted(gap_ids)]
         edges = [self._edge_json(rel) for t in ("member-of", "also-related-to", "connects-to", "between") for rel in self._edges(t)]
+        # Legacy single-cluster gaps expose cluster_ref on their node. Cross-pool gaps
+        # additionally need both scope edges in the public map, without duplicating papers.
+        edges += [self._edge_json(rel) for rel in self._edges("in-cluster")
+                  if graph.entity(rel["from"])["attrs"].get("scope") == "main_side"]
         return {
             "nodes": nodes,
             "edges": edges,

@@ -238,11 +238,22 @@ class GapCoverage(BaseModel):
 
 
 class GroundedGap(Gap):
+    cluster_ids: list[str] = Field(default_factory=list)
+    scope: Literal["within_cluster", "main_side"] = "within_cluster"
     basis: Literal["author_stated", "cross_paper_hypothesis"]
     hypothesis_status: Literal["provisional"] = "provisional"
     proposed_test: str = Field(min_length=1)
     similarity: float = Field(ge=-1, le=1, allow_inf_nan=False)
     coverage: GapCoverage
+
+    @model_validator(mode="after")
+    def complete_scope(self):
+        if not self.cluster_ids:
+            self.cluster_ids = [self.cluster_id]
+        expected = 2 if self.scope == "main_side" else 1
+        if len(self.cluster_ids) != expected or len(set(self.cluster_ids)) != expected or self.cluster_id not in self.cluster_ids:
+            raise ValueError("Gap scope must identify its actual one or two clusters and include the anchor")
+        return self
 
 
 class ConnectionDecision(BaseModel):

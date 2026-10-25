@@ -1,0 +1,258 @@
+{
+  "run_id": "20261025-230430-c3fbbf",
+  "version_token": "c7b0566f5a3e46e48f37d675bebe10d9",
+  "question": "How does LoRA fine-tuning improve machine translation for low-resource languages?",
+  "sample_mode": false,
+  "corpus_fingerprint": "7fefd458fba53e4e0775f729452d0da9ed139ce54c9939930d7c515280f0668a",
+  "instructions": "Assess source support for a relationship or testable provisional hypothesis. Supported does not establish global novelty. Select exact original quotes from BOTH papers for decisive judgments; uncertain is valid. Model judgments are hidden by default. Reviewer identity is self-declared, not authenticated.",
+  "items": [
+    {
+      "id": "connection-f8faa00ccde14c57",
+      "kind": "connection",
+      "scope": "between_clusters",
+      "paper_ids": [
+        "W4403364915",
+        "W4408280927"
+      ],
+      "cluster_ids": [
+        "MAIN",
+        "SIDE-823f78baa866fb26"
+      ],
+      "claim": "Both papers address machine translation for low-resource languages using fine-tuned large language models, but they employ different fine-tuning approaches: NusaMT-7B uses continued pre-training and Supervised Fine-Tuning (SFT) on LLaMA2-7B, while the other introduces Language-Specific Fine-Tuning with LoRA (LSFTL) on unspecified LLMs.",
+      "proposed_test": null,
+      "papers": [
+        {
+          "id": "W4403364915",
+          "title": "NusaMT-7B: Machine Translation for Low-Resource Indonesian Languages with Large Language Models",
+          "year": 2024,
+          "source_field": "abstract",
+          "source_text": "Large Language Models (LLMs) have demonstrated exceptional promise in translation tasks for high-resource languages. However, their performance in low-resource languages is limited by the scarcity of both parallel and monolingual corpora, as well as the presence of noise. Consequently, such LLMs suffer with alignment and have lagged behind State-of-The-Art (SoTA) neural machine translation (NMT) models in these settings. This paper introduces NusaMT-7B, an LLM-based machine translation model for low-resource Indonesian languages, starting with Balinese and Minangkabau. Leveraging the pretrained LLaMA2-7B, our approach integrates continued pre-training on monolingual data, Supervised Fine-Tuning (SFT), self-learning, and an LLM-based data cleaner to reduce noise in parallel sentences. In the FLORES-200 multilingual translation benchmark, NusaMT-7B outperforms SoTA models in the spBLEU metric by up to +6.69 spBLEU in translations into Balinese and Minangkabau, but underperforms by up to -3.38 spBLEU in translations into higher-resource languages. Our results show that fine-tuned LLMs can enhance translation quality for low-resource languages, aiding in linguistic preservation and cross-cultural communication.",
+          "cluster_id": "SIDE-823f78baa866fb26"
+        },
+        {
+          "id": "W4408280927",
+          "title": "Toward Low-Resource Languages Machine Translation: A Language-Specific Fine-Tuning With LoRA for Specialized Large Language Models",
+          "year": 2025,
+          "source_field": "abstract",
+          "source_text": "In the field of computational linguistics, addressing machine translation (MT) challenges for low-resource languages remains crucial, as these languages often lack extensive data compared to high-resource languages. General large language models (LLMs), such as GPT-4 and Llama, primarily trained on monolingual corpora, face significant challenges in translating low-resource languages, often resulting in subpar translation quality. This study introduces Language-Specific Fine-Tuning with Low-rank adaptation (LSFTL), a method that enhances translation for low-resource languages by optimizing the multi-head attention and feed-forward networks of Transformer layers through low-rank matrix adaptation. LSFTL preserves the majority of the model parameters while selectively fine-tuning key components, thereby maintaining stability and enhancing translation quality. Experiments on non-English centered low-resource Asian languages demonstrated that LSFTL improved COMET scores by 1-3 points compared to specialized multilingual machine translation models. Additionally, LSFTL’s parameter-efficient approach allows smaller models to achieve performance comparable to their larger counterparts, highlighting its significance in making machine translation systems more accessible and effective for low-resource languages.",
+          "cluster_id": "MAIN"
+        }
+      ],
+      "annotation": null
+    },
+    {
+      "id": "gap-7aff325f84f760f7",
+      "kind": "gap",
+      "scope": "within_cluster",
+      "paper_ids": [
+        "W7165392193",
+        "W7165482954"
+      ],
+      "cluster_ids": [
+        "SIDE-5ba842b65c25e312"
+      ],
+      "claim": null,
+      "proposed_test": null,
+      "papers": [
+        {
+          "id": "W7165392193",
+          "title": "Fine-Tuning Challenges of Large Language Models for Low-Resource Languages: an Analysis Based on the Azerbaijani Language",
+          "year": 2026,
+          "source_field": "abstract",
+          "source_text": "Large Language Models have shown capabilities in natural language processing tasks. Their performance drops drastically on low-resource languages that lack large annotated corpora. We look at the challenges of fine-tuning Large Language Models for low-resource languages with Azerbaijani as a case study. We examine data scarcity, morphological complexity, tokenization problems and domain gaps that make model adaptation harder. We also review methods like data augmentation, cross-lingual pre-training and transfer learning and assess how well they work for Azerbaijani. The results show that small targeted datasets can lead to real improvements as long as tokenization and morphological modeling are handled properly.",
+          "cluster_id": "SIDE-5ba842b65c25e312"
+        },
+        {
+          "id": "W7165482954",
+          "title": "Large Language Models Adaptation for Low-resource Languages: The Case for African Languages",
+          "year": 2026,
+          "source_field": "abstract",
+          "source_text": "Despite remarkable advances in Large Language Models (LLMs), African languagesremain critically underserved by the current training and adaptation pipeline. This thesisaddresses the fundamental bottlenecks in adapting LLMs for low-resource languagesthrough a unified two-stage investigation: benchmarking via Supervised Fine-Tuning(SFT) and foundational adaptation via Continued Pre-Training (CPT).Our first contribution is INJONGO, a natively-generated multicultural benchmark forintent classification and slot-filling spanning 16 African languages. Crucially, INJONGO isnon-contaminated—not included in the training data of the LLMs we evaluate—ensuringfair assessment. Our experiments yield two key findings: (1) SFT effectively adaptsdecoder-only LLMs to downstream tasks, demonstrating the viability of task-specificalignment; and (2) encoder models pre-trained on African languages (e.g., AfroXLMR-76L)with SFT dramatically outperform those without such exposure. This second findingdirectly motivates our subsequent work: if pre-training on African languages benefits encodersso significantly, the same principle should apply to decoder-only LLMs.Building on this insight, our second contribution is AfriqueLLM, a suite of modelsadapted for 20 African languages via CPT on 26 billion tokens. We systematically investi-gate data mixture strategies required to maintain general capabilities while adapting lan-guage. Our findings demonstrate that incorporating code, mathematics, and synthetic dataprevents catastrophic forgetting. We further identify a “Zero-to-Hero” phenomenon: mod-els with strong architectural foundations (e.g., Qwen 3) adapt more effectively than thosewith broader but shallower multilingual coverage. Our flagship model, AfriqueQwen-14B,achieves state-of-the-art results on African benchmarks, emphasizing that data composi-tion and architectural choice are the primary drivers of successful low-resource adaptation.All datasets, models, and code are publicly released to support the development ofrobust LLMs for the African continent.",
+          "cluster_id": "SIDE-5ba842b65c25e312"
+        }
+      ],
+      "annotation": null
+    },
+    {
+      "id": "gap-6eb794cb2c7d8fdb",
+      "kind": "gap",
+      "scope": "within_cluster",
+      "paper_ids": [
+        "W7123296616",
+        "W7154856337"
+      ],
+      "cluster_ids": [
+        "SIDE-1bde737c01cb1f8f"
+      ],
+      "claim": null,
+      "proposed_test": null,
+      "papers": [
+        {
+          "id": "W7123296616",
+          "title": "Continual-learning for Modelling Low-Resource Languages from Large Language Models",
+          "year": 2026,
+          "source_field": "abstract",
+          "source_text": "Modelling a language model for a multi-lingual scenario includes several potential challenges, among which catastrophic forgetting is the major challenge. For example, small language models (SLM) built for low-resource languages by adapting large language models (LLMs) pose the challenge of catastrophic forgetting. This work proposes to employ a continual learning strategy using parts-of-speech (POS)-based code-switching along with a replay adapter strategy to mitigate the identified gap of catastrophic forgetting while training SLM from LLM. Experiments conducted on vision language tasks such as visual question answering and language modelling task exhibits the success of the proposed architecture.",
+          "cluster_id": "SIDE-1bde737c01cb1f8f"
+        },
+        {
+          "id": "W7154856337",
+          "title": "Contextual Learning Support for Low-Resource Language Large Language Models: Efficient Training Strategies for Zero-Shot and Few-Shot Learning",
+          "year": 2026,
+          "source_field": "abstract",
+          "source_text": "In natural language processing tasks for low-resource languages, building high-quality large language models faces numerous challenges, including data scarcity, domain mismatch, and limited annotation resources. This paper proposes an efficient training strategy based on contextual learning, aimed at addressing the difficulties encountered by low-resource languages in zero-shot and few-shot learning scenarios. The approach leverages cross-lingual knowledge transfer from high-resource languages and systematically enhances contextual information in prompts and representations to maximize the model’s generalization ability. We explore the combination of multi-task learning and self-supervised learning to exploit heterogeneous corpora, using existing multilingual and monolingual resources for pretraining. A lightweight fine-tuning stage with a small amount of labeled data is then employed for targeted adaptation to specific downstream tasks and languages. The proposed framework is designed to be computationally efficient, reducing training cost while maintaining or improving performance. Experimental results on a range of language understanding and generation benchmarks demonstrate significant improvements in task performance across various low-resource languages under both zero-shot and few-shot conditions. Ablation studies further highlight the contribution of contextual learning components and cross-lingual transfer mechanisms. These findings provide practical guidance for developing scalable large language models for underrepresented languages and offer new ideas and methods for future research on inclusive and resource-efficient language technologies.",
+          "cluster_id": "SIDE-1bde737c01cb1f8f"
+        }
+      ],
+      "annotation": null
+    },
+    {
+      "id": "gap-f4f8230d90b0ffcf",
+      "kind": "gap",
+      "scope": "within_cluster",
+      "paper_ids": [
+        "W4402389783",
+        "W4403364915"
+      ],
+      "cluster_ids": [
+        "SIDE-823f78baa866fb26"
+      ],
+      "claim": null,
+      "proposed_test": null,
+      "papers": [
+        {
+          "id": "W4402389783",
+          "title": "Performance of Recent Large Language Models for a Low-Resourced Language",
+          "year": 2024,
+          "source_field": "abstract",
+          "source_text": "Large Language Models (LLMs) have shown significant advances in the past year. In addition to new versions of GPT and Llama, several other LLMs have been introduced recently. Some of these are open models – available for download and modification. Although multilingual large language models have been available for some time, their performance on low-resourced languages such as Sinhala has been poor. We evaluated four recent LLMs on their performance directly in the Sinhala language, and by translation to and from English. We also evaluated their fine-tunability with a small amount of fine-tuning data. Claude and GPT 4o perform well out-of-the-box and do significantly better than previous versions. Llama and Mistral perform poorly but show some promise of improvement with fine tuning.",
+          "cluster_id": "SIDE-823f78baa866fb26"
+        },
+        {
+          "id": "W4403364915",
+          "title": "NusaMT-7B: Machine Translation for Low-Resource Indonesian Languages with Large Language Models",
+          "year": 2024,
+          "source_field": "abstract",
+          "source_text": "Large Language Models (LLMs) have demonstrated exceptional promise in translation tasks for high-resource languages. However, their performance in low-resource languages is limited by the scarcity of both parallel and monolingual corpora, as well as the presence of noise. Consequently, such LLMs suffer with alignment and have lagged behind State-of-The-Art (SoTA) neural machine translation (NMT) models in these settings. This paper introduces NusaMT-7B, an LLM-based machine translation model for low-resource Indonesian languages, starting with Balinese and Minangkabau. Leveraging the pretrained LLaMA2-7B, our approach integrates continued pre-training on monolingual data, Supervised Fine-Tuning (SFT), self-learning, and an LLM-based data cleaner to reduce noise in parallel sentences. In the FLORES-200 multilingual translation benchmark, NusaMT-7B outperforms SoTA models in the spBLEU metric by up to +6.69 spBLEU in translations into Balinese and Minangkabau, but underperforms by up to -3.38 spBLEU in translations into higher-resource languages. Our results show that fine-tuned LLMs can enhance translation quality for low-resource languages, aiding in linguistic preservation and cross-cultural communication.",
+          "cluster_id": "SIDE-823f78baa866fb26"
+        }
+      ],
+      "annotation": null
+    },
+    {
+      "id": "gap-f8faa00ccde14c57",
+      "kind": "gap",
+      "scope": "main_side",
+      "paper_ids": [
+        "W4403364915",
+        "W4408280927"
+      ],
+      "cluster_ids": [
+        "MAIN",
+        "SIDE-823f78baa866fb26"
+      ],
+      "claim": "Does LoRA fine-tuning (LSFTL) achieve comparable or better translation quality than full-parameter Supervised Fine-Tuning (SFT) with continued pre-training for low-resource Indonesian languages (Balinese, Minangkabau) when both start from LLaMA2-7B and are evaluated on FLORES-200 spBLEU and COMET?",
+      "proposed_test": "Train two models from LLaMA2-7B on the same Balinese and Minangkabau monolingual and parallel data: (1) NusaMT-7B pipeline (continued pre-training + SFT + self-learning + data cleaning) and (2) LSFTL (LoRA on multi-head attention and feed-forward layers). Evaluate on FLORES-200 for spBLEU and COMET into and out of the low-resource languages. Compare parameter counts trained, training compute, and catastrophic forgetting on high-resource language translation.",
+      "papers": [
+        {
+          "id": "W4403364915",
+          "title": "NusaMT-7B: Machine Translation for Low-Resource Indonesian Languages with Large Language Models",
+          "year": 2024,
+          "source_field": "abstract",
+          "source_text": "Large Language Models (LLMs) have demonstrated exceptional promise in translation tasks for high-resource languages. However, their performance in low-resource languages is limited by the scarcity of both parallel and monolingual corpora, as well as the presence of noise. Consequently, such LLMs suffer with alignment and have lagged behind State-of-The-Art (SoTA) neural machine translation (NMT) models in these settings. This paper introduces NusaMT-7B, an LLM-based machine translation model for low-resource Indonesian languages, starting with Balinese and Minangkabau. Leveraging the pretrained LLaMA2-7B, our approach integrates continued pre-training on monolingual data, Supervised Fine-Tuning (SFT), self-learning, and an LLM-based data cleaner to reduce noise in parallel sentences. In the FLORES-200 multilingual translation benchmark, NusaMT-7B outperforms SoTA models in the spBLEU metric by up to +6.69 spBLEU in translations into Balinese and Minangkabau, but underperforms by up to -3.38 spBLEU in translations into higher-resource languages. Our results show that fine-tuned LLMs can enhance translation quality for low-resource languages, aiding in linguistic preservation and cross-cultural communication.",
+          "cluster_id": "SIDE-823f78baa866fb26"
+        },
+        {
+          "id": "W4408280927",
+          "title": "Toward Low-Resource Languages Machine Translation: A Language-Specific Fine-Tuning With LoRA for Specialized Large Language Models",
+          "year": 2025,
+          "source_field": "abstract",
+          "source_text": "In the field of computational linguistics, addressing machine translation (MT) challenges for low-resource languages remains crucial, as these languages often lack extensive data compared to high-resource languages. General large language models (LLMs), such as GPT-4 and Llama, primarily trained on monolingual corpora, face significant challenges in translating low-resource languages, often resulting in subpar translation quality. This study introduces Language-Specific Fine-Tuning with Low-rank adaptation (LSFTL), a method that enhances translation for low-resource languages by optimizing the multi-head attention and feed-forward networks of Transformer layers through low-rank matrix adaptation. LSFTL preserves the majority of the model parameters while selectively fine-tuning key components, thereby maintaining stability and enhancing translation quality. Experiments on non-English centered low-resource Asian languages demonstrated that LSFTL improved COMET scores by 1-3 points compared to specialized multilingual machine translation models. Additionally, LSFTL’s parameter-efficient approach allows smaller models to achieve performance comparable to their larger counterparts, highlighting its significance in making machine translation systems more accessible and effective for low-resource languages.",
+          "cluster_id": "MAIN"
+        }
+      ],
+      "annotation": null
+    },
+    {
+      "id": "gap-3da386d02005148f",
+      "kind": "gap",
+      "scope": "main_side",
+      "paper_ids": [
+        "W4408280927",
+        "W7165392193"
+      ],
+      "cluster_ids": [
+        "MAIN",
+        "SIDE-5ba842b65c25e312"
+      ],
+      "claim": null,
+      "proposed_test": null,
+      "papers": [
+        {
+          "id": "W4408280927",
+          "title": "Toward Low-Resource Languages Machine Translation: A Language-Specific Fine-Tuning With LoRA for Specialized Large Language Models",
+          "year": 2025,
+          "source_field": "abstract",
+          "source_text": "In the field of computational linguistics, addressing machine translation (MT) challenges for low-resource languages remains crucial, as these languages often lack extensive data compared to high-resource languages. General large language models (LLMs), such as GPT-4 and Llama, primarily trained on monolingual corpora, face significant challenges in translating low-resource languages, often resulting in subpar translation quality. This study introduces Language-Specific Fine-Tuning with Low-rank adaptation (LSFTL), a method that enhances translation for low-resource languages by optimizing the multi-head attention and feed-forward networks of Transformer layers through low-rank matrix adaptation. LSFTL preserves the majority of the model parameters while selectively fine-tuning key components, thereby maintaining stability and enhancing translation quality. Experiments on non-English centered low-resource Asian languages demonstrated that LSFTL improved COMET scores by 1-3 points compared to specialized multilingual machine translation models. Additionally, LSFTL’s parameter-efficient approach allows smaller models to achieve performance comparable to their larger counterparts, highlighting its significance in making machine translation systems more accessible and effective for low-resource languages.",
+          "cluster_id": "MAIN"
+        },
+        {
+          "id": "W7165392193",
+          "title": "Fine-Tuning Challenges of Large Language Models for Low-Resource Languages: an Analysis Based on the Azerbaijani Language",
+          "year": 2026,
+          "source_field": "abstract",
+          "source_text": "Large Language Models have shown capabilities in natural language processing tasks. Their performance drops drastically on low-resource languages that lack large annotated corpora. We look at the challenges of fine-tuning Large Language Models for low-resource languages with Azerbaijani as a case study. We examine data scarcity, morphological complexity, tokenization problems and domain gaps that make model adaptation harder. We also review methods like data augmentation, cross-lingual pre-training and transfer learning and assess how well they work for Azerbaijani. The results show that small targeted datasets can lead to real improvements as long as tokenization and morphological modeling are handled properly.",
+          "cluster_id": "SIDE-5ba842b65c25e312"
+        }
+      ],
+      "annotation": null
+    },
+    {
+      "id": "gap-a82681eff9c8b02e",
+      "kind": "gap",
+      "scope": "main_side",
+      "paper_ids": [
+        "W4408280927",
+        "W7154856337"
+      ],
+      "cluster_ids": [
+        "MAIN",
+        "SIDE-1bde737c01cb1f8f"
+      ],
+      "claim": null,
+      "proposed_test": null,
+      "papers": [
+        {
+          "id": "W4408280927",
+          "title": "Toward Low-Resource Languages Machine Translation: A Language-Specific Fine-Tuning With LoRA for Specialized Large Language Models",
+          "year": 2025,
+          "source_field": "abstract",
+          "source_text": "In the field of computational linguistics, addressing machine translation (MT) challenges for low-resource languages remains crucial, as these languages often lack extensive data compared to high-resource languages. General large language models (LLMs), such as GPT-4 and Llama, primarily trained on monolingual corpora, face significant challenges in translating low-resource languages, often resulting in subpar translation quality. This study introduces Language-Specific Fine-Tuning with Low-rank adaptation (LSFTL), a method that enhances translation for low-resource languages by optimizing the multi-head attention and feed-forward networks of Transformer layers through low-rank matrix adaptation. LSFTL preserves the majority of the model parameters while selectively fine-tuning key components, thereby maintaining stability and enhancing translation quality. Experiments on non-English centered low-resource Asian languages demonstrated that LSFTL improved COMET scores by 1-3 points compared to specialized multilingual machine translation models. Additionally, LSFTL’s parameter-efficient approach allows smaller models to achieve performance comparable to their larger counterparts, highlighting its significance in making machine translation systems more accessible and effective for low-resource languages.",
+          "cluster_id": "MAIN"
+        },
+        {
+          "id": "W7154856337",
+          "title": "Contextual Learning Support for Low-Resource Language Large Language Models: Efficient Training Strategies for Zero-Shot and Few-Shot Learning",
+          "year": 2026,
+          "source_field": "abstract",
+          "source_text": "In natural language processing tasks for low-resource languages, building high-quality large language models faces numerous challenges, including data scarcity, domain mismatch, and limited annotation resources. This paper proposes an efficient training strategy based on contextual learning, aimed at addressing the difficulties encountered by low-resource languages in zero-shot and few-shot learning scenarios. The approach leverages cross-lingual knowledge transfer from high-resource languages and systematically enhances contextual information in prompts and representations to maximize the model’s generalization ability. We explore the combination of multi-task learning and self-supervised learning to exploit heterogeneous corpora, using existing multilingual and monolingual resources for pretraining. A lightweight fine-tuning stage with a small amount of labeled data is then employed for targeted adaptation to specific downstream tasks and languages. The proposed framework is designed to be computationally efficient, reducing training cost while maintaining or improving performance. Experimental results on a range of language understanding and generation benchmarks demonstrate significant improvements in task performance across various low-resource languages under both zero-shot and few-shot conditions. Ablation studies further highlight the contribution of contextual learning components and cross-lingual transfer mechanisms. These findings provide practical guidance for developing scalable large language models for underrepresented languages and offer new ideas and methods for future research on inclusive and resource-efficient language technologies.",
+          "cluster_id": "SIDE-1bde737c01cb1f8f"
+        }
+      ],
+      "annotation": null
+    }
+  ],
+  "summary": {
+    "total": 7,
+    "reviewed": 0,
+    "pending": 7,
+    "supported": 0,
+    "unsupported": 0,
+    "uncertain": 0,
+    "blind_reviewed": 0,
+    "support_rate": null,
+    "semantic_accuracy": null
+  },
+  "format": "finding-human-review-v1",
+  "review_note": "Pending items have annotation=null. Use the UI to submit a reviewer, supported/unsupported/uncertain verdict, rationale and exact original quotes from both papers. No model judgments count as human labels. Semantic accuracy is not established by this diagnostic set."
+}

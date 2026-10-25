@@ -89,7 +89,11 @@ def _assess(pairs, payload, source_map, papers, connections, settings, context):
         verdict, check = checked.get(d.pair_id), coverage.get(d.pair_id)
         kept = check is not None and check.status != "addressed"
         decision = "accepted_provisional" if kept else "addressed" if check is not None else "abstain" if verdict is None else "rejected"
-        item = {"pair_id": d.pair_id, "paper_ids": targets[d.pair_id]["paper_ids"], "decision": decision,
+        item = {"pair_id": d.pair_id, "paper_ids": targets[d.pair_id]["paper_ids"],
+                "cluster_ids": targets[d.pair_id]["cluster_ids"], "scope": targets[d.pair_id].get("scope", "within_cluster"),
+                "proposal": {"research_question": d.research_question, "proposed_test": d.proposed_test,
+                             "basis": d.basis, "evidence": [e.model_dump() for e in evidence.get(d.pair_id, [])]} if d.decision == "propose" else None,
+                "decision": decision,
                 "reason": check.reason if check else verdict.reason if verdict else d.reason}
         if check:
             item["coverage"] = check.model_dump(mode="json")
@@ -101,7 +105,8 @@ def _assess(pairs, payload, source_map, papers, connections, settings, context):
                 audit.rejected += 1
             continue
         pair, gid = targets[d.pair_id], "GAP-" + d.pair_id.removeprefix("PAIR-")
-        gaps.append(GroundedGap(id=gid, cluster_id=pair["cluster_ids"][0], between_paper_ids=pair["paper_ids"],
+        gaps.append(GroundedGap(id=gid, cluster_id=pair.get("anchor_cluster_id", pair["cluster_ids"][0]),
+            cluster_ids=pair["cluster_ids"], scope=pair.get("scope", "within_cluster"), between_paper_ids=pair["paper_ids"],
             description=d.research_question, why_it_matters=d.why_it_matters, proposed_test=d.proposed_test,
             basis=d.basis, similarity=pair["similarity"], evidence=evidence[d.pair_id], coverage=check))
         deps[gid] = FindingDependency(global_map=False, cluster_ids=pair["cluster_ids"], paper_ids=pair["paper_ids"],
