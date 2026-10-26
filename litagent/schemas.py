@@ -283,6 +283,28 @@ class ReviewAgentDecisions(BaseModel):
     decisions: list[ReviewAgentDecision]
 
 
+class ReviewExplanationAttribution(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    paper_id: str
+    statement_id: str = Field(description="Exact ID of the draft sentence being checked")
+    assertion: str = Field(min_length=1, description="One factual assertion from the draft about this paper")
+    evidence: list[EvidenceReference]
+    assessment: Literal["grounded", "proposal", "scope_limit", "unsubstantiated", "contradicted"]
+    explanation: str = Field(min_length=1)
+
+
+class ReviewExplanationCheck(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    item_id: str
+    attributions: list[ReviewExplanationAttribution]
+    issues: list[str] = Field(description="Concrete source-attribution errors; empty only if the explanation passes")
+
+
+class ReviewExplanationChecks(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    checks: list[ReviewExplanationCheck]
+
+
 class ReviewAgentAssessment(BaseModel):
     item_id: str
     status: Literal["assessed", "needs_hypothesis", "insufficient_sources", "sample"]

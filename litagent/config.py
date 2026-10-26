@@ -178,6 +178,7 @@ class Settings:
     review_agent_max_items: int = 24
     review_agent_token_budget: int = 30000
     review_agent_timeout_s: float = 180.0
+    review_agent_metric_terms: tuple[str, ...] = ("spBLEU", "BLEU", "COMET", "chrF", "ROUGE", "METEOR", "BERTScore")
 
     # Offline quality review: targeted diagnostics, not a population accuracy estimate.
     cluster_review_pairs_per_stratum: int = 8

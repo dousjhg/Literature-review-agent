@@ -34,8 +34,30 @@ context using the currently configured model; it is not independent model-family
 
 The model returns span IDs. Code copies their exact original text and requires both papers
 for decisive judgments. Wrong/foreign span IDs, incomplete output IDs and inconsistent
-supported scores receive at most the configured bounded validation repair. Reasoning can
-still misinterpret an exact quote, so semantic correctness remains reviewable.
+supported scores receive at most the configured bounded validation repair.
+
+Before saving, a separate-context call (`prompts/review_explanation_check.md`) audits every
+reason and limitation against each paper's own source. It receives neither scores/verdicts
+nor repair history. The server assigns IDs to every draft sentence/limitation; the audit must
+cover every ID and both papers. Each attribution includes an assertion, its paper, source
+references and a grounded/proposal/scope_limit/unsubstantiated/contradicted assessment. Grounded rows
+require valid evidence from that same paper. Unsubstantiated/contradicted rows trigger repair
+even if the auditor's summary issues list is empty. Claims and future tests are explicitly separated from evidence. It checks
+cross-paper attribution, proposed versus reported metrics, and absence claims based only on
+abstracts/excerpts. Any reported error triggers the same bounded repair loop; missing audit
+IDs, deadline expiry, provider failure or persistent attribution errors prevent report saving.
+The trace records each audit and the report identifies checked items. This normally adds one
+call to a grading batch; the same token/deadline budget covers grading, auditing and repairs.
+It is still a model check using the same configured model, not a guarantee of factual accuracy.
+
+Sources additionally expose literal metric-term matches with span IDs (configurable in
+`review_agent_metric_terms`). These are text-presence hints, not proof of measured performance.
+A narrow deterministic guard rejects an unqualified Chinese assertion that an abstract gives
+no evaluation metrics when that paper's supplied text names a configured metric. It applies
+to statements attributed to one paper; it preserves caveats about missing definitions,
+versions, detailed settings or complete metric lists. It does not cover every paraphrase,
+language, metric or attribution error. A regression exercises a falsely approving auditor
+to ensure this guard still rejects an erroneous omission of COMET.
 
 This Agent performs no external coverage search, establishes no global novelty, and does
 not promote a hypothesis into the map or override earlier finding verification. Its records
@@ -51,7 +73,7 @@ submits a judgment after viewing suggestions, that submission records exposure t
 
 Reports are separate checksum-protected `logs/review-agent-<fingerprint>.json` files.
 The fingerprint binds to source version, corpus, exact claims/text, model, rubric prompt,
-schemas, limits and implementation. Human edits do not invalidate it. Identical requests
+schemas (including the explanation auditor), limits and implementation. Human edits do not invalidate it. Identical requests
 reuse the report; concurrent generation is locked. Invalid cached checksums fail closed.
 Failed generation leaves human judgments intact and requires an explicit retry.
 
@@ -64,3 +86,8 @@ Tests cover source/ID validation, rubric consistency, source/mode/version bindin
 reuse and corruption, exclusion of human labels, unchanged human/map bytes, null scores
 for absent hypotheses, and the browser flow for viewing AI suggestions without auto-submitting
 human judgments.
+
+The attribution regression uses a NusaMT/spBLEU versus LSFTL/COMET fixture with valid quotes
+but swapped prose. Stubbed auditor responses test bounded repair and failure handling, not
+the semantic accuracy of the model. See [the source audit](../nusamt-source-audit.md) for the
+separate original-paper check and the scope of the refreshed live review.

@@ -28,6 +28,19 @@ sources from proposed extrapolations that still require validation (e.g. applyin
 to a different base model). Never assume a method is full-parameter tuning unless the
 supplied text supports that detail. An abstract's omission is not proof of a global gap.
 
+Identify each paper by its title or method name, never by "first/second paper": input order
+is not semantic. Keep each paper's reported metrics, languages, datasets and base model
+separate. A proposed test is NOT evidence of what either paper has already done. Explicitly
+label new evaluation metrics or shared experimental settings as proposed choices. When only
+an abstract/excerpt is provided, say "所提供摘要/片段未说明", never infer absence from the
+whole paper. An independent source-attribution audit checks reason AND limitations before
+the application saves them; valid quote references alone do not establish a valid explanation.
+When discussing evaluation, explicitly distinguish the metrics each paper actually reports
+from metrics newly proposed for the controlled experiment. metric_mentions are literal term
+matches in that paper's original spans, not performance claims; read the associated spans.
+Do not say an abstract omits evaluation metrics when it explicitly names one. Missing metric
+versions, data splits or benchmark details must be described narrowly as those missing details.
+
 Assess the relationship or explicit research hypothesis, not whether each paper on its own
 is a good paper. Source limitations and author recommendations can support a hypothesis;
 unperformed experiments cannot be reported as established findings.
