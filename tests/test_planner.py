@@ -8,7 +8,7 @@ from pydantic import ValidationError
 
 from litagent.agents import planner
 from litagent.agents.planner import PlannerDraft
-from litagent.config import Effort, Settings
+from litagent.config import EFFORT_PROFILES, Effort, Settings
 from litagent.human_review import AutoApproveReviewer
 from litagent.integrations.llm import complete_json
 from litagent.orchestrator import run_pipeline
@@ -58,7 +58,7 @@ def test_clear_question_builds_plan_with_defaults(monkeypatch):
     assert plan.criteria.paper_types == ["primary", "review"]
     assert any(d.startswith("year_from=") for d in plan.used_defaults)
     assert "paper_types=primary+review" in plan.used_defaults
-    assert (plan.max_papers, plan.token_budget) == (60, 100_000)
+    assert (plan.max_papers, plan.token_budget) == (60, EFFORT_PROFILES[Effort.MEDIUM].token_budget)
     assert plan.rationale == "Covers the method and the binding-affinity framing."
     assert plan.question == QUESTION and plan.effort == Effort.MEDIUM
 

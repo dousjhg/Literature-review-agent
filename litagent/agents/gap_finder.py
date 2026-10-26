@@ -6,6 +6,7 @@ set range (related enough to be comparable, different enough to leave room for a
 
 from __future__ import annotations
 
+import re
 import time
 
 from litagent.agents.connection_finder import first_sentence
@@ -16,6 +17,19 @@ from litagent.schemas import (Cluster, Connection, CoverageSearch, CoverageVerdi
     FindingCacheRecord, FindingDependency, Gap, GapCoverage, GapDecisions, GroundedGap, Paper, SearchCriteria)
 from litagent.tools.openalex import OpenAlexError, search_openalex
 from litagent.trace import current_trace, mask
+
+# "SFT" or "fine-tuning" alone does not establish which parameters were trained (NusaMT-7B
+# says SFT in its abstract but uses LoRA in its full text). A proposal may only assert this
+# scope when a supplied source of the pair states it.
+_FULL_PARAMETER = re.compile(r"\bfull(?:[- ]parameter|[- ]model|[- ]weight)s?\b|\bfull[- ]?(?:fine[- ]?tun\w*|sft)\b"
+                             r"|全参数|全量(?:微调|参数)", re.IGNORECASE)
+
+
+def unsupported_scope_claims(texts: list[str], sources: list[dict]) -> list[str]:
+    """Parameter-scope terms in a proposal that no supplied source span of the pair states."""
+    found = {m.group() for text in texts for m in _FULL_PARAMETER.finditer(text)}
+    stated = any(_FULL_PARAMETER.search(span["quote"]) for source in sources for span in source["spans"])
+    return [] if stated else sorted(found)
 
 
 def find_gaps(
@@ -69,6 +83,12 @@ def _assess(pairs, payload, source_map, papers, connections, settings, context):
                         or not 1 <= len(d.search_queries) <= settings.gap_coverage_queries_per_gap
                         or any(not q.strip() or len(q) > 240 for q in d.search_queries)):
                     raise ValueError("Propose needs a grounded question, basis, test, importance and bounded positive-study queries")
+                scope = unsupported_scope_claims([d.research_question, d.proposed_test, d.why_it_matters],
+                                                 [source_map[pid] for pid in targets[d.pair_id]["paper_ids"]])
+                if scope:
+                    raise ValueError(f"{d.pair_id}: {scope} is not stated in either supplied source. SFT or "
+                                     "fine-tuning alone does not specify trained parameters; describe each method "
+                                     "exactly as the source does (e.g. 'SFT, parameter scope not specified') or abstain")
                 try:
                     evidence[d.pair_id] = resolve_evidence(d.evidence, source_map, set(targets[d.pair_id]["paper_ids"]), settings)
                 except ValueError as error:
@@ -181,17 +201,19 @@ def _coverage(proposals, papers, settings, context):
 
 
 def _fake_gaps(papers: list[Paper], clusters: list[Cluster]) -> list[Gap]:
-    """Sample mode: one placeholder gap per cluster, with a verbatim quote from its first paper."""
+    """Sample mode: one placeholder gap per cluster, quoting the abstract of its first paper that has one."""
     by_id = {p.id: p for p in papers}
-    return [
-        Gap(
+    gaps = []
+    for c in clusters:
+        quotable = [pid for pid in c.paper_ids if pid in by_id and by_id[pid].abstract]
+        if not quotable:
+            continue
+        gaps.append(Gap(
             id=f"{c.id}-G1",
             cluster_id=c.id,
             description="Sample mode: placeholder gap between the first two papers of this group.",
-            between_paper_ids=c.paper_ids[:2],
+            between_paper_ids=quotable[:2],
             why_it_matters="Sample mode: illustrates the output shape; no actual gap or novelty assessment was performed.",
-            evidence=[Evidence(paper_id=c.paper_ids[0], quote=first_sentence(by_id.get(c.paper_ids[0])))],
-        )
-        for c in clusters
-        if c.paper_ids
-    ]
+            evidence=[Evidence(paper_id=quotable[0], quote=first_sentence(by_id[quotable[0]]))],
+        ))
+    return gaps

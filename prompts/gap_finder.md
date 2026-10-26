@@ -10,6 +10,10 @@ cross_paper_hypothesis (an explicitly speculative test suggested by two establis
 contributions or limitations). A shared keyword or omission from two abstracts is insufficient.
 The question must preserve task, method, data and evaluation constraints. Do not infer that
 ordinary fine-tuning implements LoRA or that one language setting transfers to every language.
+Equally, "SFT" or "fine-tuning" does not establish full-parameter tuning: name each method
+exactly as its source states it, and write "parameter scope not specified" when a source does
+not say which parameters were trained. A proposal asserting full-parameter tuning that no
+supplied span states is rejected by code.
 
 For propose supply basis, research_question, an actionable proposed_test with a baseline
 and measurable outcome, why_it_matters, selected original evidence references from BOTH

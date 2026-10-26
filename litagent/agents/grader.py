@@ -12,7 +12,7 @@ from __future__ import annotations
 import json
 from typing import Literal
 
-from pydantic import BaseModel
+from pydantic import BaseModel, model_validator
 
 from litagent.config import CLUSTER_MAX_PAPER_FRACTION, CLUSTER_MAX_SINGLETON_FRACTION, Settings
 from litagent.integrations.llm import complete_json, load_prompt
@@ -64,6 +64,12 @@ def grade(stage: Stage, output: list[BaseModel], papers: list[Paper], settings: 
     if stage != "clusters":
         payload["scope"] = "Only the supplied reviewed_pairs were assessed under resource caps, not every possible pair in the corpus. Abstention is valid. No accepted finding does not prove that none exist. Do not demand a gap outside the reviewed pairs or specific research question. Gaps are provisional hypotheses, never established global novelty."
         payload["reviewed_pairs"] = reviewed_pairs
+        if not output:
+            # An empty list is a claim too: every reviewed pair lacks a supported finding. Grade that
+            # claim against the papers instead of the missing content (a live run scored it 0/9 for emptiness).
+            payload["empty_output"] = ("Every reviewed pair was abstained or rejected. Judge whether the reviewed pairs' "
+                "abstracts really lack a source-supported finding. Score accuracy/appropriateness high when abstention "
+                "is justified; fail only by naming a reviewed pair and the abstract statements that support a finding.")
         referenced |= {pid for pair in reviewed_pairs or [] for pid in pair["paper_ids"]}
         for item in payload["output"]:
             item.pop("verification", None)
@@ -75,7 +81,23 @@ def grade(stage: Stage, output: list[BaseModel], papers: list[Paper], settings: 
             "cited_original_spans": [{"field": field, "quote": e.quote} for item in output for e in item.evidence
                 if e.paper_id == p.id for field in ("abstract", "full_text") if getattr(p, field) and e.quote in getattr(p, field)]}
             for p in papers if (not referenced and reviewed_pairs is None) or p.id in referenced]
-    return complete_json(load_prompt("grader"), json.dumps(payload, ensure_ascii=False), Grade, settings=settings, agent_name="grader")
+    draft = complete_json(load_prompt("grader"), json.dumps(payload, ensure_ascii=False), _explained_grade(settings.grade_pass_mark),
+                          settings=settings, agent_name="grader")
+    return Grade.model_validate(draft.model_dump())
+
+
+def _explained_grade(pass_mark: int) -> type[Grade]:
+    """The model's grade must explain itself: a live grader once returned 0/0/0 with no reasoning or
+    fix, which would have triggered a costly redo. complete_json repairs such output once."""
+    class GradeDraft(Grade):
+        @model_validator(mode="after")
+        def explained(self):
+            if not self.reasoning.strip():
+                raise ValueError("reasoning must explain the scores against the papers")
+            if self.total < pass_mark and not (self.fix or "").strip():
+                raise ValueError(f"a total below {pass_mark} needs exactly one concrete fix")
+            return self
+    return GradeDraft
 
 
 def finding_scope(context, stage: str) -> dict:

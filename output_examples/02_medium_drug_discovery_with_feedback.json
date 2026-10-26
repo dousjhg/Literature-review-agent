@@ -23,7 +23,7 @@
       ],
       "effort": "medium",
       "max_papers": 60,
-      "token_budget": 100000,
+      "token_budget": 450000,
       "used_defaults": [
         "year_from=2021",
         "paper_types=primary+review"
@@ -1324,8 +1324,8 @@
         "id": "C1-K1",
         "kind": "within_cluster",
         "paper_ids": [
-          "W3110933132",
-          "W4396806998"
+          "W4396806998",
+          "W4416931215"
         ],
         "cluster_ids": [
           "C1"
@@ -1333,12 +1333,12 @@
         "description": "Sample mode: placeholder connection between two papers in the same group.",
         "evidence": [
           {
-            "paper_id": "W3110933132",
-            "quote": "Molecular generative Graph Neural Networks for Drug Discovery"
-          },
-          {
             "paper_id": "W4396806998",
             "quote": "Introduction: In recent years, graph neural network has been extensively applied to drug discovery research."
+          },
+          {
+            "paper_id": "W4416931215",
+            "quote": "Drug discovery is increasingly challenged by rising costs, long development cycles and high attrition rates, with accurate target identification remaining a critical bottleneck."
           }
         ]
       },
@@ -1393,14 +1393,14 @@
         "cluster_id": "C1",
         "description": "Sample mode: placeholder gap between the first two papers of this group.",
         "between_paper_ids": [
-          "W3110933132",
-          "W4396806998"
+          "W4396806998",
+          "W4416931215"
         ],
         "why_it_matters": "Sample mode: illustrates the output shape; no actual gap or novelty assessment was performed.",
         "evidence": [
           {
-            "paper_id": "W3110933132",
-            "quote": "Molecular generative Graph Neural Networks for Drug Discovery"
+            "paper_id": "W4396806998",
+            "quote": "Introduction: In recent years, graph neural network has been extensively applied to drug discovery research."
           }
         ]
       },
@@ -2484,8 +2484,8 @@
           "cluster_ref": "C1",
           "evidence": [
             {
-              "paper_id": "W3110933132",
-              "quote": "Molecular generative Graph Neural Networks for Drug Discovery"
+              "paper_id": "W4396806998",
+              "quote": "Introduction: In recent years, graph neural network has been extensively applied to drug discovery research."
             }
           ]
         },
@@ -2880,27 +2880,6 @@
           "by": "clusterer"
         },
         {
-          "source": "W3110933132",
-          "target": "W4396806998",
-          "type": "connects-to",
-          "by": "connection_finder",
-          "kind": "within_cluster",
-          "description": "Sample mode: placeholder connection between two papers in the same group.",
-          "cluster_refs": [
-            "C1"
-          ],
-          "evidence": [
-            {
-              "paper_id": "W3110933132",
-              "quote": "Molecular generative Graph Neural Networks for Drug Discovery"
-            },
-            {
-              "paper_id": "W4396806998",
-              "quote": "Introduction: In recent years, graph neural network has been extensively applied to drug discovery research."
-            }
-          ]
-        },
-        {
           "source": "W4415320025",
           "target": "W3116202926",
           "type": "connects-to",
@@ -2918,6 +2897,27 @@
             {
               "paper_id": "W3116202926",
               "quote": "Graph neural networks (GNN) has been considered as an attractive modelling method for molecular property prediction, and numerous studies have shown that GNN could yield more promising results than tr"
+            }
+          ]
+        },
+        {
+          "source": "W4396806998",
+          "target": "W4416931215",
+          "type": "connects-to",
+          "by": "connection_finder",
+          "kind": "within_cluster",
+          "description": "Sample mode: placeholder connection between two papers in the same group.",
+          "cluster_refs": [
+            "C1"
+          ],
+          "evidence": [
+            {
+              "paper_id": "W4396806998",
+              "quote": "Introduction: In recent years, graph neural network has been extensively applied to drug discovery research."
+            },
+            {
+              "paper_id": "W4416931215",
+              "quote": "Drug discovery is increasingly challenged by rising costs, long development cycles and high attrition rates, with accurate target identification remaining a critical bottleneck."
             }
           ]
         },
@@ -2944,7 +2944,7 @@
         },
         {
           "source": "C1-G1",
-          "target": "W3110933132",
+          "target": "W4416931215",
           "type": "between",
           "by": "gap_finder"
         },
@@ -2991,7 +2991,7 @@
       "completion_tokens": 0,
       "llm_calls": 0,
       "estimated_calls": 0,
-      "budget": 100000
+      "budget": 450000
     }
   }
 }

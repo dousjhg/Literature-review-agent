@@ -23,7 +23,7 @@
       ],
       "effort": "high",
       "max_papers": 100,
-      "token_budget": 300000,
+      "token_budget": 700000,
       "used_defaults": [
         "year_from=2021",
         "paper_types=primary+review"
@@ -1301,7 +1301,7 @@
         "kind": "within_cluster",
         "paper_ids": [
           "W3165545667",
-          "W4300861364"
+          "W4391338754"
         ],
         "cluster_ids": [
           "C1"
@@ -1313,8 +1313,8 @@
             "quote": "Obtaining an accurate description of protein structure is a fundamental step toward understanding the underpinning of biology."
           },
           {
-            "paper_id": "W4300861364",
-            "quote": "Single-sequence protein structure prediction using a language model and deep learning"
+            "paper_id": "W4391338754",
+            "quote": "Proteins are the key molecular machines that orchestrate all biological processes of the cell."
           }
         ]
       },
@@ -1344,8 +1344,8 @@
         "id": "C3-K1",
         "kind": "within_cluster",
         "paper_ids": [
-          "W3163965514",
-          "W3132448805"
+          "W4328048207",
+          "W3186340132"
         ],
         "cluster_ids": [
           "C3"
@@ -1353,12 +1353,12 @@
         "description": "Sample mode: placeholder connection between two papers in the same group.",
         "evidence": [
           {
-            "paper_id": "W3163965514",
-            "quote": "Improved protein structure prediction by deep learning irrespective of co-evolution information"
+            "paper_id": "W4328048207",
+            "quote": "While AlphaFold2 can predict accurate protein structures from the primary sequence, challenges remain for proteins that undergo conformational changes or for which few homologous sequences are known."
           },
           {
-            "paper_id": "W3132448805",
-            "quote": "Deep learning techniques have significantly impacted protein structure prediction and protein design"
+            "paper_id": "W3186340132",
+            "quote": "Substantial progresses in protein structure prediction have been made by utilizing deep-learning and residue-residue distance prediction since CASP13."
           }
         ]
       }
@@ -1370,7 +1370,7 @@
         "description": "Sample mode: placeholder gap between the first two papers of this group.",
         "between_paper_ids": [
           "W3165545667",
-          "W4300861364"
+          "W4391338754"
         ],
         "why_it_matters": "Sample mode: illustrates the output shape; no actual gap or novelty assessment was performed.",
         "evidence": [
@@ -1401,14 +1401,14 @@
         "cluster_id": "C3",
         "description": "Sample mode: placeholder gap between the first two papers of this group.",
         "between_paper_ids": [
-          "W3163965514",
-          "W3132448805"
+          "W4328048207",
+          "W3186340132"
         ],
         "why_it_matters": "Sample mode: illustrates the output shape; no actual gap or novelty assessment was performed.",
         "evidence": [
           {
-            "paper_id": "W3163965514",
-            "quote": "Improved protein structure prediction by deep learning irrespective of co-evolution information"
+            "paper_id": "W4328048207",
+            "quote": "While AlphaFold2 can predict accurate protein structures from the primary sequence, challenges remain for proteins that undergo conformational changes or for which few homologous sequences are known."
           }
         ]
       }
@@ -2445,8 +2445,8 @@
           "cluster_ref": "C3",
           "evidence": [
             {
-              "paper_id": "W3163965514",
-              "quote": "Improved protein structure prediction by deep learning irrespective of co-evolution information"
+              "paper_id": "W4328048207",
+              "quote": "While AlphaFold2 can predict accurate protein structures from the primary sequence, challenges remain for proteins that undergo conformational changes or for which few homologous sequences are known."
             }
           ]
         }
@@ -2835,7 +2835,7 @@
         },
         {
           "source": "W3165545667",
-          "target": "W4300861364",
+          "target": "W4391338754",
           "type": "connects-to",
           "by": "connection_finder",
           "kind": "within_cluster",
@@ -2849,14 +2849,14 @@
               "quote": "Obtaining an accurate description of protein structure is a fundamental step toward understanding the underpinning of biology."
             },
             {
-              "paper_id": "W4300861364",
-              "quote": "Single-sequence protein structure prediction using a language model and deep learning"
+              "paper_id": "W4391338754",
+              "quote": "Proteins are the key molecular machines that orchestrate all biological processes of the cell."
             }
           ]
         },
         {
-          "source": "W3163965514",
-          "target": "W3132448805",
+          "source": "W4328048207",
+          "target": "W3186340132",
           "type": "connects-to",
           "by": "connection_finder",
           "kind": "within_cluster",
@@ -2866,12 +2866,12 @@
           ],
           "evidence": [
             {
-              "paper_id": "W3163965514",
-              "quote": "Improved protein structure prediction by deep learning irrespective of co-evolution information"
+              "paper_id": "W4328048207",
+              "quote": "While AlphaFold2 can predict accurate protein structures from the primary sequence, challenges remain for proteins that undergo conformational changes or for which few homologous sequences are known."
             },
             {
-              "paper_id": "W3132448805",
-              "quote": "Deep learning techniques have significantly impacted protein structure prediction and protein design"
+              "paper_id": "W3186340132",
+              "quote": "Substantial progresses in protein structure prediction have been made by utilizing deep-learning and residue-residue distance prediction since CASP13."
             }
           ]
         },
@@ -2888,6 +2888,12 @@
           "by": "gap_finder"
         },
         {
+          "source": "C1-G1",
+          "target": "W4391338754",
+          "type": "between",
+          "by": "gap_finder"
+        },
+        {
           "source": "C2-G1",
           "target": "W4402753025",
           "type": "between",
@@ -2895,19 +2901,13 @@
         },
         {
           "source": "C3-G1",
-          "target": "W3163965514",
+          "target": "W4328048207",
           "type": "between",
           "by": "gap_finder"
         },
         {
           "source": "C3-G1",
-          "target": "W3132448805",
-          "type": "between",
-          "by": "gap_finder"
-        },
-        {
-          "source": "C1-G1",
-          "target": "W4300861364",
+          "target": "W3186340132",
           "type": "between",
           "by": "gap_finder"
         }
@@ -2924,7 +2924,7 @@
       "completion_tokens": 0,
       "llm_calls": 0,
       "estimated_calls": 0,
-      "budget": 300000
+      "budget": 700000
     }
   }
 }

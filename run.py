@@ -1,7 +1,7 @@
 """Entry point: serves POST /run (see litagent/api.py) on 0.0.0.0:$PORT, default 8000.
 
     SAMPLE_MODE=true python run.py
-    curl -X POST localhost:8000/run -H 'Content-Type: application/json' -d @input_examples/01_normal.json
+    curl -X POST localhost:8000/run -H 'Content-Type: application/json' -d @input_examples/01_normal_low_resource_languages.json
 
 The command line version still works: python -m litagent "your question" --sample-mode
 """

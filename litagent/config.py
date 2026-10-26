@@ -27,15 +27,20 @@ class Effort(str, Enum):
 class EffortProfile:
     max_papers: int
     use_full_text: bool  # False = metadata only, True = download and read PDFs
-    token_budget: int  # TODO: tune once you measure real token usage
+    token_budget: int  # whole run, retries and redos included (see measured usage below)
     num_queries: int  # search queries the Planner writes; more papers -> more phrasings
 
 
+# Caps from measured real 30-paper /runs (26 Oct, docs/evaluation.md): planning + summary ~6k, each
+# clustering attempt ~37k (question relevance ~20k, labels ~10k, whole-map grade ~15k), connections
+# ~35k, gaps ~25k, each finding grade ~13k; with one cluster and one finding redo about 210k. The old
+# 50k Normal budget stopped every real run inside clustering, and 150k inside the connection redo.
+# Relevance batches and grader input grow with the paper count, so the caps scale with it.
 EFFORT_PROFILES: dict[Effort, EffortProfile] = {
-    Effort.NORMAL: EffortProfile(max_papers=30, use_full_text=False, token_budget=50_000, num_queries=2),
-    Effort.MEDIUM: EffortProfile(max_papers=60, use_full_text=False, token_budget=100_000, num_queries=3),
-    Effort.HIGH: EffortProfile(max_papers=100, use_full_text=True, token_budget=300_000, num_queries=4),
-    Effort.ULTRA: EffortProfile(max_papers=150, use_full_text=True, token_budget=600_000, num_queries=4),
+    Effort.NORMAL: EffortProfile(max_papers=30, use_full_text=False, token_budget=250_000, num_queries=2),
+    Effort.MEDIUM: EffortProfile(max_papers=60, use_full_text=False, token_budget=450_000, num_queries=3),
+    Effort.HIGH: EffortProfile(max_papers=100, use_full_text=True, token_budget=700_000, num_queries=4),
+    Effort.ULTRA: EffortProfile(max_papers=150, use_full_text=True, token_budget=1_000_000, num_queries=4),
 }
 
 
@@ -121,7 +126,6 @@ class Settings:
     full_text_max_pages: int = 30
     full_text_min_chars: int = 2000  # less extractable text than this is treated as a scanned PDF
     full_text_max_chars: int = 200_000
-
 
     # Clustering
     cluster_map_mode: str = "question"  # question-aware main/side map when a question is provided; topic retains legacy behavior

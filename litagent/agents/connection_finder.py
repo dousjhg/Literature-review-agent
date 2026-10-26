@@ -89,12 +89,13 @@ def _assess(pairs, payload, source_map, settings, context):
 
 
 def _fake_connections(papers: list[Paper], clusters: list[Cluster]) -> list[Connection]:
-    """Sample mode: link the first two papers of each cluster, quoting their abstracts verbatim."""
+    """Sample mode: link the first two papers with an abstract in each cluster, quoting them verbatim."""
     by_id = {p.id: p for p in papers}
     out = []
     for c in clusters:
-        if len(c.paper_ids) >= 2:
-            a, b = c.paper_ids[:2]
+        quotable = [pid for pid in c.paper_ids if pid in by_id and by_id[pid].abstract]
+        if len(quotable) >= 2:
+            a, b = quotable[:2]
             out.append(
                 Connection(
                     id=f"{c.id}-K1",
@@ -110,9 +111,9 @@ def _fake_connections(papers: list[Paper], clusters: list[Cluster]) -> list[Conn
 
 
 def first_sentence(paper: Paper | None, limit: int = 200) -> str:
-    """A verbatim snippet from the abstract (or title), used as sample-mode evidence."""
-    if paper is None:
+    """A verbatim snippet from the abstract, used as sample-mode evidence."""
+    if paper is None or not paper.abstract:
         return ""
-    text = paper.abstract or paper.title
+    text = paper.abstract
     end = text.find(". ")
     return text[: end + 1 if 0 < end < limit else limit]

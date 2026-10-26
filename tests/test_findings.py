@@ -156,6 +156,32 @@ def test_gap_is_provisional_and_search_checks_older_non_oa_sources(model, tmp_pa
     assert len(model["searches"]) > searches
 
 
+def test_gap_premise_cannot_assert_unstated_full_parameter_tuning(model, tmp_path, monkeypatch):
+    root, cfg, papers, arrays = snapshot(tmp_path)
+    original = engine.complete_json
+    def premise(prompt, message, schema, **kwargs):
+        out = original(prompt, message, schema, **kwargs)
+        if schema is GapDecisions and "validation_error" not in json.loads(message):
+            for d in out.decisions:
+                d.research_question = "Does LoRA match full-parameter SFT under a shared evaluation?"
+        return out
+    monkeypatch.setattr(engine, "complete_json", premise)
+    ctx = context(root, arrays)
+    found = gap_finder.find_gaps(papers, root.clusters, [], cfg, context=ctx)
+    repaired = [data for schema, data in model["calls"] if schema is GapDecisions and "validation_error" in data]
+    assert repaired and "full-parameter" in repaired[0]["validation_error"]
+    assert found and all("full-parameter" not in g.description for g in found)
+
+
+def test_scope_claim_is_allowed_when_a_source_states_it():
+    stated = [{"spans": [{"quote": "We compare LoRA against full fine-tuning of all weights."}]}]
+    silent = [{"spans": [{"quote": "Our approach integrates Supervised Fine-Tuning (SFT)."}]}]
+    claim = ["Does LoRA match full-parameter SFT?", "全参数微调基线"]
+    assert gap_finder.unsupported_scope_claims(claim, stated) == []
+    assert gap_finder.unsupported_scope_claims(claim, silent) == ["full-parameter", "全参数"]
+    assert gap_finder.unsupported_scope_claims(["Compare SFT and LoRA."], silent) == []
+
+
 @pytest.mark.parametrize("external", [False, True])
 def test_coverage_suppresses_hypotheses_answered_by_local_or_external_study(model, tmp_path, external):
     root, cfg, papers, arrays = snapshot(tmp_path)
@@ -207,6 +233,7 @@ def test_grader_receives_question_and_only_reviewed_scope_without_verifier_reaso
     real_grade("gaps", [], papers, cfg, question=root.question,
                reviewed_pairs=[{"pair_id": "pair", "paper_ids": ["A", "B"]}])
     assert {p["id"] for p in seen[1]["papers"]} == {"A", "B"}
+    assert "empty_output" not in seen[0] and "abstention is justified" in seen[1]["empty_output"]
 
 
 def test_invented_addressing_study_cannot_suppress_a_hypothesis(model, tmp_path):
@@ -277,3 +304,16 @@ def test_regeneration_runs_real_finders_for_analyzed_maps_and_reuses_unaffected_
     assert not child.regeneration.pending_stages and child.analysis.audits[0].reused_tasks >= 1
     assert child.clusters[0].paper_ids == ["M"]
     assert not set(plan.invalidated_gap_ids) & {g.id for g in child.gaps}
+
+
+def test_model_grade_must_explain_itself():
+    schema = grader._explained_grade(7)
+    with pytest.raises(ValueError, match="reasoning"):
+        schema.model_validate({"stage": "connections", "accuracy": 0, "appropriateness": 0, "actionability": 0,
+                               "fix": "", "reasoning": ""})
+    with pytest.raises(ValueError, match="concrete fix"):
+        schema.model_validate({"stage": "gaps", "accuracy": 1, "appropriateness": 1, "actionability": 1,
+                               "reasoning": "Unsupported claims."})
+    ok = schema.model_validate({"stage": "gaps", "accuracy": 3, "appropriateness": 3, "actionability": 2,
+                                "reasoning": "Both quotes support the hypothesis."})
+    assert ok.total == 8 and ok.fix is None

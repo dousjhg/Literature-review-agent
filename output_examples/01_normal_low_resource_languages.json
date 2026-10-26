@@ -23,7 +23,7 @@
       ],
       "effort": "normal",
       "max_papers": 30,
-      "token_budget": 50000,
+      "token_budget": 250000,
       "used_defaults": [
         "year_from=2021",
         "paper_types=primary+review"
@@ -1598,7 +1598,7 @@
       "completion_tokens": 0,
       "llm_calls": 0,
       "estimated_calls": 0,
-      "budget": 50000
+      "budget": 250000
     }
   }
 }

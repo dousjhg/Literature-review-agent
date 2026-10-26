@@ -46,6 +46,12 @@ The pass mark is 7 out of 9. If the total is below 7, give exactly one concrete 
 - Review coverage status and counterevidence. Unavailable or inconclusive searches cannot support a claim of novelty.
 - No matching study in bounded excerpts/top search results never proves global absence. Abstention is valid; do not demand a gap from insufficient sources.
 
+### Empty connection or gap output
+An empty `output` with `empty_output` set means every reviewed pair was abstained or rejected.
+Do not score emptiness itself as zero. Check the reviewed pairs' abstracts: if none supports a
+specific relationship or testable hypothesis, abstention is accurate and appropriate. A failing
+`fix` must name a reviewed pair and the abstract statements that would support a finding.
+
 ## Output
 
 JSON matching the `Grade` schema.

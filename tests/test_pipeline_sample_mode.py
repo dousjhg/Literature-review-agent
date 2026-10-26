@@ -5,7 +5,7 @@ import numpy as np
 from litagent.agents import connection_finder
 from litagent.agents.clusterer import cosine_similarity_matrix, group_by_threshold
 from litagent.agents.grader import check_cluster_sizes
-from litagent.config import Effort, Settings
+from litagent.config import EFFORT_PROFILES, Effort, Settings
 from litagent.human_review import AutoApproveReviewer
 from litagent.integrations.llm import current_meter
 from litagent.orchestrator import run_pipeline
@@ -98,11 +98,40 @@ def test_token_budget_stops_mid_stage_with_partial_result(tmp_path, monkeypatch)
     assert result.papers and result.clusters  # finished stages are kept
     assert result.connections == [] and result.gaps == []
     assert any("Token budget" in w and "connection_finder" in w for w in result.warnings)
-    assert result.usage.total >= result.usage.budget == 50_000
+    assert result.usage.total >= result.usage.budget == EFFORT_PROFILES[Effort.NORMAL].token_budget
 
 
 def test_usage_reported_on_every_result(tmp_path):
     done = run_pipeline("graph neural networks for drug discovery", Effort.MEDIUM, AutoApproveReviewer(), sample_settings(tmp_path))
     need_topic = run_pipeline("find papers", Effort.NORMAL, AutoApproveReviewer(), sample_settings(tmp_path))
-    assert done.usage.budget == 100_000 and done.usage.llm_calls == 0  # sample mode makes no LLM calls
+    assert done.usage.budget == EFFORT_PROFILES[Effort.MEDIUM].token_budget and done.usage.llm_calls == 0  # sample mode makes no LLM calls
     assert need_topic.usage is not None
+
+
+def test_provider_failure_after_review_returns_finished_stages(tmp_path, monkeypatch):
+    from openai import APITimeoutError
+    import httpx
+    def timeout(*args, **kwargs):
+        raise APITimeoutError(request=httpx.Request("POST", "http://nightshift"))
+    monkeypatch.setattr(connection_finder, "find_connections", timeout)
+    result = run_pipeline("graph neural networks for drug discovery", Effort.NORMAL, AutoApproveReviewer(), sample_settings(tmp_path))
+    assert result.status == "partial" and result.papers and result.clusters and result.connections == []
+    assert any("Model provider failed during connection_finder (APITimeoutError)" in w for w in result.warnings)
+    assert result.paper_map["nodes"]
+
+
+def test_provider_failure_before_papers_is_an_error(tmp_path, monkeypatch):
+    import pytest
+    from litagent.agents import planner
+    from litagent.integrations.llm import LLMError
+    monkeypatch.setattr(planner, "plan", lambda *a, **k: (_ for _ in ()).throw(LLMError("planner output invalid twice")))
+    with pytest.raises(LLMError):
+        run_pipeline("graph neural networks for drug discovery", Effort.NORMAL, AutoApproveReviewer(), sample_settings(tmp_path))
+
+
+def test_sample_placeholders_quote_abstracts_verbatim(tmp_path):
+    for question in ("graph neural networks for drug discovery", "protein structure prediction with transformers"):
+        result = run_pipeline(question, Effort.NORMAL, AutoApproveReviewer(), sample_settings(tmp_path))
+        by_id = {p.id: p for p in result.papers}
+        quotes = [e for f in [*result.connections, *result.gaps] for e in f.evidence]
+        assert quotes and all(e.quote and e.quote in (by_id[e.paper_id].abstract or "") for e in quotes)
