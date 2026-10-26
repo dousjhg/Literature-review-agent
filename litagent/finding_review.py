@@ -18,7 +18,7 @@ class ReviewSubmission(BaseModel):
     model_config = ConfigDict(extra="forbid", str_strip_whitespace=True)
     expected_version_token: str = Field(pattern=r"^[a-f0-9]{32}$")
     verdict: Literal["supported", "unsupported", "uncertain"]
-    reviewer: str = Field(min_length=2, max_length=80)
+    reviewer: str = Field(min_length=1, max_length=80)
     rationale: str = Field(min_length=10, max_length=4000)
     evidence: list[Evidence] = Field(default_factory=list)
     saw_model_assessment: bool = False

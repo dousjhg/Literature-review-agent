@@ -173,6 +173,12 @@ class Settings:
     gap_coverage_timeout_s: float = 20.0
     gap_coverage_ttl_s: float = 86400
 
+    # Independent per-claim AI review; separate from human annotations and finding production.
+    review_agent_source_chars: int = 6000
+    review_agent_max_items: int = 24
+    review_agent_token_budget: int = 30000
+    review_agent_timeout_s: float = 180.0
+
     # Offline quality review: targeted diagnostics, not a population accuracy estimate.
     cluster_review_pairs_per_stratum: int = 8
 

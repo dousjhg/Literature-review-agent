@@ -1561,6 +1561,66 @@ blockquote {
 .graph-mobile-caption {
   display: none;
 }
+.agent-review {
+  margin: 24px 0;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: #f7faf8;
+  overflow-wrap: anywhere;
+}
+.agent-review-header,
+.agent-review-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.agent-review-header {
+  justify-content: space-between;
+}
+.agent-review-header h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-size: 16px;
+}
+.agent-review-result {
+  margin-top: 18px;
+  font-size: 14px;
+  line-height: 1.7;
+}
+.agent-review-scores {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin: 16px 0;
+}
+.agent-review-scores div {
+  border-top: 2px solid #d6e5de;
+  padding-top: 8px;
+}
+.agent-review-scores dt {
+  font-size: 12px;
+  color: var(--muted);
+}
+.agent-review-scores dd {
+  margin: 4px 0 0;
+  font-weight: 650;
+  font-size: 20px;
+}
+.agent-review-result figure {
+  margin: 18px 0;
+}
+.agent-review-result figcaption {
+  font-size: 12px;
+  color: var(--muted);
+}
+.agent-review-result summary {
+  cursor: pointer;
+  color: var(--green);
+}
 @media (max-width: 740px) {
   .graph-mobile-caption {
     display: grid;

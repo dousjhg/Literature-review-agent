@@ -340,7 +340,7 @@ function WorkspaceView({
   return (
     <>
       {tab === "review" ? (
-        <ReviewPanel map={map} />
+        <ReviewPanel map={map} timeout={timeout} />
       ) : (
         <main className="workspace-grid">
           <button

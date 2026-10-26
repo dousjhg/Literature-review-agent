@@ -66,6 +66,11 @@ python scripts/review_findings.py --run-id YOUR_MAP_ID --output evals/your-revie
 审核者身份是自行声明，系统不能验证 human 的真实性。无有效明确判断时 support_rate
 为 null；该材料不报告 semantic_accuracy。现有 23 对聚类子主题材料也仍待人工完成。
 
+页面现在支持 [独立 Review Agent](../docs/agents/review_agent.md) 自动给出原文支持、问题相关性、
+可检验性三项分数。AI 报告保留 model 来源，既不填入人工标签，也不改变人工已保存的判断。
+没有具体假设的论文对显示“待明确假设”，分数为 null。查看 AI 建议后再主动提交人工判断，
+会记录已查看模型意见；模型评分不计入人类准确率。
+
 ## 标签对照
 
 ```bash

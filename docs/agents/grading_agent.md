@@ -23,3 +23,6 @@ Nightshift H-MEM scope. See [main/side behavior](../main-side-clusters.md).
 
 **Input:** stage, output, papers · **Output:** `Grade`
 **Owner:** TODO · **Status:** Source-based grading, size diagnostics, sample mode and World Model recording implemented.
+
+For independent per-claim scoring in the review UI, see the [Review Agent](review_agent.md).
+Its model-only reports are separate from these stage grades and from human annotations.

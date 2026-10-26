@@ -256,6 +256,44 @@ class GroundedGap(Gap):
         return self
 
 
+class ReviewAgentRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    expected_version_token: str = Field(pattern=r"^[a-f0-9]{32}$")
+
+
+class ReviewAgentScores(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    source_support: int = Field(ge=0, le=3)
+    relevance: int = Field(ge=0, le=3)
+    testability: int = Field(ge=0, le=3)
+
+
+class ReviewAgentDecision(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    item_id: str
+    verdict: Literal["supported", "unsupported", "uncertain"]
+    scores: ReviewAgentScores
+    reason: str = Field(min_length=1)
+    limitations: list[str] = Field(default_factory=list)
+    evidence: list[EvidenceReference] = Field(default_factory=list)
+
+
+class ReviewAgentDecisions(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    decisions: list[ReviewAgentDecision]
+
+
+class ReviewAgentAssessment(BaseModel):
+    item_id: str
+    status: Literal["assessed", "needs_hypothesis", "insufficient_sources", "sample"]
+    verdict: Literal["supported", "unsupported", "uncertain"] | None = None
+    scores: ReviewAgentScores | None = None
+    total: int | None = None
+    reason: str
+    limitations: list[str] = Field(default_factory=list)
+    evidence: list[Evidence] = Field(default_factory=list)
+
+
 class ConnectionDecision(BaseModel):
     pair_id: str
     decision: Literal["supported", "abstain"]

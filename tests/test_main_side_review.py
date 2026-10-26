@@ -87,11 +87,12 @@ def test_review_requires_own_quotes_reviewer_reason_and_matching_version(client)
     c,root,cfg,_,_=client
     item=c.get('/cluster/root/review').json()['output']['items'][0]
     path=path_for(cfg,'cluster-map','root');before=path.read_bytes()
-    body={'expected_version_token':root.version_token,'verdict':'supported','reviewer':'Human tester','rationale':'Both original sources explicitly support the stated scientific comparison.',
+    body={'expected_version_token':root.version_token,'verdict':'supported','reviewer':'X','rationale':'Both original sources explicitly support the stated scientific comparison.',
           'evidence':[{'paper_id':p['id'],'quote':p['source_text'][:100]} for p in item['papers']]}
     url=f"/cluster/root/review/{item['id']}"
     assert c.post(url,json={**body,'evidence':body['evidence'][:1]}).status_code==422
     assert c.post(url,json={**body,'reviewer':''}).status_code==422
+    assert c.post(url,json={**body,'reviewer':'   '}).status_code==422
     assert c.post(url,json={**body,'expected_version_token':'0'*32}).status_code==409
     assert c.post(url,json={**body,'evidence':[{'paper_id':'M','quote':'invented quote outside supplied source'}]}).status_code==422
     response=c.post(url,json=body)
@@ -100,7 +101,7 @@ def test_review_requires_own_quotes_reviewer_reason_and_matching_version(client)
     assert result['annotation']['provenance']=='human' and result['annotation']['source']=='user_submission'
     assert result['summary']['reviewed']==1 and result['summary']['semantic_accuracy'] is None
     assert path.read_bytes()==before
-    assert c.get('/cluster/root/review').json()['output']['items'][0]['annotation']['reviewer']=='Human tester'
+    assert c.get('/cluster/root/review').json()['output']['items'][0]['annotation']['reviewer']=='X'
     assert c.post(url,json={**body,'verdict':'uncertain','evidence':[]}).status_code==200
     stored=json.loads(path_for(cfg,'finding-review','root').read_text())
     assert len(stored['history'])==1

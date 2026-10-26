@@ -50,6 +50,11 @@ labels its synthetic similarities, groupings and findings.
 6. **人工验收** hides model decisions by default. Fill in the reviewer, reason, judgment
    and exact quotes from both original sources, then save. Reviewer identity is self-declared.
    Reading a review queue never creates human labels. Each version has its own annotations.
+7. **AI 自动评分** asks the independent Review Agent to grade the version's explicit claims
+   on source support, question relevance and testability (0–3 each). **查看已有评分** only
+   reads a cached report. Missing hypotheses receive no score. Suggestions and their original
+   quotes appear separately from the human form; judgments are saved only by explicit submission.
+   Identical Agent requests reuse the report. See [rubric and API](../docs/agents/review_agent.md).
 
 The footer exposes failed grades, partial runs and warnings. Original full text is loaded
 on demand only when supplied; automatic PDF retrieval is not implemented.

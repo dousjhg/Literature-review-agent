@@ -1,11 +1,31 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Check, Eye, Quote } from "lucide-react";
 import { request, messageOf } from "../api";
-import type { Evidence, MapResult, ReviewItem, ReviewPack } from "../types";
-export function ReviewPanel({ map }: { map: MapResult }) {
+import type {
+  AgentReviewReport,
+  Evidence,
+  MapResult,
+  ReviewItem,
+  ReviewPack,
+} from "../types";
+import { AgentReview } from "./AgentReview";
+export function ReviewPanel({
+  map,
+  timeout,
+}: {
+  map: MapResult;
+  timeout: number;
+}) {
   const [pack, setPack] = useState<ReviewPack | null>(null);
   const [selected, setSelected] = useState("");
   const [error, setError] = useState("");
+  const [agentReport, setAgentReport] = useState<AgentReviewReport | null>(
+    null,
+  );
+  const [seenItems, setSeenItems] = useState<Set<string>>(new Set());
+  const recordSeen = useCallback((id: string) => {
+    setSeenItems((old) => (old.has(id) ? old : new Set([...old, id])));
+  }, []);
   useEffect(() => {
     const abort = new AbortController();
     request<ReviewPack>(`/cluster/${map.run_id}/review`, {
@@ -74,6 +94,11 @@ export function ReviewPanel({ map }: { map: MapResult }) {
             item={item}
             map={map}
             token={pack.version_token}
+            agentReport={agentReport}
+            onAgentReport={setAgentReport}
+            wasSeen={seenItems.has(item.id)}
+            recordSeen={recordSeen}
+            timeout={timeout}
             onSaved={(annotation, summary) =>
               setPack((old) =>
                 old
@@ -102,10 +127,20 @@ function ReviewForm({
   map,
   token,
   onSaved,
+  agentReport,
+  onAgentReport,
+  wasSeen,
+  recordSeen,
+  timeout,
 }: {
   item: ReviewItem;
   map: MapResult;
   token: string;
+  agentReport: AgentReviewReport | null;
+  onAgentReport: (report: AgentReviewReport) => void;
+  wasSeen: boolean;
+  recordSeen: (id: string) => void;
+  timeout: number;
   onSaved: (
     annotation: NonNullable<ReviewItem["annotation"]>,
     summary: ReviewPack["summary"],
@@ -125,6 +160,10 @@ function ReviewForm({
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [saved, setSaved] = useState(false);
+  const markSeen = useCallback(
+    () => recordSeen(item.id),
+    [item.id, recordSeen],
+  );
   const quote = (id: string, source: string) => {
     const selected = window.getSelection()?.toString();
     const text =
@@ -138,12 +177,16 @@ function ReviewForm({
   const submit = async () => {
     setError("");
     setSaved(false);
-    if (
-      !verdict ||
-      reviewer.trim().length < 2 ||
-      rationale.trim().length < 10
-    ) {
-      setError("请选择判断，填写审核者姓名及至少 10 个字符的理由。");
+    if (!verdict) {
+      setError("请选择一项判断：有依据、不支持或资料不足。");
+      return;
+    }
+    if (!reviewer.trim()) {
+      setError("请填写审核者姓名或审核标识，可使用单字或缩写。");
+      return;
+    }
+    if (rationale.trim().length < 10) {
+      setError("判断理由至少需要 10 个字符，请补充具体依据。");
       return;
     }
     if (
@@ -171,7 +214,7 @@ function ReviewForm({
           reviewer,
           rationale,
           evidence,
-          saw_model_assessment: revealed,
+          saw_model_assessment: revealed || wasSeen,
         },
       });
       onSaved(out.annotation, out.summary);
@@ -197,6 +240,7 @@ function ReviewForm({
                 all.items.find((i) => i.id === item.id)?.model_assessment,
               );
               setRevealed(true);
+              markSeen();
             } catch (e) {
               setError(messageOf(e));
             }
@@ -214,8 +258,22 @@ function ReviewForm({
         <p className="muted">建议实验：{item.proposed_test}</p>
       )}
       <p className="muted small">
-        “有依据”表示原文支持关联或暂定假设，不等同于确认全球研究空白。
+        请判断两篇论文之间的具体关联或研究假设，而不是分别评价论文质量。“有依据”不等同于确认全球研究空白。
       </p>
+      {!item.claim && (
+        <p className="notice">
+          当前只有候选论文对，尚未提出具体假设。可以记录探索意见；确认科学结论前需要先明确可检验的问题。
+        </p>
+      )}
+      <AgentReview
+        map={map}
+        token={token}
+        item={item}
+        report={agentReport}
+        onReport={onAgentReport}
+        onSeen={markSeen}
+        timeout={timeout}
+      />
       {assessment && (
         <div className="notice">
           <strong>模型判断：{assessment.decision}</strong>
@@ -301,7 +359,11 @@ function ReviewForm({
           审核者
           <input
             value={reviewer}
-            onChange={(e) => setReviewer(e.target.value)}
+            onChange={(e) => {
+              setReviewer(e.target.value);
+              setSaved(false);
+              setError("");
+            }}
             placeholder="填写你的姓名或审核标识"
             maxLength={80}
           />
@@ -313,6 +375,7 @@ function ReviewForm({
             onChange={(e) => {
               setRationale(e.target.value);
               setSaved(false);
+              setError("");
             }}
             rows={3}
             placeholder="说明具体任务、方法、数据或评测设置上的依据"

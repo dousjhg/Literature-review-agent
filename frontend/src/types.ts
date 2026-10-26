@@ -176,6 +176,29 @@ export interface ReviewPack {
     semantic_accuracy: null;
   };
 }
+export interface AgentAssessment {
+  item_id: string;
+  status: "assessed" | "needs_hypothesis" | "insufficient_sources" | "sample";
+  verdict: "supported" | "unsupported" | "uncertain" | null;
+  scores: {
+    source_support: number;
+    relevance: number;
+    testability: number;
+  } | null;
+  total: number | null;
+  reason: string;
+  limitations: string[];
+  evidence: Evidence[];
+}
+export interface AgentReviewReport {
+  report_id: string;
+  provenance: "model";
+  sample_mode: boolean;
+  model: string | null;
+  created_at: string;
+  items: AgentAssessment[];
+  limitations: string[];
+}
 export type Selection = {
   type: "paper" | "cluster" | "connection" | "gap";
   id: string;

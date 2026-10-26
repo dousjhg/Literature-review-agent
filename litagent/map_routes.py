@@ -10,6 +10,8 @@ from fastapi.staticfiles import StaticFiles
 
 from litagent.cluster_state import ClusterState, VersionError, digest, head, load_result, load_version, path_for
 from litagent.finding_review import ReviewSubmission, prepare_review, save_review
+from litagent.agents import review_agent
+from litagent.schemas import ReviewAgentRequest
 from litagent.trace import mask
 
 
@@ -72,6 +74,14 @@ def install_map_routes(app, get_settings, respond):
     @app.post("/cluster/{run_id}/review/{item_id}")
     def submit_review(run_id: str, item_id: str, body: ReviewSubmission, settings=Depends(get_settings)):
         return respond(run_id, lambda: save_review(run_id, item_id, body, settings))
+
+    @app.get("/cluster/{run_id}/review-agent")
+    def cached_agent_review(run_id: str, settings=Depends(get_settings)):
+        return respond(run_id, lambda: review_agent.read_review(run_id, settings))
+
+    @app.post("/cluster/{run_id}/review-agent")
+    def agent_review(run_id: str, body: ReviewAgentRequest, settings=Depends(get_settings)):
+        return respond(run_id, lambda: review_agent.run_review(run_id, body.expected_version_token, settings))
 
     directory = Path(__file__).resolve().parents[1] / "frontend" / "dist"
     if directory.exists():

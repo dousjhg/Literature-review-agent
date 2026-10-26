@@ -142,8 +142,20 @@ test("sample API: analyze, inspect, move, rollback and explicitly save review", 
     page.getByRole("heading", { name: "验收材料", exact: true }),
   ).toBeVisible();
   await expect(page.getByText("0 / 6 已完成")).toBeVisible();
+  await page.getByRole("button", { name: "保存人工判断", exact: true }).click();
+  await expect(page.getByRole("alert")).toHaveText(
+    "请选择一项判断：有依据、不支持或资料不足。",
+  );
   await page.getByLabel("有依据", { exact: true }).check();
-  await page.getByLabel("审核者", { exact: true }).fill("QA workflow tester");
+  await page.getByRole("button", { name: "保存人工判断", exact: true }).click();
+  await expect(page.getByRole("alert")).toHaveText(
+    "请填写审核者姓名或审核标识，可使用单字或缩写。",
+  );
+  await page.getByLabel("审核者", { exact: true }).fill("X");
+  await page.getByRole("button", { name: "保存人工判断", exact: true }).click();
+  await expect(page.getByRole("alert")).toHaveText(
+    "判断理由至少需要 10 个字符，请补充具体依据。",
+  );
   await page
     .getByLabel("判断理由", { exact: true })
     .fill(
@@ -162,8 +174,41 @@ test("sample API: analyze, inspect, move, rollback and explicitly save review", 
   ).output;
   expect(review.sample_mode).toBe(true);
   expect(review.summary.reviewed).toBe(1);
+  expect(
+    review.items.find((item: any) => item.annotation)?.annotation.reviewer,
+  ).toBe("X");
   expect(review.summary.semantic_accuracy).toBeNull();
   await page.screenshot({ path: info.outputPath("review-saved.png") });
+  await page.getByRole("button", { name: "查看已有评分", exact: true }).click();
+  await expect(
+    page.getByText("当前版本暂无 AI 评分，可点击「AI 自动评分」生成。"),
+  ).toBeVisible();
+  await page.getByRole("button", { name: "AI 自动评分", exact: true }).click();
+  await expect(
+    page.getByText("样例流程 · 未评分", { exact: true }),
+  ).toBeVisible();
+  const afterAgent = (
+    await (await request.get(appUrl + `/cluster/${analyzed}/review`)).json()
+  ).output;
+  expect(afterAgent).toEqual(review);
+  await page.getByRole("button", { name: "AI 自动评分", exact: true }).click();
+  await expect(
+    page.getByText("已读取本版本的已有评审，未重复调用模型。"),
+  ).toBeVisible();
+  await page.getByRole("button", { name: "保存人工判断", exact: true }).click();
+  await expect(page.getByText("判断已保存至当前版本。")).toBeVisible();
+  const seen = (
+    await (await request.get(appUrl + `/cluster/${analyzed}/review`)).json()
+  ).output;
+  expect(
+    seen.items.find((item: any) => item.annotation)?.annotation
+      .saw_model_assessment,
+  ).toBe(true);
+  await page.locator(".review-item").nth(3).click();
+  await expect(
+    page.getByText("待明确具体假设 · 未评分", { exact: true }),
+  ).toBeVisible();
+  await page.screenshot({ path: info.outputPath("agent-review-sample.png") });
   await page.getByRole("button", { name: "论文地图", exact: true }).click();
   await page.getByRole("button", { name: "新建地图", exact: true }).click();
   const dialog = page.getByRole("dialog", { name: "从论文记录新建地图" });
