@@ -102,7 +102,9 @@ class Settings:
 
     # LLM (Meterless Nightshift, OpenAI-compatible)
     llm_model: str = NIGHTSHIFT_MODEL
-    llm_timeout_s: float = 60.0  # per model request (rules: 30-90 s)
+    # Per model request (rules: 30-90 s). 60 s cut off two of three real evaluation topics: Nightshift
+    # latency spikes made a ~2k-token request take 62-68 s where it usually takes ~10 s (26 Oct).
+    llm_timeout_s: float = 90.0
 
     # Zetaris SQL requests (rules: 30-60 s)
     zetaris_timeout_s: float = 45.0
