@@ -1,6 +1,7 @@
 """2. Retriever agent. Spec: docs/agents/retriever.md
 
-Runs the Planner's queries against scholarly APIs, merges and deduplicates the results,
+Runs the Planner's queries against each configured scholarly API (OpenAlex, Semantic Scholar,
+arXiv), merges and deduplicates the results across sources and paper versions,
 drops papers without an abstract (later agents quote them as evidence), ranks by a blend of
 relevance and citations per year, caps the number of papers by effort level, and builds the
 summary shown at Human review 1.
@@ -10,7 +11,9 @@ from __future__ import annotations
 
 import json
 import re
+import time
 from bisect import bisect_left
+from concurrent.futures import ThreadPoolExecutor, wait
 from datetime import date
 from pathlib import Path
 
@@ -20,12 +23,18 @@ from pydantic import BaseModel, Field
 from litagent.config import EFFORT_PROFILES, Settings
 from litagent.integrations.llm import LLMError, TokenBudgetExceeded, complete_json, load_prompt
 from litagent.schemas import Paper, RetrievalSummary, SearchCriteria, SearchPlan
+from litagent.tools.arxiv import ArxivError, search_arxiv
+from litagent.tools.fulltext import FullTextError, fetch_full_text
 from litagent.tools.openalex import OpenAlexError, search_openalex
+from litagent.tools.semantic_scholar import SemanticScholarError, search_semantic_scholar
 from litagent.trace import current_trace
 
 SAMPLE_DIR = Path(__file__).resolve().parents[2] / "data" / "sample"
 RRF_K = 60  # standard reciprocal-rank-fusion constant: one query adds 1 / (RRF_K + rank) to a paper's relevance
 SUMMARY_SAMPLE_SIZE = 30  # papers the LLM sees when it writes the summary
+SOURCES = {"openalex": "search_openalex", "semantic_scholar": "search_semantic_scholar", "arxiv": "search_arxiv"}
+SEARCH_ERRORS = (OpenAlexError, SemanticScholarError, ArxivError)
+_ARXIV_DOI = re.compile(r"(?:^|/)10\.48550/arxiv\.(.+)$", re.IGNORECASE)
 
 
 class RetrievalError(RuntimeError):
@@ -41,18 +50,22 @@ def retrieve(plan: SearchPlan, settings: Settings, signed_in: bool = False) -> l
     if settings.sample_mode:
         return _sample_papers(plan)
 
+    unknown = set(settings.retrieval_sources) - set(SOURCES)
+    if unknown or not settings.retrieval_sources:
+        raise ValueError(f"retrieval_sources must be a non-empty subset of {sorted(SOURCES)}; got {sorted(unknown)}")
     results: list[list[Paper]] = []
     failures: list[str] = []
     for query in plan.queries:
-        try:
-            found = search_openalex(query, plan.criteria, limit=plan.max_papers, open_access_only=not signed_in)
-        except OpenAlexError as e:
-            failures.append(str(e))
-            _log("search openalex", "failed", query, "next query", str(e))
-            continue
-        results.append(found)
-        _log("search openalex", f"{len(found)} papers", query, "next query")
-        # TODO: add search_semantic_scholar / search_arxiv and merge the results
+        for source in settings.retrieval_sources:
+            search = globals()[SOURCES[source]]  # looked up per call so tests can replace a source
+            try:
+                found = search(query, plan.criteria, limit=plan.max_papers, open_access_only=not signed_in)
+            except SEARCH_ERRORS as e:
+                failures.append(f"{source}: {e}")
+                _log(f"search {source}", "failed", query, "next search", str(e))
+                continue
+            results.append(found)
+            _log(f"search {source}", f"{len(found)} papers", query, "next search")
     if not results:
         raise RetrievalError("Every search failed: " + " | ".join(dict.fromkeys(failures)))
 
@@ -64,30 +77,67 @@ def retrieve(plan: SearchPlan, settings: Settings, signed_in: bool = False) -> l
     found_total = sum(len(r) for r in results)
     merged = merge_ranked(results)
     with_abstract = [(p, s) for p, s in merged if p.abstract]
-    kept = [(p, s) for p, s in with_abstract if _meets_citation_rate(p, plan.criteria.min_citations_per_year)]
+    # Sources without citation counts (arXiv) cannot show they meet a stated minimum
+    kept = [(p, s) for p, s in with_abstract if _meets_citation_rate(p, plan.criteria.min_citations_per_year)
+            and (not plan.criteria.min_citations or (p.citation_count or 0) >= plan.criteria.min_citations)]
     papers = rank(kept, settings.rank_relevance_weight)[: plan.max_papers]
     w = settings.rank_relevance_weight
     _log(
         "merge, filter, rank", f"{len(papers)} papers kept", f"limit {plan.max_papers}", "summarise",
-        f"{found_total} found by {len(results)} queries; removed {found_total - len(merged)} duplicates, "
-        f"{len(merged) - len(with_abstract)} without abstract, {len(with_abstract) - len(kept)} below the citations-per-year "
-        f"minimum; ranked {w:.0%} relevance / {1 - w:.0%} citations per year",
+        f"{found_total} found by {len(results)} searches ({', '.join(settings.retrieval_sources)}); removed "
+        f"{found_total - len(merged)} duplicates, {len(merged) - len(with_abstract)} without abstract, "
+        f"{len(with_abstract) - len(kept)} below the citation minimum; ranked {w:.0%} relevance / {1 - w:.0%} citations per year",
     )
 
     if EFFORT_PROFILES[plan.effort].use_full_text:
-        # TODO: download PDFs for open-access papers and fill paper.full_text
-        _log("full text", "skipped", next_step="use abstracts", why="Full-text PDF reading is not implemented yet")
+        papers = attach_full_text(papers, settings)
     return papers
+
+
+def attach_full_text(papers: list[Paper], settings: Settings) -> list[Paper]:
+    """High / Ultra: fill full_text from open-access PDFs; papers without one keep their abstract."""
+    wanted = [p for p in papers if p.is_open_access and p.pdf_url and not p.full_text]
+    texts: dict[str, str] = {}
+    failures: dict[str, str] = {}
+
+    def fetch(paper: Paper) -> None:
+        try:
+            texts[paper.id] = fetch_full_text(paper.pdf_url, timeout_s=settings.full_text_timeout_s,
+                                              max_bytes=settings.full_text_max_bytes,
+                                              max_pages=settings.full_text_max_pages,
+                                              min_chars=settings.full_text_min_chars,
+                                              max_chars=settings.full_text_max_chars)
+        except FullTextError as e:
+            failures[paper.id] = str(e)
+
+    started = time.monotonic()
+    pool = ThreadPoolExecutor(max_workers=max(1, settings.full_text_workers))
+    futures = [pool.submit(fetch, p) for p in wanted]
+    _, late = wait(futures, timeout=settings.full_text_total_timeout_s)
+    for future in late:
+        future.cancel()
+    pool.shutdown(wait=False, cancel_futures=True)  # a stuck download ends at its own timeout
+    timed_out = [p.id for p, f in zip(wanted, futures) if f in late]
+    reasons: dict[str, int] = {}
+    for reason in failures.values():
+        reasons[reason.split(" (")[0]] = reasons.get(reason.split(" (")[0], 0) + 1
+    _log("full text", f"{len(texts)} of {len(papers)} papers", next_step="cluster",
+         why=f"{len(wanted)} open-access PDFs tried in {time.monotonic() - started:.0f} s; "
+             f"{len(papers) - len(wanted)} without an open-access PDF link, {len(failures)} failed {reasons or ''}, "
+             f"{len(timed_out)} cut by the {settings.full_text_total_timeout_s:.0f} s limit; the rest use abstracts")
+    return [p.model_copy(update={"full_text": texts[p.id]}) if p.id in texts else p for p in papers]
 
 
 def merge_ranked(results: list[list[Paper]]) -> list[tuple[Paper, float]]:
     """Merge per-query result lists (each in relevance order) and remove duplicates.
 
-    Duplicates share a DOI or a normalised title: the same paper found by two queries, or a preprint
-    and its published version. Relevance is the reciprocal-rank-fusion score summed over every query
-    that found the paper, so papers several queries agree on rank higher.
+    Duplicates share a DOI, an arXiv ID or a normalised title: the same paper found by two queries or
+    sources, or a preprint and its published version. The first-seen record keeps its ID; fields it
+    lacks (abstract, DOI, PDF link) are filled from its duplicates and the highest citation count is
+    kept, so a source that omits abstracts does not drop a paper another source describes. Relevance
+    is the reciprocal-rank-fusion score summed over every search that found the paper.
     """
-    merged: list[list] = []  # [paper, relevance], first-seen version kept
+    merged: list[list] = []  # [paper, relevance]
     index: dict[str, int] = {}
     for found in results:
         for position, paper in enumerate(found, start=1):
@@ -96,10 +146,28 @@ def merge_ranked(results: list[list[Paper]]) -> list[tuple[Paper, float]]:
             if i is None:
                 i = len(merged)
                 merged.append([paper, 0.0])
+            else:
+                merged[i][0] = _combine(merged[i][0], paper)
+                keys += [k for k in _dedupe_keys(merged[i][0]) if k not in keys]
             for k in keys:
                 index.setdefault(k, i)
             merged[i][1] += 1 / (RRF_K + position)
     return [(p, s) for p, s in merged]
+
+
+def _combine(kept: Paper, other: Paper) -> Paper:
+    """Fill the kept record's missing fields from a duplicate of the same paper."""
+    update = {f: getattr(other, f) for f in ("abstract", "doi", "pdf_url", "year", "full_text")
+              if not getattr(kept, f) and getattr(other, f)}
+    if other.citation_count is not None and (kept.citation_count or 0) < other.citation_count:
+        update["citation_count"] = other.citation_count
+    if kept.is_review is None and other.is_review is not None:
+        update["is_review"] = other.is_review
+    if other.is_open_access and not kept.is_open_access:
+        update["is_open_access"] = True
+    if not kept.authors and other.authors:
+        update["authors"] = other.authors
+    return kept.model_copy(update=update) if update else kept
 
 
 def rank(scored: list[tuple[Paper, float]], relevance_weight: float) -> list[Paper]:
@@ -136,7 +204,12 @@ def _meets_citation_rate(paper: Paper, minimum: float | None) -> bool:
 def _dedupe_keys(paper: Paper) -> list[str]:
     keys = []
     if paper.doi:
-        keys.append("doi:" + paper.doi.lower().removeprefix("https://doi.org/"))
+        doi = re.sub(r"^(https?://(dx\.)?doi\.org/|doi:\s*)", "", paper.doi.strip().lower())
+        keys.append("doi:" + doi)
+        if match := _ARXIV_DOI.search(doi):
+            keys.append("arxiv:" + re.sub(r"v\d+$", "", match.group(1)))
+    if paper.id.lower().startswith("arxiv:"):
+        keys.append("arxiv:" + re.sub(r"v\d+$", "", paper.id[6:].lower()))
     title = re.sub(r"[^a-z0-9]+", "", paper.title.lower())
     if len(title) > 20:  # very short titles ("Introduction", "Editorial") would merge unrelated papers
         keys.append("title:" + title)

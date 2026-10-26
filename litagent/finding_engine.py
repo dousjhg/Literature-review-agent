@@ -14,7 +14,7 @@ import numpy as np
 from openai import OpenAIError
 
 from litagent.cluster_audit import duplicate_components, partition_indices
-from litagent.cluster_labels import evidence_source, source_spans
+from litagent.cluster_labels import evidence_source, relevant_spans, source_spans
 from litagent.cluster_state import digest, file_hash
 from litagent.config import Settings
 from litagent.integrations.embeddings import embed_documents
@@ -84,9 +84,11 @@ def sources(papers: list[Paper], settings: Settings, context: FindingContext, *,
         field_name, text = evidence_source(paper, selected)
         if field_name == "title" or len(text.strip()) < settings.finding_min_quote_chars:
             continue
+        budget = limit or settings.finding_source_chars
+        spans = (relevant_spans(text, f"{context.question or ''} {paper.title}", budget, settings.finding_span_chars)
+                 if field_name == "full_text" else source_spans(text[:budget], settings.finding_span_chars))
         out[paper.id] = {"id": paper.id, "title": paper.title, "source_field": field_name,
-                         "spans": [{"span_id": s["span_id"], "quote": s["quote"]} for s in source_spans(
-                             text[:limit or settings.finding_source_chars], settings.finding_span_chars)]}
+                         "spans": [{"span_id": s["span_id"], "quote": s["quote"]} for s in spans]}
     return out
 
 

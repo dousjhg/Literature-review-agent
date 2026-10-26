@@ -31,9 +31,10 @@ def make_plan(queries=("q1", "q2"), max_papers=30, effort=Effort.NORMAL, **crite
                       queries=list(queries), effort=effort, max_papers=max_papers, token_budget=50_000)
 
 
-def real_settings() -> Settings:
+def real_settings(sources=("openalex",)) -> Settings:
     s = Settings()
     s.sample_mode = False
+    s.retrieval_sources = sources  # tests replace only the sources they name; others would hit the network
     return s
 
 
@@ -96,7 +97,7 @@ def test_retrieve_merges_filters_ranks_and_cuts(monkeypatch, tmp_path):
     assert "W2" not in ids  # no abstract
     assert ids[0] == "W1"  # found by both queries
     summary = [e for e in trace.events if e["action"] == "merge, filter, rank"][0]
-    assert "5 found by 2 queries" in summary["why"] and "1 duplicates" in summary["why"] and "1 without abstract" in summary["why"]
+    assert "5 found by 2 searches (openalex)" in summary["why"] and "1 duplicates" in summary["why"] and "1 without abstract" in summary["why"]
 
 
 def test_citations_per_year_minimum_filters(monkeypatch):
@@ -125,11 +126,31 @@ def test_nothing_found_returns_empty_list(monkeypatch):
     assert retrieve(make_plan(), real_settings()) == []
 
 
-def test_full_text_effort_logs_that_it_is_skipped(monkeypatch, tmp_path):
-    fake_search(monkeypatch, {"q1": [paper("W1")]})
+def test_full_text_effort_fetches_open_access_pdfs_and_falls_back_to_abstracts(monkeypatch, tmp_path):
+    from litagent.tools.fulltext import FullTextError
+    oa = paper("W1").model_copy(update={"is_open_access": True, "pdf_url": "https://x/1.pdf"})
+    landing = paper("W2").model_copy(update={"is_open_access": True, "pdf_url": "https://x/landing"})
+    closed = paper("W3").model_copy(update={"pdf_url": "https://x/3.pdf"})  # not open access: never downloaded
+    fake_search(monkeypatch, {"q1": [oa, landing, closed]})
+    fetched = []
+    def fetch(url, **limits):
+        fetched.append(url)
+        if url.endswith("landing"):
+            raise FullTextError("not a PDF (probably a landing page)")
+        return "Full body text of the paper."
+    monkeypatch.setattr(retriever, "fetch_full_text", fetch)
     with Trace(str(tmp_path)) as trace:
-        retrieve(make_plan(queries=["q1"], effort=Effort.HIGH), real_settings())
-    assert any(e["action"] == "full text" and e["decision"] == "skipped" for e in trace.events)
+        papers = retrieve(make_plan(queries=["q1"], effort=Effort.HIGH), real_settings())
+    assert sorted(fetched) == ["https://x/1.pdf", "https://x/landing"]
+    assert {p.id: p.full_text for p in papers} == {"W1": "Full body text of the paper.", "W2": None, "W3": None}
+    event = next(e for e in trace.events if e["action"] == "full text")
+    assert event["decision"] == "1 of 3 papers" and "not a PDF" in event["why"]
+
+
+def test_metadata_effort_never_downloads(monkeypatch):
+    fake_search(monkeypatch, {"q1": [paper("W1").model_copy(update={"is_open_access": True, "pdf_url": "https://x"})]})
+    monkeypatch.setattr(retriever, "fetch_full_text", lambda *a, **k: pytest.fail("Normal effort must not download PDFs"))
+    assert retrieve(make_plan(queries=["q1"]), real_settings())[0].full_text is None
 
 
 # ----- zero results -----
@@ -207,3 +228,44 @@ def test_summary_lists_only_filters_the_user_chose(monkeypatch):
     plan.used_defaults = ["year_from=2021"]  # the year was a default, the rest the user's choice
     summarise(PAPERS, plan, real_settings())
     assert sent[0]["facts"]["filters_chosen_by_user"] == ["reviews only", "at least 50 citations"]
+
+
+# ----- several sources -----
+
+def fake_sources(monkeypatch, **by_source):
+    """by_source: source name -> list[Paper] or exception, the same for every query."""
+    calls = []
+    for name, value in by_source.items():
+        def search(query, criteria, limit=25, open_access_only=True, _name=name, _value=value):
+            calls.append((_name, query, open_access_only))
+            if isinstance(_value, Exception):
+                raise _value
+            return _value
+        monkeypatch.setattr(retriever, retriever.SOURCES[name], search)
+    return calls
+
+
+def test_every_query_runs_on_every_source_and_versions_merge(monkeypatch):
+    from litagent.tools.semantic_scholar import SemanticScholarError
+    published = paper("W1", title="NusaMT-7B: Machine Translation for Low-Resource Indonesian Languages",
+                      doi="https://doi.org/10.48550/arxiv.2410.07830", abstract=None, cites=12)
+    preprint = Paper(id="arXiv:2410.07830v2", title="NusaMT-7B: Machine Translation for Low-Resource Languages",
+                     abstract="We introduce NusaMT-7B.", source="arxiv", is_open_access=True)
+    calls = fake_sources(monkeypatch, openalex=[published], arxiv=[preprint],
+                         semantic_scholar=SemanticScholarError("rate limited"))
+    papers = retrieve(make_plan(queries=["q1", "q2"]), real_settings(("openalex", "semantic_scholar", "arxiv")))
+    assert len(calls) == 6 and {c[0] for c in calls} == {"openalex", "semantic_scholar", "arxiv"}
+    # One paper: OpenAlex identity and citations, abstract filled from the arXiv version.
+    assert [(p.id, p.abstract, p.citation_count) for p in papers] == [("W1", "We introduce NusaMT-7B.", 12)]
+
+
+def test_stated_citation_minimum_drops_sources_without_counts(monkeypatch):
+    fake_sources(monkeypatch, openalex=[paper("W1", cites=80)],
+                 arxiv=[Paper(id="arXiv:1", title="A long enough preprint title here", abstract="x", source="arxiv")])
+    papers = retrieve(make_plan(queries=["q1"], min_citations=50), real_settings(("openalex", "arxiv")))
+    assert [p.id for p in papers] == ["W1"]
+
+
+def test_unknown_source_is_a_configuration_error():
+    with pytest.raises(ValueError, match="retrieval_sources"):
+        retrieve(make_plan(), real_settings(("openalex", "scholar_google")))

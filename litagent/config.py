@@ -107,6 +107,21 @@ class Settings:
 
     # Retriever ranking: share of relevance vs citations per year (team decision, 24 Oct)
     rank_relevance_weight: float = 0.7
+    # Scholarly APIs each query runs against; a failing source is logged and skipped. Semantic Scholar's
+    # shared keyless rate limit answered 429 on every live check, so it is a default only with a key.
+    retrieval_sources: tuple[str, ...] = field(default_factory=lambda: tuple(s.strip() for s in os.getenv(
+        "RETRIEVAL_SOURCES", "openalex,semantic_scholar,arxiv" if os.getenv("SEMANTIC_SCHOLAR_API_KEY") else "openalex,arxiv",
+    ).split(",") if s.strip()))
+
+    # Full text (High / Ultra): open-access PDFs only, fetched concurrently within one overall deadline
+    full_text_timeout_s: float = 20.0  # per PDF request
+    full_text_total_timeout_s: float = 120.0  # all downloads together; the rest fall back to abstracts
+    full_text_workers: int = 6
+    full_text_max_bytes: int = 15_000_000
+    full_text_max_pages: int = 30
+    full_text_min_chars: int = 2000  # less extractable text than this is treated as a scanned PDF
+    full_text_max_chars: int = 200_000
+
 
     # Clustering
     cluster_map_mode: str = "question"  # question-aware main/side map when a question is provided; topic retains legacy behavior

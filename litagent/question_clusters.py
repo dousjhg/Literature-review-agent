@@ -13,7 +13,7 @@ import time
 
 import numpy as np
 
-from litagent.cluster_labels import contrastive_labels, evidence_source, source_spans
+from litagent.cluster_labels import contrastive_labels, evidence_source, relevant_spans, source_spans
 from litagent.config import Settings
 from litagent.integrations.llm import LLMError, TokenBudgetExceeded, complete_json, load_prompt
 from litagent.schemas import (ClusterAlternative, ClusterLabel, Evidence, Paper, PaperClusterDetail,
@@ -42,14 +42,16 @@ def assess_relevance(papers: list[Paper], texts: list[str], similarities: np.nda
     for i in sorted(range(len(papers)), key=lambda i: papers[i].id):
         paper = papers[i]
         field, source = evidence_source(paper, texts[i])
-        body = source[:settings.main_relevance_text_chars]
         if field == "title":
             reason = "No abstract or full text; direct relevance cannot be verified from a title alone."
         elif similarities[i] < settings.main_similarity_threshold:
             reason = "Below the question-similarity candidate gate; direct relevance was not assessed."
         else:
+            # Long full text: the passages closest to the question, not its first characters
             candidates.append({"id": paper.id, "title": paper.title, "source_field": field,
-                               "spans": source_spans(body, settings.cluster_evidence_span_chars)})
+                               "spans": relevant_spans(source, question, settings.main_relevance_text_chars,
+                                                       settings.cluster_evidence_span_chars) if field == "full_text"
+                               else source_spans(source[:settings.main_relevance_text_chars], settings.cluster_evidence_span_chars)})
             reason = "Awaiting source-based relevance assessment."
         details[paper.id] = PaperClusterDetail(paper_id=paper.id, question_similarity=float(similarities[i]),
                                                relevance="uncertain", reason=reason)

@@ -52,7 +52,7 @@ def cluster(papers: list[Paper], effort: Effort, settings: Settings, fix: str | 
     if use_full_text and any(not p.full_text for p in papers) and (trace := current_trace()):
         trace.log("clusterer", "select text", "metadata fallback",
                   result={"paper_ids": [p.id for p in papers if not p.full_text]},
-                  why="Some High/Ultra papers have no supplied full text; PDF retrieval and Markovian reading are pending")
+                  why="Some High/Ultra papers have no full text (no open-access PDF, or it could not be read); they use title + abstract")
     question_mode = question is not None and settings.cluster_map_mode == "question"
     embeddings = np.asarray(embed([question] + texts if question_mode else texts, settings), dtype=float)
     if (embeddings.ndim != 2 or embeddings.shape[0] != len(papers) + int(question_mode) or embeddings.shape[1] == 0

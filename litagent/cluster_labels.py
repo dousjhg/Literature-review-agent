@@ -45,6 +45,29 @@ def source_spans(text: str, max_chars: int) -> list[dict]:
     return spans
 
 
+def relevant_spans(text: str, query: str, budget: int, span_chars: int) -> list[dict]:
+    """Spans of at most `budget` characters: the start of short text, else the spans most similar to `query`.
+
+    Long full text would otherwise be cut to its first characters (title, authors, affiliations).
+    Each span keeps its original offsets and text, so quotes stay verbatim; order is the document's.
+    """
+    if len(text) <= budget:
+        return source_spans(text, span_chars)
+    spans = source_spans(text, span_chars)
+    from sklearn.feature_extraction.text import TfidfVectorizer
+    try:
+        matrix = TfidfVectorizer(stop_words="english", sublinear_tf=True).fit_transform([query] + [s["quote"] for s in spans])
+        scores = (matrix[1:] @ matrix[0].T).toarray().ravel()
+    except ValueError:  # empty vocabulary: keep the document's own order
+        scores = np.zeros(len(spans))
+    chosen, used = [], 0
+    for i in sorted(range(len(spans)), key=lambda i: (-scores[i], i)):
+        if used + len(spans[i]["quote"]) <= budget:
+            chosen.append(i)
+            used += len(spans[i]["quote"])
+    return [spans[i] for i in sorted(chosen)] or source_spans(text[:budget], span_chars)
+
+
 def label_contexts(papers: list[Paper], texts: list[str], groups: list[list[int]],
                    similarity: np.ndarray, settings: Settings, cluster_ids: list[str] | None = None) -> list[dict]:
     """Neighbors are retrieved by their closest pair, with full cross-group range shown.
@@ -83,6 +106,9 @@ def label_contexts(papers: list[Paper], texts: list[str], groups: list[list[int]
         examples = []
         for i in reps:
             source_field, original = evidence_source(papers[i], texts[i])
+            if source_field == "full_text" and (papers[i].abstract or "").strip():
+                # The opening characters of a PDF are front matter; the abstract summarises the topic.
+                source_field, original = "abstract", papers[i].abstract
             text = original[:settings.cluster_label_text_chars]
             examples.append({"id": papers[i].id, "title": papers[i].title, "text": text,
                              "has_body": source_field != "title", "source_field": source_field,
