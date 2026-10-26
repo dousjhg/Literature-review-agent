@@ -65,4 +65,4 @@ python scripts/review_clusters.py --report logs/clusters-<run_id>.json --output 
 ```
 
 **Input:** `list[Paper]`, Effort · **Output:** `list[Cluster]`
-**Owner:** TODO · **Status:** Real implementation + offline tests; sample mode preserved. PDF retrieval and Markovian full-text reasoning remain pending.
+**Owner:** TODO · **Status:** Real implementation + offline tests; sample mode preserved. Open-access PDF retrieval works at High/Ultra (`litagent/tools/fulltext.py`); cluster naming quotes abstracts when present, because a PDF's first characters are front matter. Markovian full-text reasoning remains pending.

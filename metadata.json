@@ -1,23 +1,32 @@
 {
   "project_name": "TODO",
-  "description": "TODO: one-sentence pitch",
+  "description": "An agent that maps a research question: it retrieves papers, separates those that answer the question from surrounding topics, links related papers and proposes testable research gaps, with every claim tied to a verbatim quote and independently checked.",
   "track": "Track 02: The Agent That Can Explain Why",
   "team": [
-    {"name": "TODO", "role": "TODO"}
+    {
+      "name": "TODO",
+      "role": "TODO"
+    }
   ],
   "repository": "TODO: public GitHub URL",
   "demo_video": "TODO",
   "slide_deck": "TODO",
   "entry_point": "run.py",
-  "api": {"method": "POST", "path": "/run", "port": 8000},
+  "api": {
+    "method": "POST",
+    "path": "/run",
+    "port": 8000
+  },
   "sample_mode_env": "SAMPLE_MODE=true",
   "sponsor_technologies": {
     "meterless_nightshift": "Primary AI provider for every LLM call (OpenAI-compatible client)",
-    "meterless_engine": "World Model: shared findings graph returned as paper_map (real engine: TODO)",
-    "zetaris": "Data layer, running locally in Docker",
+    "meterless_engine": "World Model (Python port of the Meterless spec, all 8 conformance checks pass): shared findings graph returned as paper_map and served by GET /world/{run_id}",
+    "zetaris": "Data layer running locally in Docker: papers written to our Postgres store and read back by every later agent through Zetaris SQL (litagent_db.papers)",
     "nvidia": "Nemotron 3 Ultra via Nightshift's NVIDIA provider for every agent",
     "cursor": "TODO: optional"
   },
-  "models": ["nvidia/nemotron-3-ultra-550b-a55b"],
+  "models": [
+    "nvidia/nemotron-3-ultra-550b-a55b"
+  ],
   "license": "TODO"
 }

@@ -24,5 +24,12 @@ Nightshift H-MEM scope. See [main/side behavior](../main-side-clusters.md).
 **Input:** stage, output, papers · **Output:** `Grade`
 **Owner:** TODO · **Status:** Source-based grading, size diagnostics, sample mode and World Model recording implemented.
 
+**Explained grades (26 Oct).** A live grader once returned 0/0/0 with empty reasoning and no fix, which
+was counted as a failure and triggered an expensive redo. The model's grade is now validated: reasoning
+must not be empty and a total below the pass mark needs a concrete fix, otherwise `complete_json` repairs
+it once. An **empty** connection/gap output is graded as a claim ("no reviewed pair has a supported
+finding"): the payload says so explicitly, and a failing fix must name a reviewed pair and its supporting
+abstract statements. Before this, the same honest abstention scored 9/9 in one run and 0/9 in another.
+
 For independent per-claim scoring in the review UI, see the [Review Agent](review_agent.md).
 Its model-only reports are separate from these stage grades and from human annotations.

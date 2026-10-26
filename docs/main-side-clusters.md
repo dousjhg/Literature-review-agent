@@ -165,6 +165,6 @@ a main relevance pool for containing different subtopics. Main relevance needs i
 question-specific human review; no human labels or accuracy figures were manufactured.
 
 Saved previews include encoder profile, the intended full-text mode and side scoring
-settings for reproducible review. High/Ultra only use supplied full text; missing text
-falls back to metadata with a trace event. The `use_full_text` flag describes effort
-intent and does not claim that PDF retrieval has happened.
+settings for reproducible review. High/Ultra use the full text supplied with the records
+(the `/run` and `/search` Retrievers fetch open-access PDFs); missing text falls back to metadata
+with a trace event. The `use_full_text` flag describes effort intent, not that every PDF was read.

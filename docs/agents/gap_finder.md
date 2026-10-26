@@ -14,6 +14,9 @@ Prompts: `prompts/gap_finder.md`, `prompts/gaps_verify.md`, `prompts/gap_coverag
 2. Propose an author-stated open problem or a clearly speculative cross-paper hypothesis,
    with a testable question, baseline/evaluation plan, importance and original span
    references from BOTH papers. Omitted mentions in a few abstracts are insufficient.
+   Code rejects a proposal that asserts full-parameter / full fine-tuning when no supplied span of
+   the pair states it ("SFT" alone does not say which parameters were trained) and asks for one
+   bounded repair; see [the NusaMT audit](../nusamt-source-audit.md).
 3. Independently verify source support and scope. Reject unsupported questions instead of
    filling a gap quota. Zero accepted gaps is a valid possible result.
 4. Search for the positive study that would ANSWER the question: at most two short queries

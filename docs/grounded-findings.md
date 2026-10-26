@@ -92,8 +92,8 @@ The bounded states are:
 
 Each retained hypothesis is always `hypothesis_status="provisional"`. Even successful
 searches are not systematic reviews: they are limited by query phrasing, top-result caps,
-index coverage and excerpts. High/Ultra use only supplied full text; automatic PDF reading
-remains outstanding. An abstract cannot establish the entirety of a paper's experiments.
+index coverage and excerpts. High/Ultra `/run` and `/search` download open-access PDFs (pdfminer text, references removed) and fall back to abstracts; evidence comes from the passages closest to the question, not the PDF's opening characters. The Meterless Markovian engine for whole-paper reading is
+still outstanding. An abstract cannot establish the entirety of a paper's experiments.
 
 The API and search semantics follow the primary [OpenAlex search documentation](https://help.openalex.org/api/searching/)
 and [authentication documentation](https://help.openalex.org/api/authentication/). Existing
@@ -180,7 +180,7 @@ updated code, prompts, tests, evals and sample outputs read-only into the existi
 
 Resumable task snapshots apply to `/cluster/{run_id}/analyze` and analyzed-map regeneration.
 Normal `/run` retains its existing stage-level partial-result contract; it does not
-create resumable `/cluster` snapshots automatically. Automatic PDF retrieval/full-text reading,
+create resumable `/cluster` snapshots automatically. Markovian whole-paper reasoning,
 duplicate-study disambiguation beyond the current heuristics, and expert semantic quality
 review remain outside this implementation.
 

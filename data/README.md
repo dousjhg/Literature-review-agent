@@ -7,8 +7,8 @@ Hackathon rule: use open data you can use legally, keep samples small, add downl
 | Source | What we use | Licence / terms |
 | --- | --- | --- |
 | OpenAlex | Paper metadata and abstracts | CC0 (check https://openalex.org) |
-| Semantic Scholar | Metadata, citation links | TODO: check API terms |
-| arXiv | Preprints and full-text PDFs | TODO: check per-paper licence |
+| Semantic Scholar | Metadata (only when `SEMANTIC_SCHOLAR_API_KEY` is set) | [Semantic Scholar API License Agreement](https://www.semanticscholar.org/product/api/license); used per run, not redistributed |
+| arXiv | Preprint metadata and open-access PDFs | Metadata via the [arXiv API terms](https://info.arxiv.org/help/api/tou.html); each PDF keeps its author's licence. PDF text is extracted for analysis and kept only with the run's local records (paper store, `logs/`); PDF files are not stored, and nothing is redistributed in this repo |
 
 ## In this folder
 

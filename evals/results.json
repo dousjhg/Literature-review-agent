@@ -1,0 +1,228 @@
+{
+  "sample_mode": false,
+  "summary": {
+    "topics": 3,
+    "completed": 1,
+    "partial": 2,
+    "quote_provenance_rate": 1.0,
+    "first_attempt_pass_rate": 0.3333333333333333,
+    "final_pass_rate": 0.5,
+    "mean_cluster_agreement": null,
+    "mean_gap_recall": null,
+    "mean_seconds": 536.1333333333333,
+    "mean_tokens": 163450.0,
+    "errors": 0
+  },
+  "topics": [
+    {
+      "id": "lrl-llm",
+      "question": "How do large language models handle low-resource languages?",
+      "effort": "normal",
+      "run_id": "eval-lrl-llm-20261026-125601",
+      "status": "partial",
+      "seconds": 697.5,
+      "usage": {
+        "prompt_tokens": 158775,
+        "completion_tokens": 28493,
+        "llm_calls": 50,
+        "estimated_calls": 0,
+        "budget": 250000
+      },
+      "papers": 30,
+      "main_papers": 15,
+      "side_clusters": 11,
+      "singleton_clusters": 7,
+      "connections": 8,
+      "gaps": 0,
+      "quote_provenance": {
+        "quotes": 93,
+        "verbatim": 93,
+        "rate": 1.0
+      },
+      "grades": {
+        "clusters": {
+          "first": 6,
+          "first_pass": false,
+          "attempts": 2,
+          "final": 6,
+          "final_pass": false
+        },
+        "connections": {
+          "first": 6,
+          "first_pass": false,
+          "attempts": 1,
+          "final": 6,
+          "final_pass": false
+        }
+      },
+      "clusters": [
+        "Main: How do large language models handle low-resource languages?",
+        "Multilingual LLM safety and moral reasoning in low-resource languages",
+        "Cross-lingual LLM evaluation frameworks and judge reliability for low-resource languages",
+        "Multilingual prompt engineering for LLM accuracy across languages and tasks",
+        "Multilingual and multimodal LLM applications for low-resource languages in research and practice",
+        "Unclustered: Exploring LLMs Applications in Law: A Literature Review on Current Legal NLP Approaches",
+        "Unclustered: Fine-tuning large language models for improved health communication in low-resource languages",
+        "Unclustered: Large Language Models With Contrastive Decoding Algorithm for Hallucination Mitigation in Low‐Resource Languages",
+        "Unclustered: Resource Asymmetry in Multilingual NLP: A Comprehensive Review and Critique",
+        "Unclustered: Toward Reliable Annotation in Low-Resource NLP: A Mixture of Agents Framework and Multi-LLM Benchmarking",
+        "Unclustered: Large Language Models for Math Education in Low-Resource Languages: A Study in Sinhala and Tamil",
+        "Unclustered: Dependency Parsing Across the Resource Spectrum: Evaluating Architectures on High and Low-Resource Languages"
+      ],
+      "gap_questions": [],
+      "warnings": [
+        "clusters did not pass grading after 2 attempts",
+        "Model provider failed during connection_finder (APITimeoutError); returning what was finished. Run again for the remaining stages."
+      ],
+      "survey": {
+        "cluster_agreement": {
+          "status": "awaiting_answer_key",
+          "score": null
+        },
+        "gap_recall": {
+          "status": "awaiting_answer_key",
+          "score": null
+        }
+      }
+    },
+    {
+      "id": "gnn-drug",
+      "question": "What are graph neural networks being used for in drug discovery?",
+      "effort": "normal",
+      "run_id": "eval-gnn-drug-20261026-130739",
+      "status": "partial",
+      "seconds": 372.9,
+      "usage": {
+        "prompt_tokens": 62463,
+        "completion_tokens": 9902,
+        "llm_calls": 23,
+        "estimated_calls": 0,
+        "budget": 250000
+      },
+      "papers": 30,
+      "main_papers": 21,
+      "side_clusters": 5,
+      "singleton_clusters": 4,
+      "connections": 7,
+      "gaps": 0,
+      "quote_provenance": {
+        "quotes": 71,
+        "verbatim": 71,
+        "rate": 1.0
+      },
+      "grades": {
+        "clusters": {
+          "first": 9,
+          "first_pass": true,
+          "attempts": 1,
+          "final": 9,
+          "final_pass": true
+        }
+      },
+      "clusters": [
+        "Main: What are graph neural networks being used for in drug discovery?",
+        "Self-supervised GNN pre-training for molecular property prediction",
+        "Unclustered: Reliable Graph Neural Networks for Drug Discovery Under Distributional Shift",
+        "Unclustered: Simple GNN Regularisation for 3D Molecular Property Prediction & Beyond",
+        "Unclustered: Enhancing molecular property prediction with quantized GNN models",
+        "Unclustered: Do Larger Models Really Win in Drug Discovery? A Benchmark Assessment of Model Scaling in AI-Driven Molecular Property and Activity Prediction"
+      ],
+      "gap_questions": [],
+      "warnings": [
+        "Model provider failed during connection_finder (APITimeoutError); returning what was finished. Run again for the remaining stages."
+      ],
+      "survey": {
+        "cluster_agreement": {
+          "status": "awaiting_answer_key",
+          "score": null
+        },
+        "gap_recall": {
+          "status": "awaiting_answer_key",
+          "score": null
+        }
+      }
+    },
+    {
+      "id": "protein-structure",
+      "question": "How are transformers used for protein structure prediction?",
+      "effort": "normal",
+      "run_id": "eval-protein-structure-20261026-131351",
+      "status": "done",
+      "seconds": 538.0,
+      "usage": {
+        "prompt_tokens": 201699,
+        "completion_tokens": 29018,
+        "llm_calls": 55,
+        "estimated_calls": 0,
+        "budget": 250000
+      },
+      "papers": 30,
+      "main_papers": 7,
+      "side_clusters": 14,
+      "singleton_clusters": 8,
+      "connections": 7,
+      "gaps": 0,
+      "quote_provenance": {
+        "quotes": 54,
+        "verbatim": 54,
+        "rate": 1.0
+      },
+      "grades": {
+        "clusters": {
+          "first": 3,
+          "first_pass": false,
+          "attempts": 2,
+          "final": 6,
+          "final_pass": false
+        },
+        "connections": {
+          "first": 6,
+          "first_pass": false,
+          "attempts": 2,
+          "final": 9,
+          "final_pass": true
+        },
+        "gaps": {
+          "first": 9,
+          "first_pass": true,
+          "attempts": 1,
+          "final": 9,
+          "final_pass": true
+        }
+      },
+      "clusters": [
+        "Main: How are transformers used for protein structure prediction?",
+        "3D Structure-Aware Graph Transformers for Protein Interaction and Structure Tasks",
+        "Protein Language Model Embeddings for Fold Prediction and Engineering",
+        "Transformer and Graph-Based Protein-Protein Interaction Prediction",
+        "Open-Source Platforms and Ensemble Methods for Protein Folding and Inverse Folding",
+        "Unclustered: Struct2Graph: a graph attention network for structure based predictions of protein–protein interactions",
+        "Inverse Protein Folding with Graph Neural Networks",
+        "Unclustered: Folding kinetics of an entangled protein",
+        "Transformer-Based Protein Secondary Structure Prediction",
+        "Unclustered: ESMDisPred: A Structure-Aware CNN-Transformer Architecture for Intrinsically Disordered Protein Prediction",
+        "Unclustered: A deep learning model for predicting essential proteins based on an attention mechanism",
+        "Unclustered: Protein structure generation via folding diffusion",
+        "Unclustered: A Novel P-bit-based Probabilistic Computing Approach for Solving the 3-D Protein Folding Problem",
+        "Unclustered: Enhancing Reinforcement learning in 3-Dimensional Hydrophobic-Polar Protein Folding Model with Attention-based layers",
+        "Unclustered: Quantum Simulation of Protein Fragment Electronic Structure Using Moment-based Adaptive Variational Quantum Algorithms"
+      ],
+      "gap_questions": [],
+      "warnings": [
+        "clusters did not pass grading after 2 attempts"
+      ],
+      "survey": {
+        "cluster_agreement": {
+          "status": "awaiting_answer_key",
+          "score": null
+        },
+        "gap_recall": {
+          "status": "awaiting_answer_key",
+          "score": null
+        }
+      }
+    }
+  ],
+  "errors": [],
+  "scope": "Workflow metrics are measured in code. Survey metrics need a human-chosen answer key and use an LLM judge; grades are model judgments. None of this is expert-validated accuracy."
+}

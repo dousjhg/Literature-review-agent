@@ -11,14 +11,14 @@ The hackathon technical-requirements prompt (Nightshift, Zetaris, `/run`, sample
 
 ## 0. LLM wrapper (do this first: every agent uses it)
 
-Done: `complete_json` calls Nightshift (Nemotron 3.5 Super VL), counts tokens per run (`TokenMeter`) and enforces the effort level's token budget. Use this prompt only to change or extend it. Check the live connection with `python scripts/check_nightshift.py`.
+Done: `complete_json` calls Nightshift (Nemotron 3 Ultra, `nvidia/nemotron-3-ultra-550b-a55b`), counts tokens per run (`TokenMeter`) and enforces the effort level's token budget. Use this prompt only to change or extend it. Check the live connection with `python scripts/check_nightshift.py`.
 
 ```
 Review and extend complete_json in litagent/integrations/llm.py.
 
 Decisions:
 - Provider: Meterless Nightshift (fixed by the hackathon rules; OpenAI-compatible, official OpenAI client)
-- Model: Nemotron 3.5 Super VL (NIGHTSHIFT_MODEL in litagent/config.py, no automatic routing; confirm the ID in Nightshift's Providers tab)
+- Model: Nemotron 3 Ultra (NIGHTSHIFT_MODEL in litagent/config.py, no automatic routing; confirm the ID in Nightshift's Providers tab)
 - Structured output method: response_format json_object + schema in the system prompt, unless Nightshift supports json_schema for this model
 
 Requirements:

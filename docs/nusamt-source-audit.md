@@ -65,3 +65,28 @@ baseline premise. The external full-text correction above still applies to that 
 The final run used two model calls / 10,114 tokens including the assertion audit. Cache
 read/reuse was verified; checksums of the original map, human annotations and every earlier
 AI report were unchanged. Backend suite: 315 passing tests. No frontend code changed.
+
+## Revised Gap candidate (26 October 2026)
+
+The explanation fix above left the **candidate itself** unchanged: its research question still
+compared LSFTL with "full-parameter SFT". Neither frozen abstract states a parameter scope for
+NusaMT-7B's SFT (and its full text uses LoRA), so the premise was unsupported.
+
+- `gap_finder.py` now rejects, before verification, any proposal that asserts full-parameter /
+  full fine-tuning when no supplied span of that pair states it, and asks the model to describe
+  each method as its source does. The prompts (`gap_finder.md`, `gaps_verify.md`) say the same.
+- Re-analysis of the active map `20261025-234750-77367e` produced child `20261026-012433-603019`
+  (5 calls, 28,885 tokens). All six Connection tasks were reused from cache. In the live run the
+  guard caught `full fine-tuning` / `full-parameter`; after the bounded repair the question reads
+  "LSFTL vs Supervised Fine-Tuning (SFT, parameter scope not specified) … under matched data
+  conditions". The independent verifier still rejected it: the papers share no base model, data
+  or tokenizer, so a matched comparison is not grounded in the abstracts. Zero gaps remain.
+- That run's gap grade was 0/9 because the grader penalised the empty list itself. The grader now
+  receives an explicit `empty_output` note (grade whether abstention is justified; a failing fix
+  must name a supporting pair). Re-grading with all producer tasks cached gave child
+  `20261026-012712-f7888b` (2 calls, 9,032 tokens): gaps **9/9**, connections 5/9 (warning kept).
+  That child is now the active head.
+
+The seven human judgments recorded on `20261025-230430-c3fbbf` are untouched. Review sidecars are
+bound to one version token, so the revised version starts with an empty queue; its
+`gap-f8faa00ccde14c57` item now shows the corrected question.

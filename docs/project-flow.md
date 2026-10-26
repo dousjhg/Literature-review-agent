@@ -1,5 +1,7 @@
 # 项目流程与文件分析
 
+> **2026-10-26 状态更新**：下方“当前实现状态”表已按最新代码更新；“本次选择及理由”“本次实测结果”两节是首次实现聚类时的历史记录（当时 Connection/Gap 尚未实现、测试 159 项），保留作对照。
+
 后续相似度优化已切换到 SemCSE cosine + complete linkage，旧连通分量仅保留作基线。
 最新算法取舍、实验和新增文件入口见 [相似度优化报告](similarity-optimization.md)；下文 MiniLM 阈值实测是首次实现的历史基线。
 
@@ -22,9 +24,9 @@ flowchart TD
     H1 -- 通过 --> C[Clusterer: CPU 嵌入 → cosine 分组 → Nightshift 标签]
     C --> G1[Grader: 尺寸规则 + LLM 评分]
     G1 -- 失败且可重试 --> C
-    G1 -- 继续 --> CF[Connection finder: 尚未实现真实分支]
+    G1 -- 继续 --> CF[Connection finder: 有界论文对 + 双方原文 + 独立核验]
     CF --> G2[关联评分]
-    G2 --> GF[Gap finder: 尚未实现真实分支]
+    G2 --> GF[Gap finder: 可检验假设 + 独立核验 + OpenAlex 覆盖检查]
     GF --> G3[缺口评分]
     G3 --> H2[Human review 2]
     H2 -- 反馈 --> P
@@ -42,21 +44,21 @@ API 用 `RequestReviewer`：不等待键盘，feedback 只触发一次重新规�
 
 | 层 / 阶段 | 入口文件 | 当前行为与限制 |
 | --- | --- | --- |
-| API / CLI | `run.py`, `litagent/api.py`, `litagent/__main__.py` | `/health`、`/run`、`/world/{run_id}`；结构化错误与输入验证 |
+| API / CLI | `run.py`, `litagent/api.py`, `litagent/map_routes.py`, `litagent/__main__.py` | `/run`、`/search`（网页人工审核 1）、`/cluster/*`（地图、移动、版本、分析、人工/AI 评审）、`/world/{run_id}`、`/maps`；结构化错误与输入验证 |
 | 调度 | `litagent/orchestrator.py` | 五阶段、两次人审、三次评分、有限重试；超时/预算用尽返回 partial |
 | 规划 | `agents/planner.py` | 真实 LLM + Pydantic；默认条件集中应用；重规划保留用户已给条件 |
 | 检索 | `agents/retriever.py`, `tools/openalex.py` | OpenAlex 已实现；去重、无摘要过滤、70% 相关性/30% 年均引用、摘要回退 |
 | 原始论文存储 | `integrations/zetaris.py` | 应用写 Postgres，Zetaris 读 `litagent_db.papers`；故障时内存回退并警告 |
-| 聚类（本次下一步） | `agents/clusterer.py`, `integrations/embeddings.py` | 已补齐真实 CPU 语义嵌入、分组、标签、离群论文保留和评分重试 |
-| 评分 | `agents/grader.py` | 真实 LLM 已接入，先做聚类尺寸检查；关联/缺口 rubric 仍有 TODO |
-| 关联发现 | `agents/connection_finder.py` | 示例模式可用；真实模式仍抛 `NotImplementedError` |
-| 缺口分析 | `agents/gap_finder.py` | 示例模式可用；真实模式仍抛 `NotImplementedError` |
+| 聚类 | `agents/clusterer.py`, `question_clusters.py`, `cluster_labels.py`, `similarity.py` | SemCSE CPU 嵌入 + complete linkage 0.7；问题模式先选经原文核验的 main 池，其余分 side 主题；相邻组对照命名、片段引用 |
+| 评分 | `agents/grader.py`, `agents/review_agent.py` | 三阶段 rubric 已完成；不看生产者理由；空输出按“弃权是否合理”评分；逐条 Review Agent 带解释归属审计 |
+| 关联发现 | `agents/connection_finder.py`, `finding_engine.py` | 已实现：有界候选、双方原文片段、独立核验、任务缓存 |
+| 缺口分析 | `agents/gap_finder.py` | 已实现：组内 + main–side 假设、独立核验、OpenAlex 覆盖检查；拒绝原文未说明的“全参数”等方法范围前提 |
 | 共享发现 | `integrations/meterless.py`, `integrations/world_model/` | 图谱、作者归一化/审核队列、时间视图、持久化及一致性测试已实现 |
 | 长文推理 | `meterless.read_in_chunks` | Markovian 适配仍未实现；本次嵌入的 token 分块不等同于该推理引擎 |
-| UI | `frontend/README.md` | 只有需求文档，没有可启动的前端项目 |
-| 离线评估 | `evals/` | harness 可运行；题目、survey、聚类一致性和 gap recall 尚未填写 |
+| UI | `frontend/` | React 地图：在线检索 → 审核论文 → 建图、原文证据、移动预览、版本回滚、人工/AI 验收 |
+| 离线评估 | `evals/`, `docs/evaluation.md` | 三个真实题目的流程指标已实测；survey 答案键与 23 对聚类盲审仍待人工填写 |
 
-`SAMPLE_MODE=true` 可完整演示数据结构；真实流程完成聚类后仍会在关联发现处停止，不能将示例模式的成功等同于真实流程已完成。
+`SAMPLE_MODE=true` 可完整演示数据结构，其分组、关联和缺口均为占位结果。真实流程五个阶段均已实现；实测结果见 [evaluation.md](evaluation.md)。
 
 ## 数据与控制流
 
