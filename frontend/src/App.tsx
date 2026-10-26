@@ -186,7 +186,7 @@ export default function App() {
         ) : !data ? (
           <main className="empty-workspace">
             <h1>从论文出发，连接研究问题。</h1>
-            <p>导入已有论文记录，建立可查看原文证据的研究地图。</p>
+            <p>输入研究问题检索论文，审核后建立可查看原文证据的研究地图。</p>
             <button className="primary-button" onClick={() => setDialog("new")}>
               新建地图
             </button>
@@ -245,6 +245,7 @@ export default function App() {
             question={data?.map.question ?? ""}
             sample={ws.config.sample_mode}
             busy={!!busy}
+            timeout={(ws.config.run_timeout_s + 120) * 1000}
             onCreate={create}
             onClose={() => setDialog(null)}
           />

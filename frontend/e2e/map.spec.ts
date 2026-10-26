@@ -211,8 +211,9 @@ test("sample API: analyze, inspect, move, rollback and explicitly save review", 
   await page.screenshot({ path: info.outputPath("agent-review-sample.png") });
   await page.getByRole("button", { name: "论文地图", exact: true }).click();
   await page.getByRole("button", { name: "新建地图", exact: true }).click();
-  const dialog = page.getByRole("dialog", { name: "从论文记录新建地图" });
+  const dialog = page.getByRole("dialog", { name: "新建研究地图" });
   await expect(dialog).toBeVisible();
+  await dialog.getByRole("button", { name: "导入记录", exact: true }).click();
   await dialog
     .getByRole("textbox", { name: "研究问题", exact: true })
     .fill("新的样例问题：如何比较两种适配方法？");
@@ -226,7 +227,8 @@ test("sample API: analyze, inspect, move, rollback and explicitly save review", 
   ).output;
   expect(newReview.summary.reviewed).toBe(0);
   await page.getByRole("button", { name: "新建地图", exact: true }).click();
-  const importDialog = page.getByRole("dialog", { name: "从论文记录新建地图" });
+  const importDialog = page.getByRole("dialog", { name: "新建研究地图" });
+  await importDialog.getByRole("button", { name: "导入记录", exact: true }).click();
   await importDialog
     .locator('input[type="file"]')
     .setInputFiles(
@@ -241,6 +243,31 @@ test("sample API: analyze, inspect, move, rollback and explicitly save review", 
     .getByRole("button", { name: "建立地图", exact: true })
     .click();
   await expect(page.locator(".paper-node")).toHaveCount(3);
+  // Question -> search -> Human review 1 (keep/remove, feedback re-plan) -> map.
+  await page.getByRole("button", { name: "新建地图", exact: true }).click();
+  const searchDialog = page.getByRole("dialog", { name: "新建研究地图" });
+  await searchDialog
+    .getByRole("textbox", { name: "研究问题", exact: true })
+    .fill("How do large language models handle low-resource languages?");
+  await searchDialog.getByRole("button", { name: "检索论文", exact: true }).click();
+  const results = searchDialog.getByRole("region", { name: "检索结果审核" });
+  await expect(results.getByText("保留 30 / 30 篇")).toBeVisible();
+  await expect(results.locator(".plan-criteria")).toContainText("（默认）");
+  await results.getByRole("textbox").fill("Only papers since 2023");
+  const replan = page.waitForRequest(
+    (r) => r.url().endsWith("/search") && !!r.postDataJSON().input.previous_plan,
+  );
+  await results.getByRole("button", { name: "按反馈重新检索" }).click();
+  expect((await replan).postDataJSON().input.feedback).toBe("Only papers since 2023");
+  await expect(results.getByRole("textbox")).toHaveValue("");
+  await results.getByRole("button", { name: "全部取消" }).click();
+  for (const box of (await results.getByRole("checkbox").all()).slice(0, 4))
+    await box.check();
+  await searchDialog
+    .getByRole("button", { name: "用保留的 4 篇建立地图", exact: true })
+    .click();
+  await expect(searchDialog).toBeHidden();
+  await expect(page.locator(".paper-node")).toHaveCount(4);
   expect(
     await page.evaluate(
       () => document.documentElement.scrollWidth <= innerWidth,

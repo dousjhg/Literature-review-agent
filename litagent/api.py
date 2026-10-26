@@ -7,6 +7,7 @@ Failure:  {"run_id": ..., "status": "error", "error": {"type": ..., "message": .
 
 GET /world/{run_id} returns a run's saved Meterless World Model: entities, relationships, facts,
 the merge review queue and the audit log.
+POST /search runs the Planner and Retriever and stops at Human review 1 for the web map (no auto-approval);
 POST /cluster accepts a query and saved papers for a standalone cluster-stage preview;
 GET /cluster/{run_id} reads its saved result without running later agents.
 
@@ -33,7 +34,8 @@ from litagent.cluster_state import VersionError, path_for, version_lock
 from litagent.human_review import RequestReviewer
 from litagent.integrations.meterless import load_world
 from litagent.orchestrator import run_pipeline
-from litagent.schemas import ClusterMapResult, ClusterMove, Paper
+from litagent.schemas import ClusterMapResult, ClusterMove, Paper, SearchPlan
+from litagent.search_review import run_search
 from litagent.trace import mask, new_run_id, setup_logging
 
 setup_logging()
@@ -75,6 +77,26 @@ class ClusterInput(BaseModel):
 class ClusterRequest(BaseModel):
     run_id: str | None = Field(default=None, pattern=RUN_ID_PATTERN)
     input: ClusterInput
+
+
+class SearchInput(BaseModel):
+    model_config = ConfigDict(str_strip_whitespace=True, extra="forbid")
+    query: str
+    effort: Effort = Effort.NORMAL
+    feedback: str | None = Field(default=None, max_length=2000)  # with previous_plan: re-plan once
+    previous_plan: SearchPlan | None = None
+    signed_in: bool = False
+
+    @model_validator(mode="after")
+    def replan_needs_feedback(self):
+        if self.previous_plan is not None and not (self.feedback or "").strip():
+            raise ValueError("A re-plan needs feedback describing what to change")
+        return self
+
+
+class SearchRequest(BaseModel):
+    run_id: str | None = Field(default=None, pattern=RUN_ID_PATTERN)
+    input: SearchInput
 
 
 class MovePreviewRequest(BaseModel):
@@ -158,6 +180,17 @@ def world(run_id: str, settings: Settings = Depends(get_settings)) -> Any:
         "entities": shape["entities"], "contexts": shape["contexts"], "relationships": shape["relationships"],
         "facts": shape["facts"], "merge_queue": model.merge_queue(), "audit": model.audit(), "events": len(model.events()),
     }}
+
+
+@app.post("/search")
+def search(req: SearchRequest, settings: Settings = Depends(get_settings)) -> Any:
+    run_id = req.run_id or new_run_id()
+    try:
+        result = run_search(req.input.query, req.input.effort, settings, feedback=req.input.feedback,
+                            previous_plan=req.input.previous_plan, signed_in=req.input.signed_in, search_id=run_id)
+    except Exception as error:  # the trace already has the error
+        return _error(run_id, 500, type(error).__name__, str(error))
+    return {"run_id": run_id, "status": "success", "output": result.model_dump(mode="json")}
 
 
 @app.post("/cluster")

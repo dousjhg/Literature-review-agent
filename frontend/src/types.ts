@@ -199,6 +199,32 @@ export interface AgentReviewReport {
   items: AgentAssessment[];
   limitations: string[];
 }
+export interface SearchPlan {
+  question: string;
+  criteria: {
+    topic: string;
+    year_from: number | null;
+    year_to: number | null;
+    min_citations: number | null;
+    paper_types: string[];
+  };
+  queries: string[];
+  effort: string;
+  max_papers: number;
+  used_defaults: string[];
+  rationale: string | null;
+}
+export interface SearchResult {
+  search_id: string;
+  status: "ok" | "need_topic" | "no_results";
+  sample_mode: boolean;
+  message_to_user: string | null;
+  plan: SearchPlan | null;
+  papers: (Paper & { citation_count?: number | null; is_review?: boolean | null })[];
+  summary: string | null;
+  follow_up_question: string | null;
+  warnings: string[];
+}
 export type Selection = {
   type: "paper" | "cluster" | "connection" | "gap";
   id: string;
