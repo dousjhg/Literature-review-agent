@@ -1,14 +1,31 @@
-# Offline evaluation topics. Each needs a published survey paper to compare against.
-# TODO: replace the examples with 5-10 topics your team knows well.
+# Offline evaluation topics (python -m evals.run_eval).
+#
+# Workflow metrics are measured for every topic. Cluster agreement and gap recall also need an
+# answer key from ONE published survey that a team member has read:
+#   expected_clusters: the survey's main section topics, one short phrase each
+#   expected_gaps:     the survey's stated open problems / future work, one short phrase each
+# Leave the lists empty until someone has taken them from the survey itself; empty lists are
+# reported as "awaiting_answer_key", never scored. The questions match data/sample/ files,
+# so --sample-mode exercises the same topics offline.
 
 topics:
-  - id: example-1
-    question: "TODO: research question"
+  - id: lrl-llm
+    question: "How do large language models handle low-resource languages?"
     effort: normal
-    survey:
-      title: "TODO: survey paper title"
-      doi: "TODO"
-    expected_clusters:   # from the survey's section headings
-      - "TODO"
-    expected_gaps:       # from the survey's open problems / future work
-      - "TODO"
+    survey: {title: null, doi: null}
+    expected_clusters: []
+    expected_gaps: []
+
+  - id: gnn-drug
+    question: "What are graph neural networks being used for in drug discovery?"
+    effort: normal
+    survey: {title: null, doi: null}
+    expected_clusters: []
+    expected_gaps: []
+
+  - id: protein-structure
+    question: "How are transformers used for protein structure prediction?"
+    effort: normal
+    survey: {title: null, doi: null}
+    expected_clusters: []
+    expected_gaps: []

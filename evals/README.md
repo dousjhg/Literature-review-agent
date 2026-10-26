@@ -1,6 +1,6 @@
 # 聚类质量验收
 
-`run_eval.py` 是整条 pipeline 的旧评测框架；`topics.yaml` 仍是待填写模板。
+`run_eval.py` 对 `topics.yaml` 中每个题目跑完整 pipeline，并在代码中计算流程指标（引文逐字率、首次评分通过率、用量、耗时）；survey 答案键为空时，聚类一致性与 Gap 召回保持 null。结果见 [docs/evaluation.md](../docs/evaluation.md)。
 新增 `cluster_pairs.py` 专门检查真实论文的子主题分组，不能用文件所属大领域替代专家标签。
 
 ## 生成盲审材料
@@ -22,7 +22,20 @@ HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 python scripts/review_clusters.py \
 
 ## 填写判断
 
-审核者编辑主文件的 `reviews`，每项填写：
+推荐用终端标注工具逐对完成（可随时 `q` 退出，再次运行从未完成处继续）：
+
+```bash
+python scripts/annotate_cluster_pairs.py evals/cluster-review-low-resource.json --reviewer "你的名字"
+python scripts/review_clusters.py --report logs/clusters-20261025-071713-a7873c.json \
+  --annotations evals/cluster-review-low-resource.json
+```
+
+工具把两篇摘要拆成编号句子；选择 same / different / uncertain、写理由，再输入句子编号作为
+证据，工具逐字复制原句，因此引文一定与原文一致。每一项都必须由审核者在交互终端中输入，
+非交互环境会拒绝运行；只写入 `provenance: human`。上面的 report 是当前默认分组
+（complete linkage）运行；同一份标注也可对其他报告评分，只要语料指纹一致。
+
+也可以手工编辑主文件的 `reviews`，每项填写：
 
 - `judgment`：`same_subtopic`、`different_subtopic` 或 `uncertain`。
 - `provenance`：人工填写 `human`；模型建议必须保留 `model`。
